@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lughion — Mario Fernández Martín</title>
+<meta name="description" content="Lughion — la web y la marca de mi estudio de software en León: identidad, diseño y desarrollo, con biblioteca de proyectos filtrable y despliegue continuo.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mariofernandezmartin.pages.dev/lughion.html">
+<meta property="og:title" content="Lughion — Mario Fernández Martín">
+<meta property="og:description" content="La web y la marca de mi estudio de software en León. Estático, sin framework, con biblioteca de proyectos y despliegue continuo.">
+<meta property="og:image" content="https://mariofernandezmartin.pages.dev/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lughion — Mario Fernández Martín">
+<meta name="twitter:description" content="La web y la marca de mi estudio de software en León. Estático, sin framework, con biblioteca de proyectos y despliegue continuo.">
+<meta name="twitter:image" content="https://mariofernandezmartin.pages.dev/assets/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5ede0;
+  --surface: #ebe0cc;
+  --surface-2: #e0d2b8;
+  --border: #d0bd9c;
+  --text: #1d2940;
+  --muted: #7a6f5d;
+  --accent: #c8633d;
+  --accent-dim: rgba(200, 99, 61, 0.18);
+  --display: 'Instrument Serif', serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 300;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.10;
+  mix-blend-mode: multiply;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(to right, rgba(29,41,64,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(29,41,64,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.lang-es .en { display: none; }
+.lang-en .es { display: none; }
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(245, 237, 224, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+nav .back {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  transition: color 0.3s;
+}
+
+nav .back:hover { color: var(--accent); }
+
+nav .project-name {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+nav .project-name .dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--accent);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+.lang-toggle {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+main { position: relative; z-index: 1; }
+section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
+
+.project-hero {
+  padding-top: 140px;
+  padding-bottom: 60px;
+}
+
+.project-hero .meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.project-hero .meta .bar { width: 40px; height: 1px; background: var(--accent); }
+
+.project-hero h1 {
+  font-family: var(--display);
+  font-size: clamp(52px, 10vw, 160px);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  margin-bottom: 30px;
+}
+
+.project-hero h1 .italic { font-style: italic; color: var(--accent); }
+
+.project-hero .tagline {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(22px, 2.5vw, 32px);
+  color: var(--text);
+  max-width: 760px;
+  line-height: 1.3;
+}
+
+.hero-image {
+  margin-top: 50px;
+  aspect-ratio: 16/9;
+  border: 1px solid var(--border);
+  background: #1d2940;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-image img,
+.hero-image video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-image .placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 24px;
+  text-align: center;
+  background-image:
+    repeating-linear-gradient(45deg, transparent, transparent 12px, rgba(200,99,61,0.06) 12px, rgba(200,99,61,0.06) 14px);
+}
+
+.hero-image .placeholder .tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 5px 12px;
+  background: var(--bg);
+}
+
+.hero-image .placeholder .note {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 20px;
+  color: #d0bd9c;
+  max-width: 460px;
+  line-height: 1.4;
+}
+
+.meta-strip { padding-top: 30px; padding-bottom: 60px; }
+
+.meta-strip-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.meta-item {
+  background: var(--bg);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.meta-item .label {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+
+.meta-item .value {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.2;
+}
+
+.content-section { padding-top: 60px; padding-bottom: 60px; }
+
+.content-section h2 {
+  font-family: var(--display);
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.content-section h2 .italic { font-style: italic; color: var(--accent); }
+
+.content-section h2 .num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-style: normal;
+}
+
+.body-text {
+  font-size: 16px;
+  line-height: 1.75;
+  max-width: 760px;
+}
+
+.body-text p { margin-bottom: 20px; }
+.body-text p:last-child { margin-bottom: 0; }
+.body-text strong { color: var(--accent); font-weight: 500; }
+
+/* Mechanics list */
+.mechanics-list { margin-top: 20px; }
+
+.mechanic-item {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 40px;
+  padding: 30px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: start;
+}
+
+.mechanic-item:first-child { border-top: 1px solid var(--border); }
+
+.mechanic-item .mech-label {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 26px;
+  line-height: 1.1;
+}
+
+.mechanic-item .mech-body {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+/* Challenges grid */
+.challenges-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-top: 40px;
+}
+
+.challenge-card {
+  background: var(--bg);
+  padding: 32px;
+}
+
+.challenge-card .ch-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+.challenge-card h3 {
+  font-family: var(--display);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+
+.challenge-card h3 .italic { font-style: italic; }
+
+.challenge-card p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.challenge-card code {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--surface-2);
+  padding: 1px 6px;
+  color: var(--accent);
+}
+
+/* Tech detail rows */
+.tech-detail { margin-top: 20px; }
+
+.tech-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 40px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: baseline;
+}
+
+.tech-row:first-child { border-top: 1px solid var(--border); }
+
+.tech-row .tech-key {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 22px;
+}
+
+.tech-row .tech-val {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.tech-row .tech-val .pill {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  border: 1px solid var(--border);
+  padding: 3px 10px;
+  margin: 0 6px 6px 0;
+  color: var(--muted);
+}
+
+/* Gallery */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.gallery-item {
+  background: #1d2940;
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-item.span-6 { grid-column: span 6; aspect-ratio: 21/9; }
+.gallery-item.span-3 { grid-column: span 3; aspect-ratio: 16/9; }
+.gallery-item.span-2 { grid-column: span 2; aspect-ratio: 16/10; }
+
+.gallery-item img,
+.gallery-item video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-item .placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  text-align: center;
+  background-image:
+    repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(200,99,61,0.06) 10px, rgba(200,99,61,0.06) 12px);
+}
+
+.gallery-item .placeholder .tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 4px 10px;
+  background: var(--bg);
+}
+
+.gallery-item .placeholder .note {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 14px;
+  color: #d0bd9c;
+  line-height: 1.4;
+}
+
+/* Status */
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.status-item {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 24px;
+}
+
+.status-item .label {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.status-item .check {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.status-item .value {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.project-footer {
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+  padding: 80px 40px 40px;
+  background: var(--bg);
+  position: relative;
+  z-index: 1;
+}
+
+.project-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: end;
+  margin-bottom: 60px;
+}
+
+.project-footer h3 {
+  font-family: var(--display);
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.project-footer h3 .italic { font-style: italic; color: var(--accent); }
+
+.project-footer .nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.project-footer .nav-links a {
+  color: var(--muted);
+  transition: color 0.3s;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.project-footer .nav-links a:hover { color: var(--accent); }
+
+.project-footer .bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 30px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  nav { padding: 16px 20px; }
+  nav .project-name { display: none; }
+  section { padding: 60px 20px; }
+  .project-hero { padding-top: 100px; }
+  .meta-strip-grid { grid-template-columns: repeat(2, 1fr); }
+  .mechanic-item { grid-template-columns: 1fr; gap: 10px; }
+  .challenges-grid { grid-template-columns: 1fr; }
+  .tech-row { grid-template-columns: 1fr; gap: 8px; }
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+  .gallery-item.span-6, .gallery-item.span-3, .gallery-item.span-2 { grid-column: span 2; aspect-ratio: 16/9; }
+  .status-grid { grid-template-columns: 1fr; }
+  .project-footer-inner { grid-template-columns: 1fr; gap: 40px; }
+  .project-footer { padding: 60px 20px 30px; }
+}
+
+.demo-cta { margin-top: 24px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.demo-cta-note { font-family: var(--mono); font-size: 12px; color: var(--muted); max-width: 420px; line-height: 1.5; }
+.demo-btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; padding: 12px 20px; border: 1px solid var(--text); color: var(--text); transition: all 0.3s; }
+.demo-btn:hover { background: var(--text); color: var(--bg); }
+.challenge-card code { font-family: var(--mono); font-size: 0.9em; background: var(--surface-2); padding: 1px 5px; }
+</style>
+</head>
+<body class="lang-es">
+
+<nav>
+  <a href="index.html" class="back">← Portfolio</a>
+  <div class="project-name">
+    <div class="dot"></div>
+    <span>Lughion</span>
+  </div>
+  <button id="lang-toggle" class="lang-toggle">EN</button>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section class="project-hero">
+    <div class="meta">
+      <span class="bar"></span>
+      <span class="es">Mi estudio · Web corporativa · Marca · 2026</span>
+      <span class="en">My studio · Corporate website · Brand · 2026</span>
+    </div>
+    <h1>Lugh<span class="italic">ion</span></h1>
+    <p class="tagline">
+      <span class="es">La web y la marca de mi estudio de software en León. "La tecnología solo importa cuando funciona."</span>
+      <span class="en">The website and brand of my software studio in León. "Technology only matters when it works."</span>
+    </p>
+
+    <div class="hero-image">
+      <img src="assets/lughion/home.jpg" alt="Portada de lughion.com: el eslogan y el glifo de la marca">
+    </div>
+
+    <div class="demo-cta">
+      <a href="https://lughion.com" target="_blank" rel="noopener" class="demo-btn">
+        <span class="es">Ver lughion.com</span><span class="en">Visit lughion.com</span> ↗
+      </a>
+      <span class="demo-cta-note">
+        <span class="es">Web publicada, en Cloudflare Pages.</span>
+        <span class="en">Live site, on Cloudflare Pages.</span>
+      </span>
+    </div>
+  </section>
+
+  <!-- META STRIP -->
+  <section class="meta-strip">
+    <div class="meta-strip-grid">
+      <div class="meta-item">
+        <div class="label"><span class="es">Rol</span><span class="en">Role</span></div>
+        <div class="value"><span class="es">Marca, diseño y desarrollo</span><span class="en">Brand, design & development</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="label"><span class="es">Tipo</span><span class="en">Type</span></div>
+        <div class="value"><span class="es">Web corporativa + biblioteca de proyectos</span><span class="en">Corporate site + project library</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Stack</div>
+        <div class="value">HTML · CSS · JS · Node</div>
+      </div>
+      <div class="meta-item">
+        <div class="label"><span class="es">Estado</span><span class="en">Status</span></div>
+        <div class="value"><span class="es">Publicada</span><span class="en">Live</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="label"><span class="es">Dominio</span><span class="en">Domain</span></div>
+        <div class="value">lughion.com</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUÉ ES -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">Qué </span><span class="en">What it </span><span class="italic">es</span><span class="en"> is</span></span>
+      <span class="num">01</span>
+    </h2>
+    <div class="body-text">
+      <p>
+        <span class="es">Lughion es el <strong>estudio de software</strong> que he fundado en León junto a un socio: gamificación, webs, aplicaciones a medida e IA aplicada para negocios. Esta es su web, y también su primer producto: <strong>identidad, tono y sitio los diseñé y construí yo</strong>, desde el nombre hasta el despliegue.</span>
+        <span class="en">Lughion is the <strong>software studio</strong> I founded in León with a partner: gamification, websites, custom apps and applied AI for businesses. This is its website, and also its first product: <strong>I designed and built the identity, tone and site myself</strong>, from the name to the deployment.</span>
+      </p>
+      <p>
+        <span class="es">La web gira en torno a <strong>cómo trabajamos</strong>, no a quiénes somos: prototipo en una o dos semanas antes de cerrar presupuesto, entregas pequeñas y seguidas, y al final el código es del cliente. Sin formulario de contacto: una llamada o un WhatsApp.</span>
+        <span class="en">The site revolves around <strong>how we work</strong>, not who we are: a prototype in one or two weeks before closing a budget, small frequent deliveries, and the client keeps the code at the end. No contact form: a call or a WhatsApp.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- MARCA -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">La </span><span class="en">The </span><span class="italic"><span class="es">marca</span><span class="en">brand</span></span></span>
+      <span class="num">02</span>
+    </h2>
+    <div class="mechanics-list">
+      <div class="mechanic-item">
+        <div class="mech-label"><span class="es">Nombre</span><span class="en">Name</span></div>
+        <div class="mech-body">
+          <span class="es">Viene de Lugh, la deidad celta que da nombre a León (Legio… y a Lugo). Un nombre con raíz en el territorio y un remate tecnológico. Se eligió entre varias alternativas después de un cambio de nombre completo desde la marca anterior.</span>
+          <span class="en">It comes from Lugh, the Celtic deity behind the names of León and Lugo. A name rooted in the territory with a tech-sounding ending. Picked among several alternatives after a full rename from the previous brand.</span>
+        </div>
+      </div>
+      <div class="mechanic-item">
+        <div class="mech-label"><span class="es">Logotipo</span><span class="en">Logo</span></div>
+        <div class="mech-body">
+          <span class="es">Un glifo en forma de L dibujado a mano, que hace de inicial del nombre en minúsculas. En la portada se dibuja solo con una animación de trazo SVG.</span>
+          <span class="en">A hand-drawn L-shaped glyph that serves as the lowercase initial of the name. On the home page it draws itself with an SVG stroke animation.</span>
+        </div>
+      </div>
+      <div class="mechanic-item">
+        <div class="mech-label"><span class="es">Paleta y tipografía</span><span class="en">Palette & type</span></div>
+        <div class="mech-body">
+          <span class="es">Cal y petróleo, con un añil de apoyo; Space Grotesk para titulares, Instrument Sans para texto y JetBrains Mono para etiquetas. Modo claro y oscuro. Una regla de estilo: nada de negritas sueltas en medio de un párrafo.</span>
+          <span class="en">Lime-white and petrol blue, with an indigo accent; Space Grotesk for headlines, Instrument Sans for body and JetBrains Mono for labels. Light and dark modes. One style rule: no stray bold in the middle of a paragraph.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO ESTÁ HECHA -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">Cómo está </span><span class="en">How it's </span><span class="italic"><span class="es">hecha</span><span class="en">built</span></span></span>
+      <span class="num">03</span>
+    </h2>
+    <div class="challenges-grid">
+      <div class="challenge-card">
+        <div class="ch-num">01</div>
+        <h3><span class="es">Estático, </span><span class="en">Static, </span><span class="italic"><span class="es">sin framework</span><span class="en">no framework</span></span></h3>
+        <p>
+          <span class="es">HTML, CSS y JavaScript sin dependencias, fuentes alojadas en local y sin peticiones a terceros. Carga rápida, sin cookies y sin nada que mantener.</span>
+          <span class="en">Dependency-free HTML, CSS and JavaScript, locally hosted fonts and no third-party requests. Fast load, no cookies, nothing to maintain.</span>
+        </p>
+      </div>
+      <div class="challenge-card">
+        <div class="ch-num">02</div>
+        <h3><span class="es">Una sola fuente </span><span class="en">A single source </span><span class="italic"><span class="es">de verdad</span><span class="en">of truth</span></span></h3>
+        <p>
+          <span class="es">Los proyectos se escriben una vez en un JSON y un script de Node genera las tarjetas de la portada, el archivo de la biblioteca y los metadatos. El vocabulario de categorías y sectores está cerrado: si te inventas uno, el script se para y avisa.</span>
+          <span class="en">Projects are written once in a JSON file and a Node script generates the home cards, the library archive and the metadata. The category and sector vocabulary is closed: invent one and the script stops and warns you.</span>
+        </p>
+      </div>
+      <div class="challenge-card">
+        <div class="ch-num">03</div>
+        <h3><span class="es">Biblioteca </span><span class="en">Filterable </span><span class="italic"><span class="es">filtrable</span><span class="en">library</span></span></h3>
+        <p>
+          <span class="es">Un escaparate público de proyectos terminados, filtrable por categoría (web, gamificación, VR, tienda, videojuego) y por sector, pensado para que un cliente encuentre algo parecido a lo suyo.</span>
+          <span class="en">A public showcase of finished projects, filterable by category (web, gamification, VR, store, game) and by sector, so a client can find something close to their own case.</span>
+        </p>
+      </div>
+      <div class="challenge-card">
+        <div class="ch-num">04</div>
+        <h3><span class="es">Despliegue </span><span class="en">Continuous </span><span class="italic"><span class="es">continuo</span><span class="en">deployment</span></span></h3>
+        <p>
+          <span class="es">Repositorio en GitHub conectado a Cloudflare Pages: cada commit reconstruye y publica la web. Cabeceras de seguridad, sitemap, Open Graph, favicon e iconos PWA incluidos.</span>
+          <span class="en">GitHub repository connected to Cloudflare Pages: every commit rebuilds and publishes the site. Security headers, sitemap, Open Graph, favicon and PWA icons included.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  <section class="content-section">
+    <h2>
+      <span><span class="italic">Galería</span><span class="en">Gallery</span></span>
+      <span class="num">04</span>
+    </h2>
+    <div class="gallery">
+      <div class="gallery-item span-3">
+        <img src="assets/lughion/como.jpg" alt="Sección 'Cómo trabajamos' de lughion.com">
+      </div>
+      <div class="gallery-item span-3">
+        <img src="assets/lughion/proyectos.jpg" alt="Biblioteca de proyectos filtrable de lughion.com">
+      </div>
+      <div class="gallery-item span-2">
+        <img src="assets/lughion/quienes.jpg" alt="Página 'Quiénes somos'">
+      </div>
+      <div class="gallery-item span-2">
+        <img src="assets/lughion/movil.jpg" alt="Portada en móvil" style="object-position: top;">
+      </div>
+      <div class="gallery-item span-2">
+        <img src="assets/lughion/og.jpg" alt="Imagen de previsualización social de Lughion">
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="project-footer">
+  <div class="project-footer-inner">
+    <h3>
+      <span class="es">Más <span class="italic">proyectos</span></span>
+      <span class="en">More <span class="italic">projects</span></span>
+    </h3>
+    <div class="nav-links">
+      <a href="index.html">
+        <span><span class="es">Volver al portafolio</span><span class="en">Back to portfolio</span></span>
+        <span>←</span>
+      </a>
+      <a href="gimnasio-app.html">
+        <span><span class="es">App de gimnasio</span><span class="en">Gym app</span></span>
+        <span>→</span>
+      </a>
+      <a href="mailto:mariofdz2011@gmail.com">
+        <span><span class="es">Contactar</span><span class="en">Contact</span></span>
+        <span>↗</span>
+      </a>
+    </div>
+  </div>
+  <div class="bottom">
+    <div>© 2026 Mario Fernández Martín</div>
+    <div>Lughion · <span class="es">Web y marca</span><span class="en">Web & brand</span></div>
+  </div>
+</footer>
+
+<script>
+// Language toggle
+const body = document.body;
+const btn = document.getElementById('lang-toggle');
+const saved = localStorage.getItem('lang') || 'es';
+body.className = `lang-${saved}`;
+document.documentElement.lang = saved;
+btn.textContent = saved === 'es' ? 'EN' : 'ES';
+btn.addEventListener('click', () => {
+  const next = body.classList.contains('lang-es') ? 'en' : 'es';
+  body.className = `lang-${next}`;
+  document.documentElement.lang = next;
+  btn.textContent = next === 'es' ? 'EN' : 'ES';
+  localStorage.setItem('lang', next);
+});
+</script>
+
+</body>
+</html>

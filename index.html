@@ -570,6 +570,11 @@ section {
   background: var(--border);
   border: 1px solid var(--border);
 }
+.projects-grid-small::after {
+  content: "";
+  background: var(--bg);
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(208,189,156,0.25) 10px, rgba(208,189,156,0.25) 12px);
+}
 
 .project-card-small {
   background: var(--bg);
@@ -950,6 +955,7 @@ footer .bottom {
   .project-card { min-height: auto; }
   .project-card .arrow { top: 30px; right: 30px; }
   .projects-grid-small { grid-template-columns: 1fr; }
+  .projects-grid-small::after { display: none; }
   .other-projects-header { flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 60px; }
   .skills-grid { grid-template-columns: 1fr; gap: 30px; }
   .experience-item {
@@ -1010,7 +1016,7 @@ footer .bottom {
     <div class="scroll">Scroll</div>
     <div class="stats">
       <div class="stat">
-        <span class="num">7+</span>
+        <span class="num">9+</span>
         <span class="label"><span class="es">Proyectos</span><span class="en">Projects</span></span>
       </div>
       <div class="stat">
@@ -1109,23 +1115,24 @@ footer .bottom {
       </div>
     </a>
 
-    <a href="cartera-tracker.html" class="project-card">
+    <a href="gimnasio-app.html" class="project-card">
       <div class="thumb">
-        <img src="assets/cartera-tracker/dashboard.png" alt="Cartera Tracker">
+        <img src="assets/gimnasio-app/thumb.jpg" alt="App de gimnasio — panel web y app móvil">
       </div>
       <div class="arrow">→</div>
       <div class="card-body">
-        <div class="number"><span class="es">002 — Producto · Web</span><span class="en">002 — Product · Web</span></div>
-        <h3>Cartera <span class="italic">Tracker</span></h3>
+        <div class="number"><span class="es">002 — Lughion · SaaS</span><span class="en">002 — Lughion · SaaS</span></div>
+        <h3><span class="es">App de <span class="italic">gimnasio</span></span><span class="en">Gym <span class="italic">app</span></span></h3>
         <p class="description">
-          <span class="es">App web para seguimiento de carteras de inversión: acciones, ETFs, divisas y cripto. Precios en tiempo real, gráficos por sectores y cálculo de P&L. Construida con HTML/JS + Firebase y desplegada en Cloudflare Pages con un Worker propio como proxy de APIs.</span>
-          <span class="en">A web app for tracking investment portfolios: stocks, ETFs, currencies and crypto. Real-time prices, sector charts and P&L calculation. Built with HTML/JS + Firebase and deployed on Cloudflare Pages with a custom Worker as an API proxy.</span>
+          <span class="es">Plataforma SaaS multi-tenant para gimnasios centrada en la retención de socios: entrenamiento y progresión, plan semanal, calendario con reservas, gamificación con puntos y rachas, y panel de administración con analítica. App móvil (React Native/Expo) + panel web (Next.js) sobre Supabase/PostgreSQL con RLS y lógica crítica en el servidor. Primer encargo de mi estudio, Lughion.</span>
+          <span class="en">A multi-tenant SaaS platform for gyms focused on member retention: training and progression, weekly plan, calendar with bookings, gamification with points and streaks, and an admin panel with analytics. Mobile app (React Native/Expo) + web panel (Next.js) on Supabase/PostgreSQL with RLS and server-side critical logic. The first commission of my studio, Lughion.</span>
         </p>
         <div class="tech-stack">
-          <span class="tag">Web App</span>
-          <span class="tag">JavaScript</span>
-          <span class="tag">Firebase</span>
-          <span class="tag">Cloudflare</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">React Native</span>
+          <span class="tag">Next.js</span>
+          <span class="tag">Supabase</span>
+          <span class="tag"><span class="es">En desarrollo</span><span class="en">In development</span></span>
         </div>
       </div>
     </a>
@@ -1234,6 +1241,44 @@ footer .bottom {
           <span class="tag">Unity</span>
           <span class="tag">RPG</span>
           <span class="tag"><span class="es">Dirección IA</span><span class="en">AI-directed</span></span>
+        </div>
+      </div>
+    </a>
+
+    <a href="cartera-tracker.html" class="project-card-small">
+      <div class="thumb">
+        <img src="assets/cartera-tracker/dashboard.png" alt="Cartera Tracker">
+      </div>
+      <div class="card-body">
+        <div class="number"><span class="es">008 — Producto · Web</span><span class="en">008 — Product · Web</span></div>
+        <h4>Cartera <span class="italic">Tracker</span></h4>
+        <p class="description">
+          <span class="es">App web para seguimiento de carteras de inversión: acciones, ETFs, divisas y cripto, con precios en tiempo real y cálculo de P&L. HTML/JS + Firebase, desplegada en Cloudflare Pages con un Worker como proxy de APIs.</span>
+          <span class="en">A web app for tracking investment portfolios: stocks, ETFs, currencies and crypto, with real-time prices and P&L. HTML/JS + Firebase, deployed on Cloudflare Pages with a Worker as an API proxy.</span>
+        </p>
+        <div class="tech-stack">
+          <span class="tag">JavaScript</span>
+          <span class="tag">Firebase</span>
+          <span class="tag">Cloudflare</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="lughion.html" class="project-card-small">
+      <div class="thumb">
+        <img src="assets/lughion/og.jpg" alt="Lughion — estudio de software en León">
+      </div>
+      <div class="card-body">
+        <div class="number"><span class="es">009 — Mi estudio · Web</span><span class="en">009 — My studio · Web</span></div>
+        <h4>Lugh<span class="italic">ion</span></h4>
+        <p class="description">
+          <span class="es">La web y la marca de mi estudio de software en León. Sitio estático sin framework, biblioteca de proyectos filtrable generada desde un JSON y despliegue continuo en Cloudflare Pages.</span>
+          <span class="en">The website and brand of my software studio in León. A framework-free static site, a filterable project library generated from JSON, and continuous deployment on Cloudflare Pages.</span>
+        </p>
+        <div class="tech-stack">
+          <span class="tag">HTML / CSS / JS</span>
+          <span class="tag">Branding</span>
+          <span class="tag">Cloudflare</span>
         </div>
       </div>
     </a>
