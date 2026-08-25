@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 133" width="400" height="133">
+<rect width="400" height="133" fill="#1d2940"/>
+<rect width="400" height="133" fill="url(#stripes)" opacity="0.4"/>
+<defs>
+<pattern id="stripes" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+<rect width="14" height="14" fill="#1d2940"/>
+<line x1="0" y1="0" x2="0" y2="14" stroke="#c8633d" stroke-width="1" opacity="0.15"/>
+</pattern>
+</defs>
+<g opacity="0.4">
+<rect x="178" y="52" width="44" height="30" fill="none" stroke="#d0bd9c" stroke-width="1.5"/>
+<circle cx="190" cy="63" r="3.5" fill="#d0bd9c"/>
+<path d="M178,76 L194,66 L204,72 L222,60 L222,82 L178,82 Z" fill="#d0bd9c" opacity="0.6"/>
+</g>
+</svg>

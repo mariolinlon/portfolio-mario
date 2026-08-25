@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AG Telecom — Mario Fernández Martín</title>
+<meta name="description" content="Header web interactivo con p5.js para AG Telecomunicaciones. Trabajo universitario de creative coding.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mariofernandezmartin.pages.dev/ag-telecom.html">
+<meta property="og:title" content="AG Telecom — Mario Fernández Martín">
+<meta property="og:description" content="Header web interactivo con p5.js: cubos isométricos con física magnética para una telco ficticia.">
+<meta property="og:image" content="https://mariofernandezmartin.pages.dev/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AG Telecom — Mario Fernández Martín">
+<meta name="twitter:description" content="Header web interactivo con p5.js: cubos isométricos con física magnética para una telco ficticia.">
+<meta name="twitter:image" content="https://mariofernandezmartin.pages.dev/assets/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5ede0;
+  --surface: #ebe0cc;
+  --surface-2: #e0d2b8;
+  --border: #d0bd9c;
+  --text: #1d2940;
+  --muted: #7a6f5d;
+  --accent: #c8633d;
+  --accent-dim: rgba(200, 99, 61, 0.18);
+  --display: 'Instrument Serif', serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 300;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.10;
+  mix-blend-mode: multiply;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(to right, rgba(29,41,64,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(29,41,64,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.lang-es .en { display: none; }
+.lang-en .es { display: none; }
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(245, 237, 224, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+nav .back {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  transition: color 0.3s;
+}
+
+nav .back:hover { color: var(--accent); }
+
+nav .project-name {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+nav .project-name .dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--accent);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+.lang-toggle {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+main { position: relative; z-index: 1; }
+section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
+
+.project-hero {
+  padding-top: 140px;
+  padding-bottom: 60px;
+}
+
+.project-hero .meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.project-hero .meta .bar { width: 40px; height: 1px; background: var(--accent); }
+
+.project-hero h1 {
+  font-family: var(--display);
+  font-size: clamp(56px, 11vw, 170px);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  margin-bottom: 30px;
+}
+
+.project-hero h1 .italic { font-style: italic; color: var(--accent); }
+
+.project-hero .tagline {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(22px, 2.5vw, 32px);
+  color: var(--text);
+  max-width: 720px;
+  line-height: 1.3;
+}
+
+/* Interactive demo embed */
+.demo-frame {
+  margin-top: 50px;
+  border: 1px solid var(--border);
+  background: #0a0a12;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 16/9;
+}
+
+.demo-frame video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.demo-cta {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.live-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  transition: all 0.3s;
+}
+
+.live-btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.demo-cta-note {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  max-width: 320px;
+  line-height: 1.5;
+}
+
+.demo-hint {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.6);
+  background: rgba(0,0,0,0.4);
+  padding: 6px 14px;
+  border: 1px solid rgba(255,255,255,0.15);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.meta-strip { padding-top: 30px; padding-bottom: 60px; }
+
+.meta-strip-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.meta-item {
+  background: var(--bg);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.meta-item .label {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+
+.meta-item .value {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.content-section { padding-top: 60px; padding-bottom: 60px; }
+
+.content-section h2 {
+  font-family: var(--display);
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.content-section h2 .italic { font-style: italic; color: var(--accent); }
+
+.content-section h2 .num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-style: normal;
+}
+
+.body-text {
+  font-size: 16px;
+  line-height: 1.75;
+  max-width: 720px;
+}
+
+.body-text p { margin-bottom: 20px; }
+.body-text p:last-child { margin-bottom: 0; }
+.body-text strong { color: var(--accent); font-weight: 500; }
+
+.features-list { margin-top: 20px; }
+
+.feature-item {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 40px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: start;
+}
+
+.feature-item:first-child { border-top: 1px solid var(--border); }
+
+.feature-item .feat-label {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+.feature-item .feat-body {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.project-footer {
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+  padding: 80px 40px 40px;
+  background: var(--bg);
+  position: relative;
+  z-index: 1;
+}
+
+.project-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: end;
+  margin-bottom: 60px;
+}
+
+.project-footer h3 {
+  font-family: var(--display);
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.project-footer h3 .italic { font-style: italic; color: var(--accent); }
+
+.project-footer .nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.project-footer .nav-links a {
+  color: var(--muted);
+  transition: color 0.3s;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.project-footer .nav-links a:hover { color: var(--accent); }
+
+.project-footer .bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 30px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  nav { padding: 16px 20px; }
+  nav .project-name { display: none; }
+  section { padding: 60px 20px; }
+  .project-hero { padding-top: 100px; }
+  .demo-frame { aspect-ratio: 4/3; }
+  .meta-strip-grid { grid-template-columns: repeat(2, 1fr); }
+  .feature-item { grid-template-columns: 1fr; gap: 10px; }
+  .project-footer-inner { grid-template-columns: 1fr; gap: 40px; }
+  .project-footer { padding: 60px 20px 30px; }
+}
+</style>
+</head>
+<body class="lang-es">
+
+<nav>
+  <a href="index.html" class="back">← Portfolio</a>
+  <div class="project-name">
+    <div class="dot"></div>
+    <span>AG Telecom</span>
+  </div>
+  <button id="lang-toggle" class="lang-toggle">EN</button>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section class="project-hero">
+    <div class="meta">
+      <span class="bar"></span>
+      <span class="es">Universidad · Creative Coding · 2026</span>
+      <span class="en">University · Creative Coding · 2026</span>
+    </div>
+    <h1>AG <span class="italic">Telecom</span></h1>
+    <p class="tagline">
+      <span class="es">Un header web que cobra vida bajo el ratón.</span>
+      <span class="en">A web header that comes alive under the cursor.</span>
+    </p>
+
+    <!-- Vídeo del header real en funcionamiento -->
+    <div class="demo-frame">
+      <video controls autoplay muted loop playsinline poster="assets/ag-telecom/poster.png">
+        <source src="assets/ag-telecom/header-demo.mp4" type="video/mp4">
+      </video>
+      <div class="demo-hint">
+        <span class="es">Header real · p5.js</span>
+        <span class="en">Real header · p5.js</span>
+      </div>
+    </div>
+
+    <div class="demo-cta">
+      <a href="https://agwebpage.pages.dev/" target="_blank" rel="noopener" class="live-btn">
+        <span class="es">Probar el header en vivo</span>
+        <span class="en">Try the live header</span>
+        <span>↗</span>
+      </a>
+      <span class="demo-cta-note">
+        <span class="es">Mueve el ratón sobre la cabecera e interactúa con los cubos.</span>
+        <span class="en">Move your mouse over the header and interact with the cubes.</span>
+      </span>
+    </div>
+  </section>
+
+  <!-- META STRIP -->
+  <section class="meta-strip">
+    <div class="meta-strip-grid">
+      <div class="meta-item">
+        <div class="label"><span class="es">Tipo</span><span class="en">Type</span></div>
+        <div class="value"><span class="es">Trabajo universitario</span><span class="en">University project</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="label"><span class="es">Disciplina</span><span class="en">Discipline</span></div>
+        <div class="value">Creative Coding</div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Stack</div>
+        <div class="value">p5.js · JS</div>
+      </div>
+      <div class="meta-item">
+        <div class="label"><span class="es">Estado</span><span class="en">Status</span></div>
+        <div class="value"><span class="es">Entregado</span><span class="en">Delivered</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EL ENCARGO -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">El </span><span class="en">The </span><span class="italic">encargo</span><span class="en"> brief</span></span>
+      <span class="num">01</span>
+    </h2>
+    <div class="body-text">
+      <p>
+        <span class="es">El ejercicio pedía diseñar un <strong>header web interactivo</strong> para una empresa, usando programación creativa con p5.js. La empresa elegida fue AG Telecomunicaciones, una compañía ficticia del sector. La consigna técnica incluía animación, interacción con el ratón y diseño responsive.</span>
+        <span class="en">The exercise asked for an <strong>interactive web header</strong> for a company, using creative coding with p5.js. The chosen company was AG Telecomunicaciones, a fictional telecom firm. The technical brief required animation, mouse interaction and responsive design.</span>
+      </p>
+      <p>
+        <span class="es">En lugar de quedarme en el mínimo, llevé el trabajo más allá: monté un <strong>dosier web completo</strong> donde el header funciona en vivo y debajo se despliega una maqueta realista de la web corporativa y la justificación del diseño.</span>
+        <span class="en">Instead of settling for the minimum, I pushed the work further: I built a <strong>full web dossier</strong> where the header runs live, with a realistic mockup of the corporate site and the design rationale unfolding below it.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- CÓMO FUNCIONA -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">Cómo </span><span class="en">How it </span><span class="italic">funciona</span><span class="en"> works</span></span>
+      <span class="num">02</span>
+    </h2>
+    <div class="features-list">
+      <div class="feature-item">
+        <div class="feat-label"><span class="es">El mar de cubos</span><span class="en">The cube sea</span></div>
+        <div class="feat-body">
+          <span class="es">Una rejilla de cubos isométricos llena toda la cabecera, animándose en altura y color a lo largo del tiempo para crear una superficie viva incluso en reposo.</span>
+          <span class="en">A grid of isometric cubes fills the entire header, animating in height and color over time to create a living surface even at rest.</span>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feat-label"><span class="es">Física magnética</span><span class="en">Magnetic physics</span></div>
+        <div class="feat-body">
+          <span class="es">Los cubos cercanos al ratón se elevan hacia él como atraídos por un imán — cuanto más cerca, más fuerza. Al alejarse el cursor, vuelven a caer con una física de muelle amortiguado que produce un rebote suave.</span>
+          <span class="en">Cubes near the cursor rise toward it as if magnetically attracted — the closer they are, the stronger the pull. When the cursor moves away, they fall back with damped spring physics, producing a soft bounce.</span>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feat-label"><span class="es">Clic = impacto</span><span class="en">Click = impact</span></div>
+        <div class="feat-body">
+          <span class="es">Al hacer clic, los cubos de alrededor se hunden por debajo de su posición de reposo, generando un efecto de onda en la superficie.</span>
+          <span class="en">On click, the surrounding cubes sink below their resting position, generating a ripple effect across the surface.</span>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feat-label">Responsive</div>
+        <div class="feat-body">
+          <span class="es">El lienzo se adapta al tamaño de la ventana y se reconstruye al redimensionar, manteniendo la composición en cualquier pantalla.</span>
+          <span class="en">The canvas adapts to the window size and rebuilds on resize, keeping the composition intact on any screen.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MÁS ALLÁ -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">Ir más </span><span class="en">Going </span><span class="italic">allá</span><span class="en"> further</span></span>
+      <span class="num">03</span>
+    </h2>
+    <div class="body-text">
+      <p>
+        <span class="es">La entrega pedía un sketch y un dosier en PDF. Decidí además convertir todo el dosier en una <strong>página web funcional</strong>: el header p5.js corre de verdad en el navegador (en modo instancia para no chocar con el resto de la página), y bajo él se ve la maqueta de la web corporativa entera — servicios, cobertura, "sobre nosotros" y footer. Una forma de demostrar no solo que el header funciona, sino cómo encajaría en un producto real.</span>
+        <span class="en">The deliverable asked for a sketch and a PDF dossier. I also turned the whole dossier into a <strong>working web page</strong>: the p5.js header runs for real in the browser (in instance mode so it doesn't clash with the rest of the page), and below it sits a mockup of the entire corporate site — services, coverage, "about us" and footer. A way to show not just that the header works, but how it would fit into a real product.</span>
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="project-footer">
+  <div class="project-footer-inner">
+    <h3>
+      <span class="es">Más <span class="italic">proyectos</span></span>
+      <span class="en">More <span class="italic">projects</span></span>
+    </h3>
+    <div class="nav-links">
+      <a href="index.html">
+        <span><span class="es">Volver al portafolio</span><span class="en">Back to portfolio</span></span>
+        <span>←</span>
+      </a>
+      <a href="ad-aeternum.html">
+        <span>Ad Aeternum (TFG)</span>
+        <span>→</span>
+      </a>
+      <a href="mailto:mariofdz2011@gmail.com">
+        <span><span class="es">Contactar</span><span class="en">Contact</span></span>
+        <span>↗</span>
+      </a>
+    </div>
+  </div>
+  <div class="bottom">
+    <div>© 2026 Mario Fernández Martín</div>
+    <div>AG Telecom · Creative Coding</div>
+  </div>
+</footer>
+
+<script>
+// Language toggle
+const body = document.body;
+const btn = document.getElementById('lang-toggle');
+const saved = localStorage.getItem('lang') || 'es';
+body.className = `lang-${saved}`;
+document.documentElement.lang = saved;
+btn.textContent = saved === 'es' ? 'EN' : 'ES';
+btn.addEventListener('click', () => {
+  const next = body.classList.contains('lang-es') ? 'en' : 'es';
+  body.className = `lang-${next}`;
+  document.documentElement.lang = next;
+  btn.textContent = next === 'es' ? 'EN' : 'ES';
+  localStorage.setItem('lang', next);
+});
+</script>
+
+</body>
+</html>

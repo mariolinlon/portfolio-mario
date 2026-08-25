@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 133" width="400" height="133">
+<rect width="400" height="133" fill="#1d2940"/>
+<circle cx="200" cy="58" r="24" fill="none" stroke="#c8633d" stroke-width="1.5" stroke-dasharray="3 5" opacity="0.8"/>
+<line x1="200" y1="46" x2="200" y2="58" stroke="#c8633d" stroke-width="2"/>
+<line x1="200" y1="58" x2="210" y2="58" stroke="#c8633d" stroke-width="2"/>
+<text x="200" y="105" font-family="monospace" font-size="10" fill="#7a6f5d" text-anchor="middle" letter-spacing="2">PRÓXIMAMENTE</text>
+</svg>

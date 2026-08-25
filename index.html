@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mario Fernández Martín — Game Designer & AI-Powered Developer</title>
+<meta name="description" content="Portafolio de Mario Fernández Martín, diseñador y desarrollador de videojuegos y productos digitales construidos con IA.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mariofernandezmartin.pages.dev/">
+<meta property="og:title" content="Mario Fernández Martín — Game Designer & AI-Powered Developer">
+<meta property="og:description" content="Diseñador y desarrollador de videojuegos y productos digitales construidos con IA. Portfolio '26.">
+<meta property="og:image" content="https://mariofernandezmartin.pages.dev/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mario Fernández Martín — Game Designer & AI-Powered Developer">
+<meta name="twitter:description" content="Diseñador y desarrollador de videojuegos y productos digitales construidos con IA. Portfolio '26.">
+<meta name="twitter:image" content="https://mariofernandezmartin.pages.dev/assets/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5ede0;
+  --surface: #ebe0cc;
+  --surface-2: #e0d2b8;
+  --border: #d0bd9c;
+  --text: #1d2940;
+  --muted: #7a6f5d;
+  --accent: #c8633d;
+  --accent-dim: rgba(200, 99, 61, 0.18);
+  --display: 'Instrument Serif', serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 300;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.10;
+  mix-blend-mode: multiply;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(to right, rgba(29,41,64,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(29,41,64,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.lang-es .en { display: none; }
+.lang-en .es { display: none; }
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(245, 237, 224, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+nav .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+
+nav .logo .dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--accent);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+nav .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+nav ul {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+
+nav ul a {
+  position: relative;
+  transition: color 0.3s;
+  color: var(--muted);
+}
+
+nav ul a:hover { color: var(--text); }
+
+nav ul a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s;
+}
+
+nav ul a:hover::after { width: 100%; }
+
+.lang-toggle {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  transition: all 0.3s;
+}
+
+.download-btn:hover { background: var(--accent); color: var(--bg); }
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+section {
+  padding: 120px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 80px;
+  position: relative;
+}
+
+.hero .meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: fadeUp 0.8s ease;
+}
+
+.hero .meta .bar {
+  width: 40px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.hero h1 {
+  font-family: var(--display);
+  font-size: clamp(60px, 11vw, 180px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  animation: fadeUp 0.9s ease 0.1s backwards;
+}
+
+.hero h1 .italic {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero .role {
+  font-family: var(--mono);
+  font-size: clamp(14px, 1.4vw, 18px);
+  color: var(--muted);
+  max-width: 620px;
+  margin-bottom: 60px;
+  animation: fadeUp 1s ease 0.2s backwards;
+  line-height: 1.7;
+}
+
+.hero .role .name {
+  color: var(--text);
+}
+
+.hero-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: auto;
+  padding-top: 60px;
+  animation: fadeUp 1.1s ease 0.3s backwards;
+}
+
+.hero-bottom .scroll {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-bottom .scroll::after {
+  content: '';
+  width: 1px;
+  height: 30px;
+  background: var(--muted);
+  animation: scrollDown 2s ease-in-out infinite;
+}
+
+@keyframes scrollDown {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+.hero-bottom .stats {
+  display: flex;
+  gap: 50px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.hero-bottom .stat .num {
+  font-family: var(--display);
+  font-size: 36px;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 4px;
+  font-style: italic;
+  line-height: 1;
+}
+
+.hero-bottom .stat .label {
+  color: var(--muted);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 60px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--border);
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.section-header h2 {
+  font-family: var(--display);
+  font-size: clamp(36px, 5vw, 72px);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.section-header h2 .italic {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.section-header .num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.about-side {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.about-photo {
+  border: 1px solid var(--border);
+  overflow: hidden;
+  background: var(--surface);
+  line-height: 0;
+}
+
+.about-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.about-text {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+.about-text p { margin-bottom: 20px; }
+.about-text p:last-child { margin-bottom: 0; }
+
+.about-text strong {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.about-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 30px;
+}
+
+.about-card .label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.about-card .field {
+  font-family: var(--display);
+  font-size: 22px;
+  font-style: italic;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed var(--border);
+  line-height: 1.2;
+}
+
+.about-card .field:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.project-card {
+  background: var(--bg);
+  padding: 0;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.4s ease;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  background: var(--surface);
+}
+
+.project-card .thumb {
+  width: 100%;
+  aspect-ratio: 3/1;
+  overflow: hidden;
+  background: #1d2940;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.project-card .thumb img,
+.project-card .thumb video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease, opacity 0.4s ease;
+}
+
+.project-card:hover .thumb img,
+.project-card:hover .thumb video {
+  transform: scale(1.04);
+}
+
+.project-card .card-body {
+  padding: 32px 40px 40px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.project-card .number {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  letter-spacing: 0.1em;
+}
+
+.project-card h3 {
+  font-family: var(--display);
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  transition: color 0.3s;
+}
+
+.project-card h3 .italic {
+  font-style: italic;
+  transition: color 0.3s;
+}
+
+.project-card:hover h3 .italic { color: var(--accent); }
+
+.project-card .description {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  margin-bottom: auto;
+  max-width: 400px;
+}
+
+.project-card .tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.project-card .tag {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.project-card .arrow {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  background: rgba(245, 237, 224, 0.85);
+  backdrop-filter: blur(4px);
+  transition: all 0.3s;
+  font-size: 14px;
+  z-index: 2;
+}
+
+.project-card:hover .arrow {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+  transform: rotate(-45deg);
+}
+
+/* Otros proyectos — sub-grid más compacto */
+.other-projects-header {
+  margin-top: 80px;
+  margin-bottom: 30px;
+  padding-top: 40px;
+  border-top: 1px dashed var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.other-projects-header h3 {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.other-projects-header .num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.projects-grid-small {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.project-card-small {
+  background: var(--bg);
+  padding: 0;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.4s ease;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card-small:hover {
+  background: var(--surface);
+}
+
+.project-card-small .thumb {
+  width: 100%;
+  aspect-ratio: 3/1;
+  overflow: hidden;
+  background: #1d2940;
+  border-bottom: 1px solid var(--border);
+}
+
+.project-card-small .thumb img,
+.project-card-small .thumb video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.project-card-small:hover .thumb img,
+.project-card-small:hover .thumb video {
+  transform: scale(1.04);
+}
+
+.project-card-small .card-body {
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.project-card-small .number {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 12px;
+  letter-spacing: 0.1em;
+}
+
+.project-card-small h4 {
+  font-family: var(--display);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+
+.project-card-small h4 .italic {
+  font-style: italic;
+  transition: color 0.3s;
+}
+
+.project-card-small:hover h4 .italic { color: var(--accent); }
+
+.project-card-small .description {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+  margin-bottom: auto;
+}
+
+.project-card-small .tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 16px;
+}
+
+.project-card-small .tag {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 8px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.skill-group {
+  border-top: 1px solid var(--accent);
+  padding-top: 24px;
+}
+
+.skill-group h4 {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.skill-list {
+  list-style: none;
+}
+
+.skill-list li {
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  gap: 12px;
+}
+
+.skill-list li:last-child { border-bottom: none; }
+
+.skill-list .level {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.skill-list .level.expert { color: var(--accent); }
+
+.experience-list {
+  border-top: 1px solid var(--border);
+}
+
+.experience-item {
+  display: grid;
+  grid-template-columns: 180px 1fr auto;
+  gap: 40px;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: baseline;
+  transition: padding 0.3s ease;
+  cursor: pointer;
+}
+
+.experience-item:hover {
+  padding-left: 20px;
+}
+
+.experience-item .year {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.experience-item h3 {
+  font-family: var(--display);
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.experience-item h3 .italic {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.experience-item .place {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.experience-item .arrow {
+  font-size: 20px;
+  color: var(--muted);
+  transition: all 0.3s;
+}
+
+.experience-item:hover .arrow {
+  color: var(--accent);
+  transform: translateX(8px);
+}
+
+.cv-actions {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.marquee {
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 30px 0;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  background: var(--bg);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 60px;
+  white-space: nowrap;
+  animation: scroll 30s linear infinite;
+  align-items: center;
+}
+
+.marquee-track span {
+  font-family: var(--display);
+  font-size: 48px;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1;
+}
+
+.marquee-track .dot {
+  color: var(--accent);
+  font-size: 36px;
+  font-style: normal;
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+footer {
+  padding: 80px 40px 40px;
+  border-top: 1px solid var(--border);
+  margin-top: 80px;
+  position: relative;
+  z-index: 1;
+  background: var(--bg);
+}
+
+.footer-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 60px;
+  margin-bottom: 60px;
+}
+
+footer h3 {
+  font-family: var(--display);
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 30px;
+}
+
+footer h3 .italic {
+  font-style: italic;
+  color: var(--accent);
+}
+
+footer .contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  transition: all 0.3s;
+  margin-bottom: 12px;
+}
+
+footer .contact-btn:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+footer .contact-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+footer .contact-actions .contact-btn { margin-bottom: 0; }
+
+footer .contact-btn.ghost {
+  border-color: var(--border);
+  color: var(--muted);
+}
+
+footer .contact-btn.ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: transparent;
+}
+
+footer .phone {
+  display: block;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  margin-top: 8px;
+}
+
+footer .col h5 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+footer .col ul {
+  list-style: none;
+}
+
+footer .col ul li {
+  padding: 6px 0;
+}
+
+footer .col ul a {
+  color: var(--text);
+  transition: color 0.3s;
+  font-size: 13px;
+}
+
+footer .col ul a:hover {
+  color: var(--accent);
+}
+
+footer .bottom {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-top: 30px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 900px) {
+  nav { padding: 16px 20px; }
+  nav ul { display: none; }
+  nav .logo { font-size: 11px; }
+  section { padding: 80px 20px; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-card { min-height: auto; }
+  .project-card .arrow { top: 30px; right: 30px; }
+  .projects-grid-small { grid-template-columns: 1fr; }
+  .other-projects-header { flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 60px; }
+  .skills-grid { grid-template-columns: 1fr; gap: 30px; }
+  .experience-item {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 24px 0;
+  }
+  .experience-item:hover { padding-left: 0; }
+  .experience-item .arrow { display: none; }
+  .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero-bottom .stats { gap: 30px; }
+  .hero-bottom .stat .num { font-size: 28px; }
+  footer { padding: 60px 20px 30px; }
+  .marquee-track span { font-size: 32px; }
+  .marquee-track .dot { font-size: 24px; }
+}
+</style>
+</head>
+<body class="lang-es">
+
+<nav>
+  <div class="logo">
+    <div class="dot"></div>
+    <span>Mario Fdz. / Portfolio'26</span>
+  </div>
+  <div class="nav-right">
+    <ul>
+      <li><a href="#sobre-mi"><span class="es">Sobre mí</span><span class="en">About</span></a></li>
+      <li><a href="#proyectos"><span class="es">Proyectos</span><span class="en">Projects</span></a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#cv">CV</a></li>
+      <li><a href="#contacto"><span class="es">Contacto</span><span class="en">Contact</span></a></li>
+    </ul>
+    <button id="lang-toggle" class="lang-toggle">EN</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="meta">
+    <span class="bar"></span>
+    <span class="es">León, ES — Disponible para colaborar</span>
+    <span class="en">León, ES — Available for work</span>
+  </div>
+  <h1>
+    Game <span class="italic">Designer</span><br>
+    & AI-Powered <span class="italic">Developer</span>
+  </h1>
+  <p class="role">
+    <span class="es"><span class="name">Mario Fernández Martín</span>.<br>
+    Diseñador y desarrollador con base en León. Construyo videojuegos y productos digitales usando la IA como herramienta y aplicando criterio de diseño para garantizar la calidad.</span>
+    <span class="en"><span class="name">Mario Fernández Martín</span>.<br>
+    Designer and developer based in León. I build video games and digital products using AI as a tool and applying design judgment to ensure quality.</span>
+  </p>
+  <div class="hero-bottom">
+    <div class="scroll">Scroll</div>
+    <div class="stats">
+      <div class="stat">
+        <span class="num">7+</span>
+        <span class="label"><span class="es">Proyectos</span><span class="en">Projects</span></span>
+      </div>
+      <div class="stat">
+        <span class="num">C1</span>
+        <span class="label"><span class="es">Inglés</span><span class="en">English</span></span>
+      </div>
+      <div class="stat">
+        <span class="num">4</span>
+        <span class="label"><span class="es">Idiomas</span><span class="en">Languages</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="sobre-mi">
+  <div class="section-header">
+    <h2><span class="es">Sobre <span class="italic">mí</span></span><span class="en">About <span class="italic">me</span></span></h2>
+    <div class="num">01 / Bio</div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        <span class="es">Soy <strong>Mario</strong>, diseñador y desarrollador de videojuegos formado en la UNIR (Grado en Diseño y Desarrollo de Videojuegos) y en U-TAD (Diseño de Productos Interactivos). Combino creatividad técnica con sensibilidad de diseño para crear experiencias interactivas memorables.</span>
+        <span class="en">I'm <strong>Mario</strong>, a game designer and developer trained at UNIR (BA in Video Game Design & Development) and U-TAD (Interactive Product Design). I combine technical creativity with design sensibility to craft memorable interactive experiences.</span>
+      </p>
+      <p>
+        <span class="es">Mi enfoque está en el <strong>game design</strong> —mecánicas, sistemas, narrativa— y en el dominio de la <strong>inteligencia artificial</strong> como herramienta para potenciar tanto el desarrollo como la experiencia del jugador.</span>
+        <span class="en">My focus is on <strong>game design</strong> —mechanics, systems, narrative— and on mastering <strong>artificial intelligence</strong> as a tool to enhance both development and the player experience.</span>
+      </p>
+      <p>
+        <span class="es">Actualmente trabajo en varias aplicaciones móviles y en el prototipo de un videojuego educativo en colaboración con profesores de la Asociación Arenales.</span>
+        <span class="en">I'm currently working on several mobile apps and on the prototype of an educational video game in collaboration with teachers from Asociación Arenales.</span>
+      </p>
+    </div>
+    <div class="about-side">
+      <div class="about-photo">
+        <img src="assets/perfil.jpg" alt="Mario Fernández Martín">
+      </div>
+      <div class="about-card">
+        <div class="label"><span class="es">Ubicación</span><span class="en">Location</span></div>
+        <div class="field"><span class="es">León · España</span><span class="en">León · Spain</span></div>
+        <div class="label"><span class="es">Especialidad</span><span class="en">Specialty</span></div>
+        <div class="field"><span class="es">Game Design & IA</span><span class="en">Game Design & AI</span></div>
+        <div class="label"><span class="es">Estado</span><span class="en">Status</span></div>
+        <div class="field"><span class="es">Abierto a proyectos</span><span class="en">Open to projects</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span>Unity</span><span class="dot">✦</span>
+    <span>Unreal Engine</span><span class="dot">✦</span>
+    <span>C#</span><span class="dot">✦</span>
+    <span>Blender</span><span class="dot">✦</span>
+    <span>Inteligencia Artificial</span><span class="dot">✦</span>
+    <span>Game Design</span><span class="dot">✦</span>
+    <span>Unity</span><span class="dot">✦</span>
+    <span>Unreal Engine</span><span class="dot">✦</span>
+    <span>C#</span><span class="dot">✦</span>
+    <span>Blender</span><span class="dot">✦</span>
+    <span>Inteligencia Artificial</span><span class="dot">✦</span>
+    <span>Game Design</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- PROYECTOS -->
+<section id="proyectos">
+  <div class="section-header">
+    <h2><span class="es">Proyectos <span class="italic">seleccionados</span></span><span class="en">Selected <span class="italic">projects</span></span></h2>
+    <div class="num">02 / Work</div>
+  </div>
+  <div class="projects-grid">
+
+    <a href="ad-aeternum.html" class="project-card">
+      <div class="thumb">
+        <img src="assets/ad-aeternum/portada.jpg" alt="Ad Aeternum">
+      </div>
+      <div class="arrow">→</div>
+      <div class="card-body">
+        <div class="number"><span class="es">001 — TFG · Videojuego</span><span class="en">001 — Final Project · Video game</span></div>
+        <h3>Ad <span class="italic">Aeternum</span></h3>
+        <p class="description">
+          <span class="es">Mi Trabajo Fin de Grado. Videojuego educativo cooperativo-competitivo de temática espacial. Mecánicas de quiz por turnos, dos roles asimétricos (Tripulante / Almirante), mapa galáctico y sistema de combate académico.</span>
+          <span class="en">My Final Degree Project. A cooperative-competitive educational game with a space theme. Turn-based quiz mechanics, two asymmetric roles (Crewmember / Admiral), a galaxy map and an academic combat system.</span>
+        </p>
+        <div class="tech-stack">
+          <span class="tag"><span class="es">Videojuego</span><span class="en">Game</span></span>
+          <span class="tag"><span class="es">Educativo</span><span class="en">Educational</span></span>
+          <span class="tag">Unity</span>
+          <span class="tag">C#</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="cartera-tracker.html" class="project-card">
+      <div class="thumb">
+        <img src="assets/cartera-tracker/dashboard.png" alt="Cartera Tracker">
+      </div>
+      <div class="arrow">→</div>
+      <div class="card-body">
+        <div class="number"><span class="es">002 — Producto · Web</span><span class="en">002 — Product · Web</span></div>
+        <h3>Cartera <span class="italic">Tracker</span></h3>
+        <p class="description">
+          <span class="es">App web para seguimiento de carteras de inversión: acciones, ETFs, divisas y cripto. Precios en tiempo real, gráficos por sectores y cálculo de P&L. Construida con HTML/JS + Firebase y desplegada en Cloudflare Pages con un Worker propio como proxy de APIs.</span>
+          <span class="en">A web app for tracking investment portfolios: stocks, ETFs, currencies and crypto. Real-time prices, sector charts and P&L calculation. Built with HTML/JS + Firebase and deployed on Cloudflare Pages with a custom Worker as an API proxy.</span>
+        </p>
+        <div class="tech-stack">
+          <span class="tag">Web App</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">Firebase</span>
+          <span class="tag">Cloudflare</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="abcdalia.html" class="project-card">
+      <div class="thumb">
+        <img src="assets/abcdalia/home.png" alt="ABCDalia — material para enseñar a leer y escribir">
+      </div>
+      <div class="arrow">→</div>
+      <div class="card-body">
+        <div class="number"><span class="es">003 — Producto · E-commerce</span><span class="en">003 — Product · E-commerce</span></div>
+        <h3>ABC<span class="italic">dalia</span></h3>
+        <p class="description">
+          <span class="es">Tienda online de materiales didácticos imprimibles para alfabetización inicial (1º y 2º de primaria). Recursos en PDF de descarga inmediata, catálogo por categorías, membresía VIP anual y captación por email. Diseño de marca, maquetación y montaje de tienda sobre WordPress + WooCommerce.</span>
+          <span class="en">An online store of printable teaching materials for early literacy (1st–2nd grade). Instant-download PDF resources, a category catalog, a yearly VIP membership and email capture. Brand design, layout and store setup on WordPress + WooCommerce.</span>
+        </p>
+        <div class="tech-stack">
+          <span class="tag">WordPress</span>
+          <span class="tag">WooCommerce</span>
+          <span class="tag">E-commerce</span>
+          <span class="tag"><span class="es">Branding</span><span class="en">Branding</span></span>
+        </div>
+      </div>
+    </a>
+
+    <a href="american-frisbee.html" class="project-card">
+      <div class="thumb">
+        <img src="assets/american-frisbee/portada.jpg" alt="American Frisbee">
+      </div>
+      <div class="arrow">→</div>
+      <div class="card-body">
+        <div class="number"><span class="es">004 — Prácticas · VR</span><span class="en">004 — Internship · VR</span></div>
+        <h3>American <span class="italic">Frisbee</span></h3>
+        <p class="description">
+          <span class="es">Juego de VR multijugador para Location-Based Entertainment, desarrollado durante mis prácticas en Immersive Oasis. Fútbol americano con frisbee virtual: físicas aerodinámicas, multijugador en red local con tracking físico real y despliegue en PICO 4. Diseño de concepto y desarrollo en Unity.</span>
+          <span class="en">A multiplayer VR game for Location-Based Entertainment, built during my internship at Immersive Oasis. American football with a virtual frisbee: aerodynamic physics, local-network multiplayer with real physical tracking, and deployment on PICO 4. Concept design and development in Unity.</span>
+        </p>
+        <div class="tech-stack">
+          <span class="tag">VR</span>
+          <span class="tag">Unity</span>
+          <span class="tag">Netcode</span>
+          <span class="tag"><span class="es">Prácticas</span><span class="en">Internship</span></span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- OTROS PROYECTOS -->
+  <div class="other-projects-header">
+    <h3><span class="es">+ Otros proyectos</span><span class="en">+ Other projects</span></h3>
+    <div class="num"><span class="es">Más trabajo / por añadir</span><span class="en">More work / to be added</span></div>
+  </div>
+  <div class="projects-grid-small">
+
+    <a href="ag-telecom.html" class="project-card-small">
+      <div class="thumb">
+        <img src="assets/ag-telecom/poster.png" alt="AG Telecom">
+      </div>
+      <div class="card-body">
+        <div class="number"><span class="es">005 — Universidad</span><span class="en">005 — University</span></div>
+        <h4>AG <span class="italic">Telecom</span></h4>
+        <p class="description">
+          <span class="es">Header web interactivo para una empresa ficticia de telecomunicaciones. Un mar de cubos isométricos con física magnética, hechos con p5.js. Trabajo universitario llevado más allá con un dosier web completo.</span>
+          <span class="en">An interactive web header for a fictional telecom company. A sea of isometric cubes with magnetic physics, built with p5.js. A university assignment taken further into a complete web dossier.</span>
+        </p>
+        <div class="tech-stack">
+          <span class="tag">p5.js</span>
+          <span class="tag">Creative Coding</span>
+          <span class="tag"><span class="es">Universidad</span><span class="en">University</span></span>
+        </div>
+      </div>
+    </a>
+
+    <a href="hunter-trade.html" class="project-card-small">
+      <div class="thumb">
+        <img src="assets/hunter-trade/thumb.png" alt="Hunter Trade Center">
+      </div>
+      <div class="card-body">
+        <div class="number"><span class="es">006 — Proyecto personal</span><span class="en">006 — Personal project</span></div>
+        <h4>Hunter Trade <span class="italic">Center</span></h4>
+        <p class="description">
+          <span class="es">App (Flutter + Firebase) de red social y trueque de permisos de caza entre cazadores: directorio, perfiles, chat en tiempo real y motor de coincidencias. Proyecto personal en solitario, en pausa.</span>
+          <span class="en">A Flutter + Firebase app: a social network and barter marketplace for hunters to trade hunting permits —directory, profiles, real-time chat and a matching engine. Solo personal project, on hold.</span>
+        </p>
+        <div class="tech-stack">
+          <span class="tag">Flutter</span>
+          <span class="tag">Firebase</span>
+          <span class="tag"><span class="es">En pausa</span><span class="en">On hold</span></span>
+        </div>
+      </div>
+    </a>
+
+    <a href="finisterre.html" class="project-card-small">
+      <div class="thumb">
+        <img src="assets/thumbs/finisterre.svg" alt="Finisterre">
+      </div>
+      <div class="card-body">
+        <div class="number"><span class="es">007 — Videojuego</span><span class="en">007 — Video game</span></div>
+        <h4>Finis<span class="italic">terre</span></h4>
+        <p class="description">
+          <span class="es">RPG de granja y vida sobre la España rural y su folclore: cultivos, oficios, pesca submarina de tesoros y "el pueblo revive". Hecho en Unity dirigiendo agentes de IA.</span>
+          <span class="en">A farming & life RPG about rural Spain and its folklore: crops, skills, underwater treasure diving and a village that revives. Built in Unity by directing AI agents.</span>
+        </p>
+        <div class="tech-stack">
+          <span class="tag">Unity</span>
+          <span class="tag">RPG</span>
+          <span class="tag"><span class="es">Dirección IA</span><span class="en">AI-directed</span></span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <h2><span class="es">Habilidades <span class="italic">técnicas</span></span><span class="en">Technical <span class="italic">skills</span></span></h2>
+    <div class="num">03 / Stack</div>
+  </div>
+  <div class="skills-grid">
+
+    <div class="skill-group">
+      <h4>Game Engines</h4>
+      <ul class="skill-list">
+        <li>Unity <span class="level expert">Advanced</span></li>
+        <li>Unreal Engine <span class="level expert">Advanced</span></li>
+      </ul>
+    </div>
+
+    <div class="skill-group">
+      <h4><span class="es">Lenguajes</span><span class="en">Languages</span></h4>
+      <ul class="skill-list">
+        <li>C# <span class="level expert">Advanced</span></li>
+        <li>C++ <span class="level">Intermediate</span></li>
+        <li>JavaScript <span class="level">Intermediate</span></li>
+        <li>Dart <span class="level">Intermediate</span></li>
+        <li>R <span class="level">Intermediate</span></li>
+        <li>SQL <span class="level">Intermediate</span></li>
+      </ul>
+    </div>
+
+    <div class="skill-group">
+      <h4><span class="es">IA & Datos</span><span class="en">AI & Data</span></h4>
+      <ul class="skill-list">
+        <li><span class="es">IA Aplicada</span><span class="en">Applied AI</span> <span class="level expert">Expert</span></li>
+        <li>RStudio <span class="level">Intermediate</span></li>
+        <li>SQL Developer <span class="level">Intermediate</span></li>
+        <li>Visual Studio <span class="level">Advanced</span></li>
+      </ul>
+    </div>
+
+    <div class="skill-group">
+      <h4><span class="es">Arte & Diseño</span><span class="en">Art & Design</span></h4>
+      <ul class="skill-list">
+        <li>Photoshop <span class="level">Advanced</span></li>
+        <li>Illustrator <span class="level">Advanced</span></li>
+        <li>Krita <span class="level">Intermediate</span></li>
+        <li>Blender <span class="level">Intermediate</span></li>
+        <li>Maya <span class="level">Intermediate</span></li>
+        <li>Reaper <span class="es">(audio)</span><span class="en">(audio)</span> <span class="level">Intermediate</span></li>
+      </ul>
+    </div>
+
+    <div class="skill-group">
+      <h4>Game Design</h4>
+      <ul class="skill-list">
+        <li><span class="es">Mecánicas y sistemas</span><span class="en">Mechanics & systems</span> <span class="level expert">Advanced</span></li>
+        <li><span class="es">Diseño de niveles</span><span class="en">Level design</span> <span class="level">Intermediate</span></li>
+        <li><span class="es">Narrativa interactiva</span><span class="en">Interactive narrative</span> <span class="level">Intermediate</span></li>
+        <li><span class="es">Prototipado</span><span class="en">Prototyping</span> <span class="level">Advanced</span></li>
+      </ul>
+    </div>
+
+    <div class="skill-group">
+      <h4><span class="es">Idiomas</span><span class="en">Languages</span></h4>
+      <ul class="skill-list">
+        <li><span class="es">Español</span><span class="en">Spanish</span> <span class="level expert"><span class="es">Nativo</span><span class="en">Native</span></span></li>
+        <li><span class="es">Inglés</span><span class="en">English</span> <span class="level expert">C1</span></li>
+        <li><span class="es">Alemán</span><span class="en">German</span> <span class="level">A1</span></li>
+        <li><span class="es">Japonés</span><span class="en">Japanese</span> <span class="level"><span class="es">Básico</span><span class="en">Basic</span></span></li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="cv">
+  <div class="section-header">
+    <h2><span class="es">Formación & <span class="italic">CV</span></span><span class="en">Education & <span class="italic">CV</span></span></h2>
+    <div class="num">04 / Timeline</div>
+  </div>
+  <div class="experience-list">
+
+    <div class="experience-item">
+      <div class="year">2023 — 2026</div>
+      <div>
+        <h3><span class="es">Grado en Diseño y Desarrollo de <span class="italic">Videojuegos</span></span><span class="en">BA in Video Game <span class="italic">Design & Development</span></span></h3>
+        <div class="place">UNIR · Online</div>
+      </div>
+      <div class="arrow">→</div>
+    </div>
+
+    <div class="experience-item">
+      <div class="year">2018 — 2022</div>
+      <div>
+        <h3><span class="es">Grado en Diseño de <span class="italic">Productos Interactivos</span></span><span class="en">BA in <span class="italic">Interactive Product Design</span></span></h3>
+        <div class="place">U-TAD · Madrid</div>
+      </div>
+      <div class="arrow">→</div>
+    </div>
+
+    <div class="experience-item">
+      <div class="year"><span class="es">Verano 2018</span><span class="en">Summer 2018</span></div>
+      <div>
+        <h3><span class="es">NSLC — Diseño de <span class="italic">Videojuegos</span></span><span class="en">NSLC — Video Game <span class="italic">Design</span></span></h3>
+        <div class="place">Washington DC · EE.UU.</div>
+      </div>
+      <div class="arrow">→</div>
+    </div>
+
+    <div class="experience-item">
+      <div class="year">2016 — 2019</div>
+      <div>
+        <h3><span class="es">Bachillerato Dual <span class="italic">Americano</span></span><span class="en">American <span class="italic">Dual Diploma</span></span></h3>
+        <div class="place">Col. Internacional Peñacorada · León</div>
+      </div>
+      <div class="arrow">→</div>
+    </div>
+
+    <div class="experience-item">
+      <div class="year">2012 — 2014</div>
+      <div>
+        <h3><span class="es">Educación <span class="italic">Internacional</span></span><span class="en">International <span class="italic">Education</span></span></h3>
+        <div class="place">Gordonstoun School · <span class="es">Escocia</span><span class="en">Scotland</span></div>
+      </div>
+      <div class="arrow">→</div>
+    </div>
+
+  </div>
+
+  <div class="cv-actions">
+    <a href="cv-mario-fernandez-martin.pdf" download class="download-btn">
+      <span class="es">Descargar CV</span><span class="en">Download CV</span>
+      <span>↓</span>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer id="contacto">
+  <div class="footer-grid">
+    <div>
+      <h3><span class="es">Trabajemos<br><span class="italic">juntos</span> →</span><span class="en">Let's work<br><span class="italic">together</span> →</span></h3>
+      <div class="contact-actions">
+        <a href="mailto:mariofdz2011@gmail.com" class="contact-btn">
+          mariofdz2011@gmail.com →
+        </a>
+        <a href="cv-mario-fernandez-martin.pdf" download class="contact-btn ghost">
+          <span class="es">Descargar CV ↓</span><span class="en">Download CV ↓</span>
+        </a>
+        <a href="https://github.com/mariolinlon" target="_blank" rel="noopener" class="contact-btn ghost">
+          GitHub ↗
+        </a>
+        <a href="https://www.linkedin.com/in/mario-fernandez-martin/" target="_blank" rel="noopener" class="contact-btn ghost">
+          LinkedIn ↗
+        </a>
+      </div>
+      <span class="phone">(+34) 640 310 905</span>
+    </div>
+    <div class="col">
+      <h5><span class="es">Navegación</span><span class="en">Navigation</span></h5>
+      <ul>
+        <li><a href="#sobre-mi"><span class="es">Sobre mí</span><span class="en">About</span></a></li>
+        <li><a href="#proyectos"><span class="es">Proyectos</span><span class="en">Projects</span></a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#cv">CV</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="bottom">
+    <div>© 2026 Mario Fernández Martín</div>
+    <div>Made with code & coffee in León</div>
+  </div>
+</footer>
+
+<script>
+// Language toggle with localStorage persistence
+const body = document.body;
+const btn = document.getElementById('lang-toggle');
+const saved = localStorage.getItem('lang') || 'es';
+body.className = `lang-${saved}`;
+document.documentElement.lang = saved;
+btn.textContent = saved === 'es' ? 'EN' : 'ES';
+btn.addEventListener('click', () => {

@@ -1,0 +1,20 @@
+<svg viewBox="0 0 1600 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+<rect width="1600" height="600" fill="#20301f"/>
+<g stroke="#2f4530" stroke-width="1" opacity="0.6">
+<line x1="0" y1="150" x2="1600" y2="150"/><line x1="0" y1="300" x2="1600" y2="300"/><line x1="0" y1="450" x2="1600" y2="450"/>
+</g>
+<!-- astas estilizadas -->
+<g stroke="#e7dcc2" stroke-width="7" fill="none" stroke-linecap="round">
+<path d="M770,205 C740,170 735,140 742,110 M742,150 C720,138 705,120 700,100 M755,128 C736,120 726,106 724,92"/>
+<path d="M830,205 C860,170 865,140 858,110 M858,150 C880,138 895,120 900,100 M845,128 C864,120 874,106 876,92"/>
+</g>
+<!-- emblema de trueque: dos flechas curvas -->
+<g stroke="#d98b3d" stroke-width="11" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<path d="M700,250 Q800,205 900,250"/>
+<path d="M900,250 l-26,-14 M900,250 l-8,-28"/>
+<path d="M900,300 Q800,345 700,300"/>
+<path d="M700,300 l26,14 M700,300 l8,28"/>
+</g>
+<text x="800" y="418" text-anchor="middle" font-family="'Courier New',monospace" font-size="46" letter-spacing="10" fill="#e7dcc2" font-weight="bold">HUNTER TRADE CENTER</text>
+<text x="800" y="462" text-anchor="middle" font-family="'Courier New',monospace" font-size="19" letter-spacing="5" fill="#9db08f">TRUEQUE DE PERMISOS · PARA CAZADORES</text>
+</svg>

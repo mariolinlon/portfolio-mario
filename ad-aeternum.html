@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ad Aeternum — Mario Fernández Martín</title>
+<meta name="description" content="Ad Aeternum — Trabajo Fin de Grado de Mario Fernández Martín. Videojuego educativo cooperativo-competitivo.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mariofernandezmartin.pages.dev/ad-aeternum.html">
+<meta property="og:title" content="Ad Aeternum — Mario Fernández Martín">
+<meta property="og:description" content="TFG: videojuego educativo cooperativo-competitivo de temática espacial. Unity · C#.">
+<meta property="og:image" content="https://mariofernandezmartin.pages.dev/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ad Aeternum — Mario Fernández Martín">
+<meta name="twitter:description" content="TFG: videojuego educativo cooperativo-competitivo de temática espacial. Unity · C#.">
+<meta name="twitter:image" content="https://mariofernandezmartin.pages.dev/assets/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5ede0;
+  --surface: #ebe0cc;
+  --surface-2: #e0d2b8;
+  --border: #d0bd9c;
+  --text: #1d2940;
+  --muted: #7a6f5d;
+  --accent: #c8633d;
+  --accent-dim: rgba(200, 99, 61, 0.18);
+  --display: 'Instrument Serif', serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 300;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.10;
+  mix-blend-mode: multiply;
+}
+
+/* Subtle grid */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(to right, rgba(29,41,64,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(29,41,64,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* Language visibility */
+.lang-es .en { display: none; }
+.lang-en .es { display: none; }
+
+/* Nav */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(245, 237, 224, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+nav .back {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  transition: color 0.3s;
+}
+
+nav .back:hover { color: var(--accent); }
+
+nav .project-name {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+nav .project-name .nav-logo {
+  height: 28px;
+  width: auto;
+  mix-blend-mode: multiply;
+}
+
+.lang-toggle {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.lang-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Container */
+main { position: relative; z-index: 1; }
+
+section { padding: 80px 40px; max-width: 1400px; margin: 0 auto; }
+
+/* Project Hero */
+.project-hero {
+  padding-top: 140px;
+  padding-bottom: 60px;
+}
+
+.project-hero .meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.project-hero .meta .bar {
+  width: 40px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.project-hero h1 {
+  font-family: var(--display);
+  font-size: clamp(60px, 13vw, 220px);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  margin-bottom: 30px;
+}
+
+.project-hero h1 .italic {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.project-hero .tagline {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(22px, 2.5vw, 32px);
+  color: var(--text);
+  max-width: 720px;
+  line-height: 1.3;
+  margin-bottom: 60px;
+}
+
+/* Hero image / placeholder */
+.hero-image {
+  aspect-ratio: 16/9;
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: #000;
+}
+
+.demo-cta {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.live-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  transition: all 0.3s;
+}
+
+.live-btn:hover { background: var(--accent); color: var(--bg); }
+
+.live-btn.ghost { border-color: var(--border); color: var(--muted); }
+
+.live-btn.ghost:hover { border-color: var(--accent); color: var(--accent); background: transparent; }
+
+/* Meta strip */
+.meta-strip {
+  padding-top: 30px;
+  padding-bottom: 60px;
+}
+
+.meta-strip-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.meta-item {
+  background: var(--bg);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.meta-item .label {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+
+.meta-item .value {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+/* Content sections */
+.content-section {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.content-section h2 {
+  font-family: var(--display);
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 50px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.content-section h2 .italic {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.content-section h2 .num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-style: normal;
+}
+
+.body-text {
+  font-size: 16px;
+  line-height: 1.75;
+  max-width: 720px;
+}
+
+.body-text p { margin-bottom: 20px; }
+.body-text p:last-child { margin-bottom: 0; }
+
+.body-text strong {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* Pitch — bigger, more dramatic */
+.pitch-body {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(24px, 3vw, 40px);
+  line-height: 1.3;
+  max-width: 900px;
+  color: var(--text);
+}
+
+/* Two-column for context */
+.two-col {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.two-col-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 30px;
+}
+
+.two-col-card h3 {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+
+.two-col-card ul {
+  list-style: none;
+}
+
+.two-col-card li {
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border);
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.two-col-card li:last-child { border-bottom: none; }
+
+.two-col-card li span:last-child {
+  font-family: var(--display);
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* Roles section — Tripulante vs Almirante */
+.roles-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-top: 40px;
+}
+
+.role-card {
+  background: var(--bg);
+  padding: 50px 40px;
+  position: relative;
+}
+
+.role-card .role-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.role-card h3 {
+  font-family: var(--display);
+  font-size: 52px;
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 24px;
+}
+
+.role-card h3 .italic {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.role-card .role-body {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+.role-card .role-image {
+  aspect-ratio: 16/9;
+  background: #000;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  position: relative;
+}
+
+.role-card .role-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: #000;
+}
+
+/* Mechanics list */
+.mechanics-list {
+  margin-top: 40px;
+}
+
+.mechanic-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 40px;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: start;
+}
+
+.mechanic-item:last-child { border-bottom: none; }
+
+.mechanic-item .mech-label {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.mechanic-item .mech-body {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+/* Visual identity */
+.palette-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-top: 40px;
+}
+
+.palette-swatch {
+  aspect-ratio: 1;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding: 16px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--bg);
+}
+
+.palette-swatch.light { color: var(--text); }
+
+/* Gallery */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.gallery-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: #000;
+  transition: opacity 0.4s ease;
+}
+
+.gallery-item:hover img {
+  opacity: 0.92;
+}
+
+/* Architecture / flow diagram */
+.architecture-frame {
+  margin-top: 40px;
+  border: 1px solid var(--border);
+  background: #0a1628;
+  overflow: hidden;
+  position: relative;
+}
+
+.architecture-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.architecture-legend {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-top: none;
+  margin-top: -1px;
+}
+
+.legend-item {
+  background: var(--bg);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.legend-item .legend-code {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  font-weight: 500;
+}
+
+.legend-item.acceso .legend-code { color: #4dd0e1; }
+.legend-item.alumno .legend-code { color: #66bb6a; }
+.legend-item.profesor .legend-code { color: #ff9800; }
+.legend-item.global .legend-code { color: #ef5350; }
+
+.legend-item .legend-label {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.legend-item .legend-desc {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.4;
+  margin-top: 4px;
+}
+
+.gallery-item.span-6 { grid-column: span 6; aspect-ratio: 16/9; }
+.gallery-item.span-4 { grid-column: span 4; aspect-ratio: 16/9; }
+.gallery-item.span-3 { grid-column: span 3; aspect-ratio: 16/9; }
+.gallery-item.span-2 { grid-column: span 2; aspect-ratio: 16/9; }
+
+/* Placeholder visual */
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  gap: 14px;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 12px,
+      rgba(200, 99, 61, 0.05) 12px,
+      rgba(200, 99, 61, 0.05) 14px
+    );
+  text-align: center;
+}
+
+.placeholder .tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 4px 10px;
+  background: var(--bg);
+}
+
+.placeholder .note {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 320px;
+  line-height: 1.4;
+}
+
+.placeholder.large .note { font-size: 22px; max-width: 480px; }
+
+/* Status section */
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.status-item {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 24px;
+}
+
+.status-item .label {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.status-item .check {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.status-item .value {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+/* Project footer */
+.project-footer {
+  border-top: 1px solid var(--border);
+  margin-top: 60px;
+  padding: 80px 40px 40px;
+  background: var(--bg);
+  position: relative;
+  z-index: 1;
+}
+
+.project-footer-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: end;
+  margin-bottom: 60px;
+}
+
+.project-footer h3 {
+  font-family: var(--display);
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.project-footer h3 .italic {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.project-footer .nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.project-footer .nav-links a {
+  color: var(--muted);
+  transition: color 0.3s;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.project-footer .nav-links a:hover { color: var(--accent); }
+
+.project-footer .bottom {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-top: 30px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  nav { padding: 16px 20px; }
+  nav .project-name { display: none; }
+  section { padding: 60px 20px; }
+  .project-hero { padding-top: 100px; }
+  .meta-strip-grid { grid-template-columns: repeat(2, 1fr); }
+  .two-col { grid-template-columns: 1fr; gap: 40px; }
+  .roles-grid { grid-template-columns: 1fr; }
+  .mechanic-item { grid-template-columns: 1fr; gap: 12px; }
+  .palette-row { grid-template-columns: repeat(5, 1fr); }
+  .gallery { grid-template-columns: repeat(2, 1fr); }
+  .gallery-item.span-6, .gallery-item.span-4, .gallery-item.span-3, .gallery-item.span-2 { grid-column: span 2; aspect-ratio: 16/9; }
+  .status-grid { grid-template-columns: 1fr; }
+  .architecture-legend { grid-template-columns: 1fr 1fr; }
+  .project-footer-inner { grid-template-columns: 1fr; gap: 40px; }
+  .project-footer { padding: 60px 20px 30px; }
+}
+</style>
+</head>
+<body class="lang-es">
+
+<nav>
+  <a href="index.html" class="back">← <span class="es">Portfolio</span><span class="en">Portfolio</span></a>
+  <div class="project-name">
+    <img src="assets/ad-aeternum/logo-bn.jpg" alt="Logo Ad Aeternum" class="nav-logo">
+    <span>Ad Aeternum</span>
+  </div>
+  <button id="lang-toggle" class="lang-toggle">EN</button>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section class="project-hero">
+    <div class="meta">
+      <span class="bar"></span>
+      <span class="es">TFG · Videojuego · 2025—2026</span>
+      <span class="en">Final Degree Project · Video game · 2025—2026</span>
+    </div>
+    <h1>Ad <span class="italic">Aeternum</span></h1>
+    <p class="tagline">
+      <span class="es">El profesor diseña el universo. Los alumnos lo exploran.</span>
+      <span class="en">The teacher designs the universe. The students explore it.</span>
+    </p>
+
+    <div class="hero-image">
+      <img src="assets/ad-aeternum/portada.jpg" alt="Pantalla de ingreso de Ad Aeternum con el logo del juego sobre la galaxia">
+    </div>
+
+    <div class="demo-cta">
+      <a href="https://drive.google.com/file/d/1gtjh4DkAHmWkRt_-WnbS87N2kCeh5v72/view?usp=sharing" target="_blank" rel="noopener" class="live-btn">
+        <span class="es">Descargar build</span><span class="en">Download build</span>
+        <span>↓</span>
+      </a>
+      <a href="https://github.com/mariolinlon/AdAeternum" target="_blank" rel="noopener" class="live-btn ghost">
+        <span class="es">Ver repositorio</span><span class="en">View repository</span>
+        <span>↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- META STRIP -->
+  <section class="meta-strip">
+    <div class="meta-strip-grid">
+      <div class="meta-item">
+        <div class="label"><span class="es">Rol</span><span class="en">Role</span></div>
+        <div class="value">Game Designer & Developer</div>
+      </div>
+      <div class="meta-item">
+        <div class="label"><span class="es">Año</span><span class="en">Year</span></div>
+        <div class="value">2025—2026</div>
+      </div>
+      <div class="meta-item">
+        <div class="label"><span class="es">Equipo</span><span class="en">Team</span></div>
+        <div class="value"><span class="es">Individual + supervisión</span><span class="en">Solo + supervision</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="label"><span class="es">Plataforma</span><span class="en">Platform</span></div>
+        <div class="value">iOS · Android · PC</div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Stack</div>
+        <div class="value">Unity · C# · Firebase</div>
+      </div>
+      <div class="meta-item">
+        <div class="label"><span class="es">Estado</span><span class="en">Status</span></div>
+        <div class="value"><span class="es">Completado</span><span class="en">Completed</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PITCH -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">El </span><span class="en">The </span><span class="italic">pitch</span></span>
+      <span class="num">01</span>
+    </h2>
+    <p class="pitch-body">
+      <span class="es">Ad Aeternum es un juego educativo cooperativo-competitivo donde una clase entera juega como flotas espaciales que exploran una galaxia desconocida. El profesor configura el universo y asigna las asignaturas a cada planeta; los alumnos resuelven preguntas académicas para avanzar y enfrentarse a otras flotas. No hay final obligatorio: el viaje se adapta al ritmo del aula y puede extenderse durante todo el curso.</span>
+      <span class="en">Ad Aeternum is an educational cooperative-competitive game where an entire classroom plays as space fleets exploring an unknown galaxy. The teacher configures the universe and assigns subjects to each planet; students answer academic questions to advance and confront other fleets. There's no mandatory ending: the journey adapts to the classroom's pace and can stretch across an entire school year.</span>
+    </p>
+  </section>
+
+  <!-- CONTEXTO -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">El </span><span class="en">The </span><span class="italic">contexto</span><span class="en"> context</span></span>
+      <span class="num">02</span>
+    </h2>
+    <div class="two-col">
+      <div class="body-text">
+        <p>
+          <span class="es">La gamificación en el aula suele aparecer en formato puntual — un Kahoot al final del tema, una dinámica suelta cuando el grupo se desconecta. Ad Aeternum plantea lo contrario: un sistema gamificado <strong>sostenido durante todo un curso</strong>, donde el aula entera comparte una misma narrativa de aventura espacial.</span>
+          <span class="en">Gamification in classrooms usually shows up as one-off moments — a Kahoot at the end of a topic, a quick dynamic when the group disengages. Ad Aeternum proposes the opposite: a gamified system <strong>sustained across an entire course</strong>, where the whole classroom shares the same narrative of space exploration.</span>
+        </p>
+        <p>
+          <span class="es">La idea nace de la colaboración con un docente en activo y se diseña pensando en lo que un profesor realmente necesita: una herramienta <strong>configurable que se adapte a cualquier asignatura</strong>, que no le robe protagonismo y que permita a los alumnos cooperar o competir según convenga al momento del curso.</span>
+          <span class="en">The idea was born from collaboration with a working teacher, designed around what a teacher actually needs: a <strong>configurable tool that adapts to any subject</strong>, doesn't steal the spotlight, and lets students cooperate or compete according to the needs of each moment.</span>
+        </p>
+        <p>
+          <span class="es">El modelo cooperativo-competitivo es deliberado. Las flotas (equipos) cooperan internamente y compiten entre sí. Esto encaja con la realidad de un aula con niveles asimétricos y permite que el profesor active o desactive la competición según la dinámica que quiera generar.</span>
+          <span class="en">The co-op competitive model is deliberate. Fleets (teams) cooperate internally and compete with each other. This fits the reality of a classroom with asymmetric skill levels, and lets the teacher activate or deactivate competition depending on the dynamic they want to create.</span>
+        </p>
+      </div>
+      <div class="two-col-card">
+        <h3><span class="es">Ficha rápida</span><span class="en">Quick facts</span></h3>
+        <ul>
+          <li><span><span class="es">Público</span><span class="en">Audience</span></span><span><span class="es">Configurable</span><span class="en">Configurable</span></span></li>
+          <li><span><span class="es">Asignaturas</span><span class="en">Subjects</span></span><span><span class="es">Cualquiera</span><span class="en">Any</span></span></li>
+          <li><span><span class="es">Jugadores</span><span class="en">Players</span></span><span><span class="es">Aula completa</span><span class="en">Full classroom</span></span></li>
+          <li><span><span class="es">Duración</span><span class="en">Length</span></span><span><span class="es">Indefinida</span><span class="en">Open-ended</span></span></li>
+          <li><span><span class="es">Sesión</span><span class="en">Session</span></span><span><span class="es">30–45 min</span><span class="en">30–45 min</span></span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOOP / MECÁNICAS -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">Diseño y </span><span class="en">Design & </span><span class="italic">mecánicas</span><span class="en"> mechanics</span></span>
+      <span class="num">03</span>
+    </h2>
+
+    <div class="mechanics-list">
+      <div class="mechanic-item">
+        <div class="mech-label"><span class="es">Loop principal</span><span class="en">Core loop</span></div>
+        <div class="mech-body">
+          <span class="es">Cada jugador resuelve preguntas académicas para generar energía. Esa energía se usa para atacar a otras flotas o defenderse de ataques entrantes en tiempo real. Tras cada combate, las flotas avanzan por el mapa de planetas, donde cada planeta es una nueva temática académica configurada previamente por el profesor.</span>
+          <span class="en">Each player solves academic questions to generate energy. That energy is spent on attacking rival fleets or defending against incoming attacks in real time. After each combat, fleets advance through the planet map, where every planet is a new subject configured by the teacher.</span>
+        </div>
+      </div>
+
+      <div class="mechanic-item">
+        <div class="mech-label"><span class="es">Mapa galáctico</span><span class="en">Galaxy map</span></div>
+        <div class="mech-body">
+          <span class="es">Recorrido lineal con tramos semi-lineales donde el jugador puede elegir entre varios planetas. Cada flota tiene su propia niebla de guerra: solo ve los sectores que ha explorado, lo que significa que dos flotas pueden tener mapas revelados distintos aunque jueguen en paralelo. El Almirante tiene visibilidad completa del mapa y diseña el recorrido antes de cada partida.</span>
+          <span class="en">A linear route with semi-linear sections where players choose between several planets. Each fleet has its own fog of war: they only see sectors they've explored, meaning two fleets can have entirely different revealed maps while playing in parallel. The Admiral has full map visibility and designs the route before each match.</span>
+        </div>
+      </div>
+
+      <div class="mechanic-item">
+        <div class="mech-label"><span class="es">Combate académico</span><span class="en">Academic combat</span></div>
+        <div class="mech-body">
+          <span class="es">Los jugadores se reparten en roles temporales de Ataque y Defensa. Para atacar hay que responder correctamente a una pregunta; para defender, responder antes de que se agote el temporizador. El sistema soporta 1v1, combates por equipos y enfrentamientos contra NPCs configurables por el profesor. Las preguntas pueden ser tipo test o de respuesta abierta.</span>
+          <span class="en">Players split into temporary Attack and Defense roles. To attack you must correctly answer a question; to defend, answer before the timer runs out. The system supports 1v1, team combat, and engagements against NPCs configured by the teacher. Questions can be multiple-choice or open-answer.</span>
+        </div>
+      </div>
+
+      <div class="mechanic-item">
+        <div class="mech-label"><span class="es">Progresión y rangos</span><span class="en">Progression & ranks</span></div>
+        <div class="mech-body">
+          <span class="es">Los puntos obtenidos se convierten en medallas individuales y en estrellas colectivas para la nave. Las medallas dan acceso a un sistema de rangos —Tripulante, Cabo, Sargento, Teniente, Capitán, Comandante—; las estrellas, a mejoras visuales de la nave. La progresión es simbólica: refuerza la motivación sin sustituir ni interferir con la evaluación académica del profesor.</span>
+          <span class="en">Points earned translate into individual medals and collective ship stars. Medals unlock a rank system — Crewmember, Corporal, Sergeant, Lieutenant, Captain, Commander; stars unlock visual upgrades for the ship. Progression is symbolic: it reinforces motivation without replacing or interfering with the teacher's academic evaluation.</span>
+        </div>
+      </div>
+
+      <div class="mechanic-item">
+        <div class="mech-label"><span class="es">Sin final obligatorio</span><span class="en">No mandatory ending</span></div>
+        <div class="mech-body">
+          <span class="es">El viaje es el juego. No existe condición de victoria que las flotas deban alcanzar — el profesor puede preparar un planeta final como cierre simbólico del curso si lo considera oportuno, pero el sistema no exige llegar a ningún sitio. La partida puede pausarse, retomarse o extenderse indefinidamente sin que la experiencia pierda coherencia.</span>
+          <span class="en">The journey is the game. There's no win condition fleets must reach — the teacher can prepare a final planet as a symbolic course closure if they wish, but the system never demands it. The match can pause, resume, or stretch indefinitely without losing coherence.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARQUITECTURA DEL SISTEMA -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">Arquitectura del </span><span class="en">System </span><span class="italic">sistema</span><span class="en"> architecture</span></span>
+      <span class="num">04</span>
+    </h2>
+    <div class="body-text">
+      <p>
+        <span class="es">Todo el juego se estructura en cuatro bloques funcionales: <strong>acceso</strong> (autenticación y selección de aula), <strong>alumno</strong> (las pantallas del Tripulante), <strong>profesor</strong> (las pantallas del Almirante) y <strong>modales globales</strong> (toasts, diálogos y ajustes que pueden aparecer sobre cualquier pantalla). El diagrama mapea cada pantalla y todas las transiciones posibles entre ellas.</span>
+        <span class="en">The whole game is structured into four functional blocks: <strong>access</strong> (authentication and classroom selection), <strong>student</strong> (Crewmember screens), <strong>teacher</strong> (Admiral screens), and <strong>global modals</strong> (toasts, dialogs and settings that can appear over any screen). The diagram maps every screen and all possible transitions between them.</span>
+      </p>
+    </div>
+
+    <div class="architecture-frame">
+      <img src="assets/ad-aeternum/flujo-pantallas.png" alt="Diagrama de flujo de pantallas de Ad Aeternum">
+    </div>
+
+    <div class="architecture-legend">
+      <div class="legend-item acceso">
+        <div class="legend-code">00 · ACCESO</div>
+        <div class="legend-label"><span class="es">Login y registro</span><span class="en">Login & sign-up</span></div>
+        <div class="legend-desc"><span class="es">Bifurcación inicial alumno / profesor y entrada al aula.</span><span class="en">Initial student / teacher fork and classroom entry.</span></div>
+      </div>
+      <div class="legend-item alumno">
+        <div class="legend-code">01 · ALUMNO</div>
+        <div class="legend-label"><span class="es">El Tripulante</span><span class="en">The Crewmember</span></div>
+        <div class="legend-desc"><span class="es">Perfil, mapa, flota, combate, resultados y progresión global.</span><span class="en">Profile, map, fleet, combat, results and global progression.</span></div>
+      </div>
+      <div class="legend-item profesor">
+        <div class="legend-code">02 · PROFESOR</div>
+        <div class="legend-label"><span class="es">El Almirante</span><span class="en">The Admiral</span></div>
+        <div class="legend-desc"><span class="es">Editor de planetas, gestión de flotas y monitoreo en tiempo real.</span><span class="en">Planet editor, fleet management and real-time monitoring.</span></div>
+      </div>
+      <div class="legend-item global">
+        <div class="legend-code">03 · GLOBAL</div>
+        <div class="legend-label"><span class="es">Modales</span><span class="en">Modals</span></div>
+        <div class="legend-desc"><span class="es">Sistema de notificaciones, confirmaciones y ajustes superpuestos.</span><span class="en">Notification, confirmation and settings overlay system.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOS DOS ROLES -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">Roles </span><span class="en">Asymmetric </span><span class="italic">asimétricos</span><span class="en"> roles</span></span>
+      <span class="num">05</span>
+    </h2>
+    <div class="body-text">
+      <p>
+        <span class="es">La asimetría entre profesor y alumno no se simula — se construye en el sistema. Mientras los Tripulantes resuelven preguntas a ciegas en sus naves, el Almirante observa el universo entero desde su panel y decide cuándo cruzar flotas o lanzar eventos. La tensión que genera esta diferencia de información es lo que convierte la dinámica del aula en una experiencia de juego real.</span>
+        <span class="en">The asymmetry between teacher and student isn't simulated — it's built into the system. While Crewmembers solve questions blind from their ships, the Admiral observes the entire universe from a dashboard and decides when to cross fleets or trigger events. The tension this information gap creates is what turns classroom dynamics into a real game experience.</span>
+      </p>
+    </div>
+
+    <div class="roles-grid">
+      <div class="role-card">
+        <div class="role-label"><span class="es">Rol 01 · Alumno</span><span class="en">Role 01 · Student</span></div>
+        <h3>El <span class="italic">Tripulante</span></h3>
+        <p class="role-body">
+          <span class="es">El alumno. En cada misión decide si actúa como Atacante o Defensor: lanza preguntas a la flota rival cuando ataca, o responde contrarreloj cuando defiende. Todo se ejecuta desde la interfaz de su nave, con HUD propio que muestra energía, alertas e impactos. Uno de los tripulantes de cada flota es designado como Líder, lo que añade decisiones tácticas — quién ataca, quién defiende, activación de boost o escudo de flota.</span>
+          <span class="en">The student. In every mission they choose whether to act as Attacker or Defender: they fire questions at the rival fleet when attacking, or answer against the clock when defending. Everything runs through their ship's interface, with a personal HUD showing energy, alerts and impacts. One crewmember per fleet is appointed as Leader, adding tactical decisions — who attacks, who defends, when to activate the fleet's boost or shield.</span>
+        </p>
+        <div class="role-image">
+          <img src="assets/ad-aeternum/combate-ataque.png" alt="HUD del Tripulante en modo Ataque">
+        </div>
+      </div>
+      <div class="role-card">
+        <div class="role-label"><span class="es">Rol 02 · Profesor</span><span class="en">Role 02 · Teacher</span></div>
+        <h3>El <span class="italic">Almirante</span></h3>
+        <p class="role-body">
+          <span class="es">El profesor. Antes de la partida diseña el universo: número de planetas, orden del recorrido, temáticas académicas, preguntas por planeta, eventos PvP o contra NPC. Durante la partida supervisa el avance de todas las flotas en tiempo real desde un panel dedicado, ajusta recompensas, activa encuentros entre tripulaciones y consulta los resultados académicos individuales y colectivos. Su rol es de arquitecto y narrador — no participa directamente en el combate.</span>
+          <span class="en">The teacher. Before the match they design the universe: number of planets, route order, academic themes, questions per planet, PvP and vs-NPC events. During play they supervise every fleet's progress in real time from a dedicated dashboard, adjust rewards, trigger encounters between crews, and consult individual and collective academic results. Their role is architect and narrator — they don't participate directly in combat.</span>
+        </p>
+        <div class="role-image">
+          <img src="assets/ad-aeternum/almirante-config.png" alt="Panel de configuración del Almirante">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IDENTIDAD VISUAL -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">Identidad </span><span class="en">Visual </span><span class="italic">visual</span><span class="en"> identity</span></span>
+      <span class="num">06</span>
+    </h2>
+    <div class="body-text">
+      <p>
+        <span class="es">La dirección artística parte de una <strong>ciencia ficción accesible</strong>: formas simples, paleta controlada, tipografía monoespaciada (OCR A Extended) y claridad por encima de espectáculo. La estética refuerza la sensación de viaje y exploración sin saturar visualmente al alumno durante sesiones de aula de 30-45 minutos. Los assets visuales se construyen sobre referencias low-poly (CosmoKit) y diseños de nave estilizados.</span>
+        <span class="en">The art direction starts from <strong>accessible sci-fi</strong>: simple shapes, controlled palette, monospaced typography (OCR A Extended), and clarity over spectacle. The aesthetic reinforces the sense of journey and exploration without overwhelming students during 30-45 minute classroom sessions. Visual assets are built on low-poly references (CosmoKit) and stylized ship designs.</span>
+      </p>
+    </div>
+
+    <div class="palette-row">
+      <div class="palette-swatch" style="background: #0a0e1a;">#0a0e1a</div>
+      <div class="palette-swatch" style="background: #16324a;">#16324a</div>
+      <div class="palette-swatch light" style="background: #3ec9c9;">#3ec9c9</div>
+      <div class="palette-swatch" style="background: #c94f7c;">#c94f7c</div>
+      <div class="palette-swatch light" style="background: #cdae86;">#cdae86</div>
+    </div>
+    <p style="font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 14px; letter-spacing: 0.1em;">
+      <span class="es">↑ Paleta principal de la interfaz: espacio profundo, HUD en cian, acentos magenta y planetas en bronce.</span>
+      <span class="en">↑ Core interface palette: deep space, cyan HUD, magenta accents and bronze planets.</span>
+    </p>
+  </section>
+
+  <!-- GALERÍA -->
+  <section class="content-section">
+    <h2>
+      <span><span class="italic">Galería</span><span class="en">Gallery</span></span>
+      <span class="num">07</span>
+    </h2>
+    <div class="gallery">
+      <div class="gallery-item span-6">
+        <img src="assets/ad-aeternum/gallery/g1-galaxia.jpg" alt="Vista de galaxia y seguimiento del Almirante">
+      </div>
+      <div class="gallery-item span-3">
+        <img src="assets/ad-aeternum/gallery/g2-ranking.jpg" alt="Seguimiento: mejores naves y alumnos">
+      </div>
+      <div class="gallery-item span-3">
+        <img src="assets/ad-aeternum/gallery/g3-editor-planetas.jpg" alt="Editor de planetas del Almirante">
+      </div>
+      <div class="gallery-item span-3">
+        <img src="assets/ad-aeternum/gallery/g4-planeta-preguntas.jpg" alt="Configuración de planeta y editor de preguntas">
+      </div>
+      <div class="gallery-item span-3">
+        <img src="assets/ad-aeternum/gallery/g5-perfil.jpg" alt="Perfil del Tripulante: rango, nivel y títulos">
+      </div>
+      <div class="gallery-item span-6">
+        <img src="assets/ad-aeternum/gallery/g6-combate-prep.jpg" alt="Combate desde la cabina: preparación y selección de objetivo">
+      </div>
+      <div class="gallery-item span-3">
+        <img src="assets/ad-aeternum/gallery/g7-combate-respuesta.jpg" alt="Combate: respuesta contrarreloj desde la nave">
+      </div>
+      <div class="gallery-item span-3">
+        <img src="assets/ad-aeternum/gallery/g8-historial.jpg" alt="Historial de combate y asignación de medallas">
+      </div>
+      <div class="gallery-item span-6">
+        <img src="assets/ad-aeternum/gallery/g9-mapa-tripulante.jpg" alt="Mapa del Tripulante: planetas y navegación">
+      </div>
+    </div>
+    <p style="font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 14px; letter-spacing: 0.1em;">
+      <span class="es">↑ Capturas reales del juego — interfaz del Tripulante y del Almirante.</span>
+      <span class="en">↑ Real in-game captures — Crewmember and Admiral interfaces.</span>
+    </p>
+  </section>
+
+  <!-- ESTADO -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">Estado </span><span class="en">Current </span><span class="italic">actual</span><span class="en"> status</span></span>
+      <span class="num">08</span>
+    </h2>
+    <div class="body-text">
+      <p>
+        <span class="es">El proyecto se desarrolló entre septiembre de 2025 y julio de 2026 como Trabajo Fin de Grado y está <strong>terminado y entregado</strong>: documentado en un Game Design Document completo y con una <strong>build jugable</strong>. La arquitectura del sistema, las interfaces de Tripulante y Almirante, el sistema de combate, el mapa de progresión y el de logros están implementados y funcionales. El siguiente paso natural es <strong>probarlo con alumnos reales en un aula</strong> para validar cómo se comporta el sistema — la verdadera prueba de fuego del diseño.</span>
+        <span class="en">The project was developed between September 2025 and July 2026 as my Final Degree Project and is <strong>finished and delivered</strong>: documented in a complete Game Design Document and shipped as a <strong>playable build</strong>. The system architecture, both Crewmember and Admiral interfaces, the combat system, the progression map, and the achievements system are implemented and functional. The natural next step is <strong>testing it with real students in a classroom</strong> to validate how the system behaves — the design's true trial by fire.</span>
+      </p>
+    </div>
+
+    <div class="status-grid">
+      <div class="status-item">
+        <div class="label"><span class="es">Diseño</span><span class="en">Design</span></div>
+        <div class="value"><span class="check"></span><span class="es">GDD completo</span><span class="en">GDD complete</span></div>
+      </div>
+      <div class="status-item">
+        <div class="label"><span class="es">Build</span><span class="en">Build</span></div>
+        <div class="value"><span class="check"></span><span class="es">Jugable · v0.0.1</span><span class="en">Playable · v0.0.1</span></div>
+      </div>
+      <div class="status-item">
+        <div class="label"><span class="es">Siguiente paso</span><span class="en">Next step</span></div>
+        <div class="value"><span class="check"></span><span class="es">Pruebas en colegio</span><span class="en">School playtesting</span></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="project-footer">
+  <div class="project-footer-inner">
+    <h3>
+      <span class="es">¿Quieres saber <span class="italic">más</span>?</span>
+      <span class="en">Want to know <span class="italic">more</span>?</span>
+    </h3>
+    <div class="nav-links">
+      <a href="index.html">
+        <span><span class="es">Volver al portafolio</span><span class="en">Back to portfolio</span></span>
+        <span>←</span>
+      </a>
+      <a href=

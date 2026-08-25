@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>En proceso — Mario Fernández Martín</title>
+<meta name="description" content="Esta página de proyecto está en construcción.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mariofernandezmartin.pages.dev/en-proceso.html">
+<meta property="og:title" content="En proceso — Mario Fernández Martín">
+<meta property="og:description" content="Caso de estudio en construcción.">
+<meta property="og:image" content="https://mariofernandezmartin.pages.dev/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="En proceso — Mario Fernández Martín">
+<meta name="twitter:description" content="Caso de estudio en construcción.">
+<meta name="twitter:image" content="https://mariofernandezmartin.pages.dev/assets/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5ede0;
+  --surface: #ebe0cc;
+  --surface-2: #e0d2b8;
+  --border: #d0bd9c;
+  --text: #1d2940;
+  --muted: #7a6f5d;
+  --accent: #c8633d;
+  --accent-dim: rgba(200, 99, 61, 0.18);
+  --display: 'Instrument Serif', serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 300;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.10;
+  mix-blend-mode: multiply;
+}
+
+/* Subtle grid */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(to right, rgba(29,41,64,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(29,41,64,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* Nav */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(245, 237, 224, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+nav .back {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  transition: color 0.3s;
+}
+
+nav .back:hover { color: var(--accent); }
+
+nav .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+}
+
+nav .logo .dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--accent);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+/* Main content */
+main {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 140px 40px 80px;
+}
+
+.status-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 8px 18px;
+  margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-tag .pulse {
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+main h1 {
+  font-family: var(--display);
+  font-size: clamp(56px, 11vw, 150px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 30px;
+  max-width: 1000px;
+}
+
+main h1 .italic {
+  font-style: italic;
+  color: var(--accent);
+}
+
+main .subtitle {
+  font-family: var(--mono);
+  font-size: clamp(13px, 1.4vw, 16px);
+  color: var(--muted);
+  max-width: 520px;
+  line-height: 1.7;
+  margin-bottom: 60px;
+}
+
+/* Animated orbit */
+.orbit {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 60px;
+}
+
+.orbit .ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+}
+
+.orbit .ring::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--accent);
+  transform: translateX(-50%);
+}
+
+.orbit .ring.r1 { animation: spin 4s linear infinite; }
+.orbit .ring.r2 { inset: 22px; animation: spin 6s linear infinite reverse; opacity: 0.6; }
+.orbit .ring.r3 { inset: 44px; animation: spin 3s linear infinite; opacity: 0.4; }
+
+.orbit .core {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  background: var(--text);
+  border-radius: 50%;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 28px;
+  border: 1px solid var(--text);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  transition: all 0.3s;
+}
+
+.back-btn:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+
+/* Footer */
+footer {
+  position: relative;
+  z-index: 1;
+  padding: 30px 40px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  nav { padding: 16px 20px; }
+  main { padding: 120px 20px 60px; }
+  footer { padding: 24px 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="back">← Portfolio</a>
+  <div class="logo">
+    <div class="dot"></div>
+    <span>Mario Fdz. / Portfolio'26</span>
+  </div>
+</nav>
+
+<main>
+  <div class="status-tag">
+    <span class="pulse"></span>
+    <span>En construcción</span>
+  </div>
+
+  <div class="orbit">
+    <div class="ring r1"></div>
+    <div class="ring r2"></div>
+    <div class="ring r3"></div>
+    <div class="core"></div>
+  </div>
+
+  <h1>Página <span class="italic">en proceso</span></h1>
+  <p class="subtitle">
+    Este proyecto todavía se está documentando. Vuelve pronto para ver el caso de estudio completo — con capturas, mecánicas y proceso de diseño.
+  </p>
+
+  <a href="index.html" class="back-btn">← Volver al portafolio</a>
+</main>
+
+<footer>
+  <div>© 2026 Mario Fernández Martín</div>
+  <div>Made with code & coffee in León</div>
+</footer>
+
+</body>
+</html>

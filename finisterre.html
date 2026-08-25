@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finisterre — Mario Fernández Martín</title>
+<meta name="description" content="Finisterre — RPG de granja y vida ambientado en la España rural y su folclore, desarrollado en Unity dirigiendo agentes de IA.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mariofernandezmartin.pages.dev/finisterre.html">
+<meta property="og:title" content="Finisterre — Mario Fernández Martín">
+<meta property="og:description" content="RPG de granja y vida sobre la España rural y su folclore. Unity, desarrollado dirigiendo agentes de IA.">
+<meta property="og:image" content="https://mariofernandezmartin.pages.dev/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Finisterre — Mario Fernández Martín">
+<meta name="twitter:description" content="RPG de granja y vida sobre la España rural y su folclore. Unity, desarrollado dirigiendo agentes de IA.">
+<meta name="twitter:image" content="https://mariofernandezmartin.pages.dev/assets/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5ede0;
+  --surface: #ebe0cc;
+  --surface-2: #e0d2b8;
+  --border: #d0bd9c;
+  --text: #1d2940;
+  --muted: #7a6f5d;
+  --accent: #c8633d;
+  --accent-dim: rgba(200, 99, 61, 0.18);
+  --display: 'Instrument Serif', serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 300;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.10;
+  mix-blend-mode: multiply;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(to right, rgba(29,41,64,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(29,41,64,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.lang-es .en { display: none; }
+.lang-en .es { display: none; }
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(245, 237, 224, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+nav .back { display: flex; align-items: center; gap: 10px; color: var(--muted); transition: color 0.3s; }
+nav .back:hover { color: var(--accent); }
+
+nav .project-name { font-weight: 500; display: flex; align-items: center; gap: 10px; }
+
+nav .project-name .dot {
+  width: 8px; height: 8px; background: var(--accent); border-radius: 50%;
+  box-shadow: 0 0 12px var(--accent); animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+.lang-toggle {
+  background: transparent; border: 1px solid var(--border); color: var(--muted);
+  font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em;
+  padding: 8px 14px; cursor: pointer; transition: all 0.3s;
+}
+.lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+main { position: relative; z-index: 1; }
+section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
+
+.project-hero { padding-top: 140px; padding-bottom: 60px; }
+
+.project-hero .meta {
+  font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em;
+  color: var(--muted); margin-bottom: 30px; display: flex; align-items: center; gap: 12px;
+}
+.project-hero .meta .bar { width: 40px; height: 1px; background: var(--accent); }
+
+.project-hero h1 {
+  font-family: var(--display); font-size: clamp(56px, 11vw, 170px); font-weight: 400;
+  line-height: 0.9; letter-spacing: -0.02em; margin-bottom: 30px;
+}
+.project-hero h1 .italic { font-style: italic; color: var(--accent); }
+
+.project-hero .tagline {
+  font-family: var(--display); font-style: italic; font-size: clamp(22px, 2.5vw, 32px);
+  color: var(--text); max-width: 720px; line-height: 1.3;
+}
+
+.hero-image { margin-top: 50px; border: 1px solid var(--border); background: #fff; overflow: hidden; position: relative; }
+.hero-image img { display: block; width: 100%; height: auto; }
+
+.demo-cta { margin-top: 24px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.demo-cta-note { font-family: var(--mono); font-size: 12px; color: var(--muted); max-width: 420px; line-height: 1.5; }
+.tag-pill {
+  display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; border: 1px solid var(--border);
+  color: var(--muted); font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em;
+}
+.tag-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 1.6s ease-in-out infinite; }
+
+.meta-strip { padding-top: 30px; padding-bottom: 60px; }
+.meta-strip-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+.meta-item { background: var(--bg); padding: 24px 20px; display: flex; flex-direction: column; gap: 8px; }
+.meta-item .label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--muted); }
+.meta-item .value { font-family: var(--display); font-style: italic; font-size: 20px; line-height: 1.2; }
+
+.content-section { padding-top: 60px; padding-bottom: 60px; }
+.content-section h2 {
+  font-family: var(--display); font-size: clamp(32px, 4.5vw, 56px); font-weight: 400; line-height: 1;
+  margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: baseline; gap: 20px;
+}
+.content-section h2 .italic { font-style: italic; color: var(--accent); }
+.content-section h2 .num { font-family: var(--mono); font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.2em; font-style: normal; }
+
+.body-text { font-size: 16px; line-height: 1.75; max-width: 760px; }
+.body-text p { margin-bottom: 20px; }
+.body-text p:last-child { margin-bottom: 0; }
+.body-text strong { color: var(--accent); font-weight: 500; }
+
+.tech-detail { margin-top: 20px; }
+.tech-row {
+  display: grid; grid-template-columns: 220px 1fr; gap: 40px; padding: 24px 0;
+  border-bottom: 1px solid var(--border); align-items: baseline;
+}
+.tech-row:first-child { border-top: 1px solid var(--border); }
+.tech-row .tech-key { font-family: var(--display); font-style: italic; font-size: 22px; line-height: 1.2; }
+.tech-row .tech-val { font-size: 14px; line-height: 1.7; color: var(--text); }
+
+.note-block {
+  margin-top: 40px; border: 1px dashed var(--border); background: var(--surface);
+  padding: 28px 30px; display: flex; align-items: center; gap: 16px;
+  font-family: var(--display); font-style: italic; font-size: 18px; color: var(--muted); line-height: 1.4;
+}
+.note-block .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; animation: pulse 1.6s ease-in-out infinite; }
+
+.project-footer { border-top: 1px solid var(--border); margin-top: 40px; padding: 80px 40px 40px; background: var(--bg); position: relative; z-index: 1; }
+.project-footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 60px; }
+.project-footer h3 { font-family: var(--display); font-size: clamp(36px, 5vw, 64px); font-weight: 400; line-height: 1; }
+.project-footer h3 .italic { font-style: italic; color: var(--accent); }
+.project-footer .nav-links { display: flex; flex-direction: column; gap: 14px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; }
+.project-footer .nav-links a { color: var(--muted); transition: color 0.3s; display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.project-footer .nav-links a:hover { color: var(--accent); }
+.project-footer .bottom { max-width: 1200px; margin: 0 auto; padding-top: 30px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); flex-wrap: wrap; gap: 12px; }
+
+@media (max-width: 900px) {
+  nav { padding: 16px 20px; }
+  nav .project-name { display: none; }
+  section { padding: 60px 20px; }
+  .project-hero { padding-top: 100px; }
+  .meta-strip-grid { grid-template-columns: repeat(2, 1fr); }
+  .tech-row { grid-template-columns: 1fr; gap: 8px; }
+  .project-footer-inner { grid-template-columns: 1fr; gap: 40px; }
+  .project-footer { padding: 60px 20px 30px; }
+}
+</style>
+</head>
+<body class="lang-es">
+
+<nav>
+  <a href="index.html" class="back">← Portfolio</a>
+  <div class="project-name">
+    <div class="dot"></div>
+    <span>Finisterre</span>
+  </div>
+  <button id="lang-toggle" class="lang-toggle">EN</button>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section class="project-hero">
+    <div class="meta">
+      <span class="bar"></span>
+      <span class="es">Videojuego · RPG de vida · En desarrollo</span>
+      <span class="en">Video game · Life RPG · In development</span>
+    </div>
+    <h1>Finis<span class="italic">terre</span></h1>
+    <p class="tagline">
+      <span class="es">Un RPG de granja y vida arraigado en la España rural y su folclore.</span>
+      <span class="en">A farming & life RPG rooted in rural Spain and its folklore.</span>
+    </p>
+
+    <div class="hero-image">
+      <img src="assets/finisterre/hero.svg" alt="Ilustración de Finisterre: costa, faro, campos y casas de piedra">
+    </div>
+
+    <div class="demo-cta">
+      <span class="tag-pill"><span class="dot"></span><span class="es">En desarrollo activo</span><span class="en">In active development</span></span>
+      <span class="demo-cta-note">
+        <span class="es">Build jugable y capturas de gameplay, próximamente.</span>
+        <span class="en">Playable build and gameplay captures, coming soon.</span>
+      </span>
+    </div>
+  </section>
+
+  <!-- META STRIP -->
+  <section class="meta-strip">
+    <div class="meta-strip-grid">
+      <div class="meta-item">
+        <div class="label"><span class="es">Rol</span><span class="en">Role</span></div>
+        <div class="value">Game director & dev</div>
+      </div>
+      <div class="meta-item">
+        <div class="label"><span class="es">Tipo</span><span class="en">Type</span></div>
+        <div class="value"><span class="es">RPG de vida / granja</span><span class="en">Life / farming RPG</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Stack</div>
+        <div class="value">Unity · C#</div>
+      </div>
+      <div class="meta-item">
+        <div class="label"><span class="es">Estado</span><span class="en">Status</span></div>
+        <div class="value"><span class="es">En desarrollo</span><span class="en">In development</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUÉ ES -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">Qué </span><span class="en">What it </span><span class="italic">es</span><span class="en"> is</span></span>
+      <span class="num">01</span>
+    </h2>
+    <div class="body-text">
+      <p>
+        <span class="es">Finisterre es un <strong>RPG de granja y vida</strong> —en la línea de Stardew Valley o Animal Crossing— pero con una identidad propia: <strong>la España rural y su folclore</strong>. Desde las rías y el faro de Finisterre, en la Costa da Morte gallega, hasta las praderas de posidonia del Mediterráneo, el juego convierte el campo, el mar y el pueblo ibéricos en su mundo.</span>
+        <span class="en">Finisterre is a <strong>farming & life RPG</strong> —in the vein of Stardew Valley or Animal Crossing— but with its own identity: <strong>rural Spain and its folklore</strong>. From the rías and the lighthouse of Finisterre, on the Galician Costa da Morte, to the Mediterranean posidonia meadows, the game turns the Iberian countryside, sea and village into its world.</span>
+      </p>
+      <p>
+        <span class="es">El jugador cultiva, cría ganado, caza, pesca, recolecta y teje relaciones con los vecinos, mientras hace <strong>revivir poco a poco un pueblo</strong>. Cada actividad alimenta un sistema de oficios y niveles que desbloquea nuevas recetas y posibilidades.</span>
+        <span class="en">Players farm, raise livestock, hunt, fish, forage and build relationships with the neighbours, while slowly <strong>bringing a village back to life</strong>. Every activity feeds a system of skills and levels that unlocks new recipes and possibilities.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- SISTEMAS -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">Sistemas de </span><span class="en">Game </span><span class="italic">juego</span><span class="en"> systems</span></span>
+      <span class="num">02</span>
+    </h2>
+    <div class="tech-detail">
+      <div class="tech-row">
+        <div class="tech-key"><span class="es">Granja y estaciones</span><span class="en">Farm & seasons</span></div>
+        <div class="tech-val">
+          <span class="es">Cultivar, cosechar y el ciclo de estaciones como base de la economía del juego.</span>
+          <span class="en">Growing, harvesting and the seasonal cycle as the backbone of the game's economy.</span>
+        </div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-key"><span class="es">Oficios y niveles</span><span class="en">Skills & levels</span></div>
+        <div class="tech-val">
+          <span class="es">Seis oficios —caza, pesca, cultivos, ganado, recolección y social— que ganan experiencia con su actividad y desbloquean crafteables. El nivel general del jugador crece con ellos, y con él suben los máximos de energía y de vida.</span>
+          <span class="en">Six skills —hunting, fishing, farming, livestock, foraging and social— that gain experience through their activity and unlock craftables. The player's overall level grows with them, raising the maximum energy and health.</span>
+        </div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-key"><span class="es">Energía y vida</span><span class="en">Energy & health</span></div>
+        <div class="tech-val">
+          <span class="es">Barra de energía que se gasta con las herramientas y se recupera al comer y dormir; la vida queda enganchada para cobrar sentido con el combate y los peligros.</span>
+          <span class="en">An energy bar spent on tools and restored by eating and sleeping; the health bar is wired in, ready to matter once combat and hazards arrive.</span>
+        </div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-key"><span class="es">El pueblo revive</span><span class="en">The village revives</span></div>
+        <div class="tech-val">
+          <span class="es">Lo que produces y construyes reactiva poco a poco el pueblo: da propósito a cada cosecha y cada mejora.</span>
+          <span class="en">What you produce and build gradually reactivates the village: it gives purpose to every harvest and every upgrade.</span>
+        </div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-key"><span class="es">Pesca submarina y tesoros</span><span class="en">Spearfishing & treasure</span></div>
+        <div class="tech-val">
+          <span class="es">Buceo con oxígeno por rías, cuevas y pecios: arponear, recolectar y sobre todo buscar tesoros —ánforas romanas, restos de naufragios—. Un pilar de exploración, no un minijuego.</span>
+          <span class="en">Oxygen-based diving through rías, caves and shipwrecks: spearfishing, foraging and above all treasure hunting —Roman amphorae, wreck remains. A pillar of exploration, not a minigame.</span>
+        </div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-key"><span class="es">Vida social</span><span class="en">Social life</span></div>
+        <div class="tech-val">
+          <span class="es">Vecinos con amistad, misiones y festivales que dan vida al pueblo.</span>
+          <span class="en">Neighbours with friendship, quests and festivals that bring the village alive.</span>
+        </div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-key"><span class="es">Combate</span><span class="en">Combat</span></div>
+        <div class="tech-val">
+          <span class="es">Peligros y combate (la mina) que dan sentido a la barra de vida y añaden riesgo a la exploración.</span>
+          <span class="en">Hazards and combat (the mine) that give meaning to the health bar and add risk to exploration.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESARROLLO CON IA -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">Desarrollo dirigido con </span><span class="en">AI-directed </span><span class="italic">IA</span><span class="en"> development</span></span>
+      <span class="num">03</span>
+    </h2>
+    <div class="body-text">
+      <p>
+        <span class="es">Finisterre es también un experimento de método. Lo desarrollo como <strong>game director</strong>: no escribiendo cada línea, sino dirigiendo. Defino la visión, las mecánicas y las decisiones de diseño en un GDD y un banco de ideas, y unos <strong>agentes de IA implementan</strong> desde una cola de tareas priorizada.</span>
+        <span class="en">Finisterre is also an experiment in method. I develop it as a <strong>game director</strong>: not writing every line, but directing. I define the vision, mechanics and design decisions in a GDD and an idea bank, and <strong>AI agents implement</strong> from a prioritized task queue.</span>
+      </p>
+      <p>
+        <span class="es">Mi trabajo es el <strong>criterio</strong>: qué se construye, en qué orden y con qué calidad. Reviso, corrijo y encajo cada pieza en la visión del juego, depurando errores y ajustando lo que no cuadra. Es llevar al extremo lo que significa ser un desarrollador potenciado por IA — la IA como equipo, y el diseño como el volante.</span>
+        <span class="en">My job is <strong>judgment</strong>: what gets built, in what order and to what quality. I review, correct and fit each piece into the game's vision, debugging and adjusting whatever doesn't fit. It pushes to the limit what being an AI-powered developer means — AI as the team, and design as the wheel.</span>
+      </p>
+    </div>
+    <div class="tech-detail">
+      <div class="tech-row">
+        <div class="tech-key">Director</div>
+        <div class="tech-val"><span class="es">Yo: visión, diseño, prioridades y control de calidad.</span><span class="en">Me: vision, design, priorities and quality control.</span></div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-key"><span class="es">Agentes de IA</span><span class="en">AI agents</span></div>
+        <div class="tech-val"><span class="es">Implementación en Unity/C# desde una cola de tareas que reviso y corrijo.</span><span class="en">Implementation in Unity/C# from a task queue I review and correct.</span></div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-key"><span class="es">GDD y banco de ideas</span><span class="en">GDD & idea bank</span></div>
+        <div class="tech-val"><span class="es">La memoria del proyecto: dónde viven la visión, las decisiones y las ideas por madurar.</span><span class="en">The project's memory: where the vision, decisions and ideas-in-progress live.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTADO -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">Estado </span><span class="en">Current </span><span class="italic">actual</span><span class="en"> status</span></span>
+      <span class="num">04</span>
+    </h2>
+    <div class="body-text">
+      <p>
+        <span class="es">El proyecto está en <strong>desarrollo activo</strong> en Unity. El núcleo de granja y herramientas, el mapa por zonas (Galicia, bosque…) y varios sistemas ya están en marcha; ahora mismo se integran la energía, los niveles de oficios y la pesca submarina. El objetivo es seguir dándole cuerpo hacia una primera build jugable.</span>
+        <span class="en">The project is in <strong>active development</strong> in Unity. The core farming and tools, the zone-based map (Galicia, forest…) and several systems are already running; energy, skill levels and spearfishing are being integrated right now. The goal is to keep fleshing it out toward a first playable build.</span>
+      </p>
+    </div>
+    <div class="note-block">
+      <span class="dot"></span>
+      <span>
+        <span class="es">Capturas de gameplay y build jugable — próximamente. Vuelve para ver el caso de estudio completo.</span>
+        <span class="en">Gameplay captures and a playable build — coming soon. Check back for the full case study.</span>
+      </span>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="project-footer">
+  <div class="project-footer-inner">
+    <h3>
+      <span class="es">Más <span class="italic">proyectos</span></span>
+      <span class="en">More <span class="italic">projects</span></span>
+    </h3>
+    <div class="nav-links">
+      <a href="index.html">
+        <span><span class="es">Volver al portafolio</span><span class="en">Back to portfolio</span></span>
+        <span>←</span>
+      </a>
+      <a href="ad-aeternum.html">
+        <span>Ad Aeternum</span>
+        <span>→</span>
+      </a>
+      <a href="mailto:mariofdz2011@gmail.com">
+        <span><span class="es">Contactar</span><span class="en">Contact</span></span>
+        <span>↗</span>
+      </a>
+    </div>
+  </div>
+  <div class="bottom">
+    <div>© 2026 Mario Fernández Martín</div>
+    <div>Finisterre · <span class="es">Videojuego</span><span class="en">Video game</span></div>
+  </div>
+</footer>
+
+<script>
+const body = document.body;
+const btn = document.getElementById('lang-toggle');
+const saved = localStorage.getItem('lang') || 'es';
+body.className = `lang-${saved}`;
+document.documentElement.lang = saved;
+btn.textContent = saved === 'es' ? 'EN' : 'ES';
+btn.addEventListener('click', () => {
+  const next = body.classList.contains('lang-es') ? 'en' : 'es';
+  body.className = `lang-${next}`;
+  document.documentElement.lang = next;
+  btn.textContent = next === 'es' ? 'EN' : 'ES';
+  localStorage.setItem('lang', next);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hunter Trade Center — Mario Fernández Martín</title>
+<meta name="description" content="Hunter Trade Center — app (Flutter + Firebase) de red social y trueque de permisos de caza entre cazadores. Proyecto personal en pausa.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mariofernandezmartin.pages.dev/hunter-trade.html">
+<meta property="og:title" content="Hunter Trade Center — Mario Fernández Martín">
+<meta property="og:description" content="App (Flutter + Firebase) de red social y trueque de permisos de caza entre cazadores. Proyecto personal.">
+<meta property="og:image" content="https://mariofernandezmartin.pages.dev/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hunter Trade Center — Mario Fernández Martín">
+<meta name="twitter:description" content="App (Flutter + Firebase) de red social y trueque de permisos de caza entre cazadores. Proyecto personal.">
+<meta name="twitter:image" content="https://mariofernandezmartin.pages.dev/assets/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5ede0;
+  --surface: #ebe0cc;
+  --surface-2: #e0d2b8;
+  --border: #d0bd9c;
+  --text: #1d2940;
+  --muted: #7a6f5d;
+  --accent: #c8633d;
+  --accent-dim: rgba(200, 99, 61, 0.18);
+  --display: 'Instrument Serif', serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 300;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.10;
+  mix-blend-mode: multiply;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(to right, rgba(29,41,64,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(29,41,64,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.lang-es .en { display: none; }
+.lang-en .es { display: none; }
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(245, 237, 224, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+nav .back { display: flex; align-items: center; gap: 10px; color: var(--muted); transition: color 0.3s; }
+nav .back:hover { color: var(--accent); }
+
+nav .project-name { font-weight: 500; display: flex; align-items: center; gap: 10px; }
+
+nav .project-name .dot {
+  width: 8px; height: 8px; background: var(--accent); border-radius: 50%;
+  box-shadow: 0 0 12px var(--accent); animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+.lang-toggle {
+  background: transparent; border: 1px solid var(--border); color: var(--muted);
+  font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em;
+  padding: 8px 14px; cursor: pointer; transition: all 0.3s;
+}
+.lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+main { position: relative; z-index: 1; }
+section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
+
+.project-hero { padding-top: 140px; padding-bottom: 60px; }
+
+.project-hero .meta {
+  font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em;
+  color: var(--muted); margin-bottom: 30px; display: flex; align-items: center; gap: 12px;
+}
+.project-hero .meta .bar { width: 40px; height: 1px; background: var(--accent); }
+
+.project-hero h1 {
+  font-family: var(--display); font-size: clamp(52px, 10vw, 150px); font-weight: 400;
+  line-height: 0.9; letter-spacing: -0.02em; margin-bottom: 30px;
+}
+.project-hero h1 .italic { font-style: italic; color: var(--accent); }
+
+.project-hero .tagline {
+  font-family: var(--display); font-style: italic; font-size: clamp(22px, 2.5vw, 32px);
+  color: var(--text); max-width: 720px; line-height: 1.3;
+}
+
+.hero-image { margin-top: 50px; border: 1px solid var(--border); background: #20301f; overflow: hidden; position: relative; }
+.hero-image img { display: block; width: 100%; height: auto; }
+
+.demo-cta { margin-top: 24px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.demo-cta-note { font-family: var(--mono); font-size: 12px; color: var(--muted); max-width: 420px; line-height: 1.5; }
+.tag-pill {
+  display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; border: 1px solid var(--border);
+  color: var(--muted); font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em;
+}
+.tag-pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 1.6s ease-in-out infinite; }
+
+.meta-strip { padding-top: 30px; padding-bottom: 60px; }
+.meta-strip-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+}
+.meta-item { background: var(--bg); padding: 24px 20px; display: flex; flex-direction: column; gap: 8px; }
+.meta-item .label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--muted); }
+.meta-item .value { font-family: var(--display); font-style: italic; font-size: 20px; line-height: 1.2; }
+
+.content-section { padding-top: 60px; padding-bottom: 60px; }
+.content-section h2 {
+  font-family: var(--display); font-size: clamp(32px, 4.5vw, 56px); font-weight: 400; line-height: 1;
+  margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: baseline; gap: 20px;
+}
+.content-section h2 .italic { font-style: italic; color: var(--accent); }
+.content-section h2 .num { font-family: var(--mono); font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.2em; font-style: normal; }
+
+.body-text { font-size: 16px; line-height: 1.75; max-width: 760px; }
+.body-text p { margin-bottom: 20px; }
+.body-text p:last-child { margin-bottom: 0; }
+.body-text strong { color: var(--accent); font-weight: 500; }
+
+.feats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 40px; }
+.feat { background: var(--bg); padding: 34px 32px; }
+.feat h3 { font-family: var(--display); font-style: italic; font-size: 26px; font-weight: 400; margin-bottom: 20px; display: flex; align-items: baseline; gap: 12px; }
+.feat h3 .badge { font-family: var(--mono); font-style: normal; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; padding: 3px 9px; border: 1px solid var(--accent); color: var(--accent); }
+.feat.todo h3 .badge { border-color: var(--border); color: var(--muted); }
+.feat ul { list-style: none; }
+.feat li { padding: 10px 0; border-bottom: 1px dashed var(--border); font-size: 13.5px; line-height: 1.55; color: var(--text); }
+.feat li:last-child { border-bottom: none; }
+.feat.todo li { color: var(--muted); }
+
+.tech-detail { margin-top: 20px; }
+.tech-row {
+  display: grid; grid-template-columns: 220px 1fr; gap: 40px; padding: 24px 0;
+  border-bottom: 1px solid var(--border); align-items: baseline;
+}
+.tech-row:first-child { border-top: 1px solid var(--border); }
+.tech-row .tech-key { font-family: var(--display); font-style: italic; font-size: 22px; line-height: 1.2; }
+.tech-row .tech-val { font-size: 14px; line-height: 1.7; color: var(--text); }
+
+.note-block {
+  margin-top: 40px; border: 1px dashed var(--border); background: var(--surface);
+  padding: 28px 30px; display: flex; align-items: center; gap: 16px;
+  font-family: var(--display); font-style: italic; font-size: 18px; color: var(--muted); line-height: 1.4;
+}
+.note-block .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; animation: pulse 1.6s ease-in-out infinite; }
+
+.project-footer { border-top: 1px solid var(--border); margin-top: 40px; padding: 80px 40px 40px; background: var(--bg); position: relative; z-index: 1; }
+.project-footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin-bottom: 60px; }
+.project-footer h3 { font-family: var(--display); font-size: clamp(36px, 5vw, 64px); font-weight: 400; line-height: 1; }
+.project-footer h3 .italic { font-style: italic; color: var(--accent); }
+.project-footer .nav-links { display: flex; flex-direction: column; gap: 14px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; }
+.project-footer .nav-links a { color: var(--muted); transition: color 0.3s; display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.project-footer .nav-links a:hover { color: var(--accent); }
+.project-footer .bottom { max-width: 1200px; margin: 0 auto; padding-top: 30px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); flex-wrap: wrap; gap: 12px; }
+
+@media (max-width: 900px) {
+  nav { padding: 16px 20px; }
+  nav .project-name { display: none; }
+  section { padding: 60px 20px; }
+  .project-hero { padding-top: 100px; }
+  .meta-strip-grid { grid-template-columns: repeat(2, 1fr); }
+  .feats { grid-template-columns: 1fr; }
+  .tech-row { grid-template-columns: 1fr; gap: 8px; }
+  .project-footer-inner { grid-template-columns: 1fr; gap: 40px; }
+  .project-footer { padding: 60px 20px 30px; }
+}
+</style>
+</head>
+<body class="lang-es">
+
+<nav>
+  <a href="index.html" class="back">← Portfolio</a>
+  <div class="project-name">
+    <div class="dot"></div>
+    <span>Hunter Trade Center</span>
+  </div>
+  <button id="lang-toggle" class="lang-toggle">EN</button>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section class="project-hero">
+    <div class="meta">
+      <span class="bar"></span>
+      <span class="es">App · Red social & trueque · En pausa</span>
+      <span class="en">App · Social & barter · On hold</span>
+    </div>
+    <h1>Hunter Trade <span class="italic">Center</span></h1>
+    <p class="tagline">
+      <span class="es">Una app para que los cazadores se encuentren e intercambien permisos de caza.</span>
+      <span class="en">An app for hunters to meet and trade hunting permits.</span>
+    </p>
+
+    <div class="hero-image">
+      <img src="assets/hunter-trade/hero.png" alt="Logo de Hunter Trade Center: cabeza de ciervo con el símbolo de trueque en la frente">
+    </div>
+
+    <div class="demo-cta">
+      <span class="tag-pill"><span class="dot"></span><span class="es">Proyecto en pausa</span><span class="en">Project on hold</span></span>
+      <span class="demo-cta-note">
+        <span class="es">Proyecto personal en solitario, pendiente de retomar.</span>
+        <span class="en">A solo personal project, pending resumption.</span>
+      </span>
+    </div>
+  </section>
+
+  <!-- META STRIP -->
+  <section class="meta-strip">
+    <div class="meta-strip-grid">
+      <div class="meta-item">
+        <div class="label"><span class="es">Rol</span><span class="en">Role</span></div>
+        <div class="value"><span class="es">Diseño & desarrollo (solo)</span><span class="en">Design & dev (solo)</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="label"><span class="es">Tipo</span><span class="en">Type</span></div>
+        <div class="value"><span class="es">App social + trueque</span><span class="en">Social + barter app</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Stack</div>
+        <div class="value">Flutter · Firebase</div>
+      </div>
+      <div class="meta-item">
+        <div class="label"><span class="es">Estado</span><span class="en">Status</span></div>
+        <div class="value"><span class="es">En pausa</span><span class="en">On hold</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUÉ ES -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">Qué </span><span class="en">What it </span><span class="italic">es</span><span class="en"> is</span></span>
+      <span class="num">01</span>
+    </h2>
+    <div class="body-text">
+      <p>
+        <span class="es">Hunter Trade Center es una <strong>app móvil y web</strong> —no es un juego— a medio camino entre <strong>red social y marketplace de trueque</strong>, para un nicho muy concreto: los cazadores. La idea es que cazadores de distintas regiones se encuentren en un directorio e <strong>intercambien permisos de caza</strong> ("trueques"), poniéndose en contacto mediante un chat interno.</span>
+        <span class="en">Hunter Trade Center is a <strong>mobile and web app</strong> —not a game— halfway between a <strong>social network and a barter marketplace</strong>, for a very specific niche: hunters. The idea is that hunters from different regions meet in a directory and <strong>trade hunting permits</strong> ("trueques"), getting in touch through an internal chat.</span>
+      </p>
+      <p>
+        <span class="es">El planteamiento es <strong>España primero</strong>, con vocación de crecer a otros países. Es un proyecto personal que desarrollé en solitario para practicar un producto real de principio a fin.</span>
+        <span class="en">The approach is <strong>Spain first</strong>, with the ambition to grow to other countries. It's a personal project I built solo to practice shipping a real product end to end.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- FUNCIONES -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">Qué </span><span class="en">What it </span><span class="italic">hace</span><span class="en"> does</span></span>
+      <span class="num">02</span>
+    </h2>
+    <div class="feats">
+      <div class="feat done">
+        <h3><span class="es">Implementado</span><span class="en">Implemented</span> <span class="badge"><span class="es">en el código</span><span class="en">in code</span></span></h3>
+        <ul>
+          <li><span class="es">Registro e inicio de sesión por email (Firebase Auth).</span><span class="en">Email sign-up and login (Firebase Auth).</span></li>
+          <li><span class="es">Perfil del cazador: ubicación, país, foto, especies/permisos, "lo que busco" y notas.</span><span class="en">Hunter profile: location, country, photo, species/permits, "what I'm looking for" and notes.</span></li>
+          <li><span class="es">Directorio de cazadores con búsqueda y filtros por ubicación y por especie.</span><span class="en">Hunter directory with search and filters by location and species.</span></li>
+          <li><span class="es">Ficha de cazador con especies, reputación y acciones de contacto.</span><span class="en">Hunter card with species, reputation and contact actions.</span></li>
+          <li><span class="es">Chat 1-a-1 en tiempo real y lista "Mis chats" con globos de no leídos.</span><span class="en">Real-time 1-on-1 chat and a "My chats" list with unread badges.</span></li>
+          <li><span class="es">Motor de coincidencias ("Trueques"): cruza lo que ofreces con lo que otros buscan.</span><span class="en">Matching engine ("Trueques"): cross-references what you offer with what others seek.</span></li>
+          <li><span class="es">Perfil público/privado con privacidad reforzada en el servidor.</span><span class="en">Public/private profile with server-side privacy enforcement.</span></li>
+          <li><span class="es">Reportar y bloquear, valoraciones con estrellas y reputación visible.</span><span class="en">Report and block, star ratings and visible reputation.</span></li>
+          <li><span class="es">Verificación de perfil (insignia + solicitud) y temas visuales.</span><span class="en">Profile verification (badge + request) and visual themes.</span></li>
+        </ul>
+      </div>
+      <div class="feat todo">
+        <h3><span class="es">Pendiente</span><span class="en">Pending</span> <span class="badge"><span class="es">planeado</span><span class="en">planned</span></span></h3>
+        <ul>
+          <li><span class="es">Notificaciones push (FCM): código escrito, pero sin desplegar ni activar.</span><span class="en">Push notifications (FCM): code written, but not deployed or enabled.</span></li>
+          <li><span class="es">Verificación "de verdad": hoy es aprobación manual, sin panel de admin ni subida de documento.</span><span class="en">"Real" verification: currently manual approval, without an admin panel or document upload.</span></li>
+          <li><span class="es">Ampliar cobertura: hoy solo España; faltan más países, especies e idiomas.</span><span class="en">Wider coverage: currently Spain only; more countries, species and languages pending.</span></li>
+          <li><span class="es">Integridad anti-trampas de las valoraciones (lógica de servidor).</span><span class="en">Anti-cheat integrity for ratings (server-side logic).</span></li>
+          <li><span class="es">Tests, analítica/reporte de errores y publicación en tiendas.</span><span class="en">Tests, analytics/error reporting and store publishing.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO ESTÁ HECHO -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">Cómo está </span><span class="en">How it's </span><span class="italic">hecho</span><span class="en"> built</span></span>
+      <span class="num">03</span>
+    </h2>
+    <div class="tech-detail">
+      <div class="tech-row">
+        <div class="tech-key"><span class="es">Framework</span><span class="en">Framework</span></div>
+        <div class="tech-val"><span class="es">Flutter + Dart con Material 3, para una sola base de código en móvil y web.</span><span class="en">Flutter + Dart with Material 3, for a single codebase across mobile and web.</span></div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-key">Backend</div>
+        <div class="tech-val"><span class="es">Firebase: Authentication, Cloud Firestore (con reglas de seguridad propias desplegadas) y Storage para las fotos. Cloud Functions en Node.js escritas, pendientes de desplegar.</span><span class="en">Firebase: Authentication, Cloud Firestore (with custom deployed security rules) and Storage for photos. Cloud Functions in Node.js written, pending deployment.</span></div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-key"><span class="es">Plataformas</span><span class="en">Platforms</span></div>
+        <div class="tech-val"><span class="es">Móvil (Android/iOS) y web; probado ejecutándose en web (Chrome).</span><span class="en">Mobile (Android/iOS) and web; tested running on web (Chrome).</span></div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-key"><span class="es">Paquetes clave</span><span class="en">Key packages</span></div>
+        <div class="tech-val">firebase_core · firebase_auth · cloud_firestore · firebase_storage · image_picker · firebase_messaging</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESTADO -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">Estado </span><span class="en">Current </span><span class="italic">actual</span><span class="en"> status</span></span>
+      <span class="num">04</span>
+    </h2>
+    <div class="body-text">
+      <p>
+        <span class="es">Desarrollada en solitario entre <strong>2025 y 2026</strong>, la app <strong>compila y se ejecuta en web</strong>: funcionan el login, el perfil (con foto), el directorio, el chat y "Mis chats". El resto de funciones está implementado en el código y las reglas de servidor están desplegadas. Para considerarla "completa" faltaría activar las notificaciones push, la verificación con documento, ampliar países/especies/idiomas, tests, analítica y la publicación en tiendas. Está <strong>en pausa</strong>, pendiente de retomar.</span>
+        <span class="en">Built solo between <strong>2025 and 2026</strong>, the app <strong>compiles and runs on web</strong>: login, profile (with photo), directory, chat and "My chats" all work. The rest is implemented in code and the server rules are deployed. To call it "complete" it would still need push notifications, document-based verification, more countries/species/languages, tests, analytics and store publishing. It's <strong>on hold</strong>, pending resumption.</span>
+      </p>
+    </div>
+    <div class="note-block">
+      <span class="dot"></span>
+      <span>
+        <span class="es">Capturas reales de la interfaz — pendientes. La UI vive en la app en ejecución; se añadirán al retomar el proyecto.</span>
+        <span class="en">Real UI captures — pending. The UI lives in the running app; they'll be added when the project resumes.</span>
+      </span>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="project-footer">
+  <div class="project-footer-inner">
+    <h3>
+      <span class="es">Más <span class="italic">proyectos</span></span>
+      <span class="en">More <span class="italic">projects</span></span>
+    </h3>
+    <div class="nav-links">
+      <a href="index.html">
+        <span><span class="es">Volver al portafolio</span><span class="en">Back to portfolio</span></span>
+        <span>←</span>
+      </a>
+      <a href="finisterre.html">
+        <span>Finisterre</span>
+        <span>→</span>
+      </a>
+      <a href="mailto:mariofdz2011@gmail.com">
+        <span><span class="es">Contactar</span><span class="en">Contact</span></span>
+        <span>↗</span>
+      </a>
+    </div>
+  </div>
+  <div class="bottom">
+    <div>© 2026 Mario Fernández Martín</div>
+    <div>Hunter Trade Center · <span class="es">App</span><span class="en">App</span></div>
+  </div>
+</footer>
+
+<script>
+const body = document.body;
+const btn = document.getElementById('lang-toggle');
+const saved = localStorage.getItem('lang') || 'es';
+body.className = `lang-${saved}`;
+document.documentElement.lang = saved;
+btn.textContent = saved === 'es' ? 'EN' : 'ES';
+btn.addEventListener('click', () => {
+  const next = body.classList.contains('lang-es') ? 'en' : 'es';
+  body.className = `lang-${next}`;
+  document.documentElement.lang = next;
+  btn.textContent = next === 'es' ? 'EN' : 'ES';
+  localStorage.setItem('lang', next);
+});
+</script>
+
+</body>
+</html>

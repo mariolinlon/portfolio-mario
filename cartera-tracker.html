@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cartera Tracker — Mario Fernández Martín</title>
+<meta name="description" content="Cartera Tracker — aplicación web para seguimiento de carteras de inversión con precios en tiempo real, análisis por sectores y modo simulación.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mariofernandezmartin.pages.dev/cartera-tracker.html">
+<meta property="og:title" content="Cartera Tracker — Mario Fernández Martín">
+<meta property="og:description" content="App web para seguimiento de carteras de inversión con precios en tiempo real y análisis por sectores.">
+<meta property="og:image" content="https://mariofernandezmartin.pages.dev/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cartera Tracker — Mario Fernández Martín">
+<meta name="twitter:description" content="App web para seguimiento de carteras de inversión con precios en tiempo real y análisis por sectores.">
+<meta name="twitter:image" content="https://mariofernandezmartin.pages.dev/assets/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5ede0;
+  --surface: #ebe0cc;
+  --surface-2: #e0d2b8;
+  --border: #d0bd9c;
+  --text: #1d2940;
+  --muted: #7a6f5d;
+  --accent: #c8633d;
+  --accent-dim: rgba(200, 99, 61, 0.18);
+  --display: 'Instrument Serif', serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.6;
+  font-weight: 300;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.10;
+  mix-blend-mode: multiply;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(to right, rgba(29,41,64,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(29,41,64,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.lang-es .en { display: none; }
+.lang-en .es { display: none; }
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(245, 237, 224, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+nav .back {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  transition: color 0.3s;
+}
+
+nav .back:hover { color: var(--accent); }
+
+nav .project-name {
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+nav .project-name .dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--accent);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+.lang-toggle {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+main { position: relative; z-index: 1; }
+section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
+
+.project-hero {
+  padding-top: 140px;
+  padding-bottom: 60px;
+}
+
+.project-hero .meta {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.project-hero .meta .bar { width: 40px; height: 1px; background: var(--accent); }
+
+.project-hero h1 {
+  font-family: var(--display);
+  font-size: clamp(56px, 11vw, 170px);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  margin-bottom: 30px;
+}
+
+.project-hero h1 .italic { font-style: italic; color: var(--accent); }
+
+.project-hero .tagline {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: clamp(22px, 2.5vw, 32px);
+  color: var(--text);
+  max-width: 720px;
+  line-height: 1.3;
+}
+
+.hero-image {
+  margin-top: 50px;
+  border: 1px solid var(--border);
+  background: #fff;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-image img { display: block; width: 100%; height: auto; }
+
+.demo-cta {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.live-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  transition: all 0.3s;
+}
+
+.live-btn:hover { background: var(--accent); color: var(--bg); }
+
+.live-btn.disabled {
+  border-color: var(--border);
+  color: var(--muted);
+  cursor: default;
+  pointer-events: none;
+}
+
+.demo-cta-note {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  max-width: 360px;
+  line-height: 1.5;
+}
+
+.meta-strip { padding-top: 30px; padding-bottom: 60px; }
+
+.meta-strip-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.meta-item {
+  background: var(--bg);
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.meta-item .label {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+}
+
+.meta-item .value {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.content-section { padding-top: 60px; padding-bottom: 60px; }
+
+.content-section h2 {
+  font-family: var(--display);
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.content-section h2 .italic { font-style: italic; color: var(--accent); }
+
+.content-section h2 .num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-style: normal;
+}
+
+.body-text {
+  font-size: 16px;
+  line-height: 1.75;
+  max-width: 720px;
+}
+
+.body-text p { margin-bottom: 20px; }
+.body-text p:last-child { margin-bottom: 0; }
+.body-text strong { color: var(--accent); font-weight: 500; }
+
+/* Feature grid — the 4 views */
+.views-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-top: 40px;
+}
+
+.view-card {
+  background: var(--bg);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.view-card .view-shot {
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+
+.view-card .view-shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.view-card:hover .view-shot img {
+  transform: scale(1.03);
+}
+
+.view-card .view-body {
+  padding: 32px;
+}
+
+.view-card .view-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+
+.view-card h3 {
+  font-family: var(--display);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.view-card h3 .italic { font-style: italic; }
+
+.view-card p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+/* Tech list */
+.tech-detail {
+  margin-top: 20px;
+}
+
+.tech-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 40px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: baseline;
+}
+
+.tech-row:first-child { border-top: 1px solid var(--border); }
+
+.tech-row .tech-key {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 22px;
+}
+
+.tech-row .tech-val {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.project-footer {
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+  padding: 80px 40px 40px;
+  background: var(--bg);
+  position: relative;
+  z-index: 1;
+}
+
+.project-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: end;
+  margin-bottom: 60px;
+}
+
+.project-footer h3 {
+  font-family: var(--display);
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.project-footer h3 .italic { font-style: italic; color: var(--accent); }
+
+.project-footer .nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.project-footer .nav-links a {
+  color: var(--muted);
+  transition: color 0.3s;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.project-footer .nav-links a:hover { color: var(--accent); }
+
+.project-footer .bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 30px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  nav { padding: 16px 20px; }
+  nav .project-name { display: none; }
+  section { padding: 60px 20px; }
+  .project-hero { padding-top: 100px; }
+  .meta-strip-grid { grid-template-columns: repeat(2, 1fr); }
+  .views-grid { grid-template-columns: 1fr; }
+  .tech-row { grid-template-columns: 1fr; gap: 8px; }
+  .project-footer-inner { grid-template-columns: 1fr; gap: 40px; }
+  .project-footer { padding: 60px 20px 30px; }
+}
+</style>
+</head>
+<body class="lang-es">
+
+<nav>
+  <a href="index.html" class="back">← Portfolio</a>
+  <div class="project-name">
+    <div class="dot"></div>
+    <span>Cartera Tracker</span>
+  </div>
+  <button id="lang-toggle" class="lang-toggle">EN</button>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section class="project-hero">
+    <div class="meta">
+      <span class="bar"></span>
+      <span class="es">Producto · Web App · 2026</span>
+      <span class="en">Product · Web App · 2026</span>
+    </div>
+    <h1>Cartera <span class="italic">Tracker</span></h1>
+    <p class="tagline">
+      <span class="es">Toda tu cartera de inversión, viva y en un vistazo.</span>
+      <span class="en">Your entire investment portfolio, live and at a glance.</span>
+    </p>
+
+    <div class="hero-image">
+      <img src="assets/cartera-tracker/dashboard.png" alt="Dashboard de Cartera Tracker">
+    </div>
+
+    <div class="demo-cta">
+      <a href="https://cartera-6tj.pages.dev/" target="_blank" rel="noopener" class="live-btn" id="live-link">
+        <span class="es">Ver en vivo</span>
+        <span class="en">View live</span>
+        <span>↗</span>
+      </a>
+      <span class="demo-cta-note">
+        <span class="es">Todos los datos mostrados son de demostración.</span>
+        <span class="en">All data shown is for demonstration purposes.</span>
+      </span>
+    </div>
+  </section>
+
+  <!-- META STRIP -->
+  <section class="meta-strip">
+    <div class="meta-strip-grid">
+      <div class="meta-item">
+        <div class="label"><span class="es">Rol</span><span class="en">Role</span></div>
+        <div class="value"><span class="es">Diseño & desarrollo</span><span class="en">Design & dev</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="label"><span class="es">Tipo</span><span class="en">Type</span></div>
+        <div class="value"><span class="es">App web</span><span class="en">Web app</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Stack</div>
+        <div class="value">JS · Firebase</div>
+      </div>
+      <div class="meta-item">
+        <div class="label"><span class="es">Estado</span><span class="en">Status</span></div>
+        <div class="value"><span class="es">Desplegado</span><span class="en">Deployed</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUÉ ES -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">Qué </span><span class="en">What it </span><span class="italic">es</span><span class="en"> is</span></span>
+      <span class="num">01</span>
+    </h2>
+    <div class="body-text">
+      <p>
+        <span class="es">Cartera Tracker es una <strong>aplicación web para seguir carteras de inversión</strong>: acciones, ETFs, divisas y criptomonedas en un único panel. Calcula el valor total, el beneficio o pérdida (P&L) realizado y no realizado, el reparto por sectores y el nivel de concentración y riesgo de la cartera.</span>
+        <span class="en">Cartera Tracker is a <strong>web app for tracking investment portfolios</strong>: stocks, ETFs, currencies and crypto in a single dashboard. It computes total value, realized and unrealized profit/loss (P&L), sector distribution, and the portfolio's concentration and risk levels.</span>
+      </p>
+      <p>
+        <span class="es">La idea era tener una herramienta propia, sin las limitaciones de las apps de bróker: con análisis de riesgo automático, una vista de simulación para planear operaciones antes de ejecutarlas, y precios actualizados en tiempo real desde APIs de mercado.</span>
+        <span class="en">The goal was to build a personal tool, free from the limitations of broker apps: automatic risk analysis, a simulation view to plan trades before executing them, and real-time prices pulled from market APIs.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- LAS 4 VISTAS -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">Seis </span><span class="en">Six </span><span class="italic">vistas</span><span class="en"> views</span></span>
+      <span class="num">02</span>
+    </h2>
+    <div class="views-grid">
+      <div class="view-card">
+        <div class="view-shot"><img src="assets/cartera-tracker/vista-resumen.png" alt="Vista Resumen"></div>
+        <div class="view-body">
+          <div class="view-tag">01</div>
+          <h3><span class="italic">Resumen</span></h3>
+          <p>
+            <span class="es">Vista de un vistazo: valor total y P&L global con color, métricas clave (invertido, líquido, concentración top 3, riesgo especulativo, sectores activos), gráfico de distribución por sector y top ganadoras / perdedoras.</span>
+            <span class="en">The at-a-glance view: total value and global P&L with color, key metrics (invested, liquid, top-3 concentration, speculative risk, active sectors), sector distribution chart and top winners / losers.</span>
+          </p>
+        </div>
+      </div>
+      <div class="view-card">
+        <div class="view-shot"><img src="assets/cartera-tracker/vista-hoy.png" alt="Vista Hoy"></div>
+        <div class="view-body">
+          <div class="view-tag">02</div>
+          <h3><span class="italic">Hoy</span></h3>
+          <p>
+            <span class="es">El rendimiento de la sesión: cuánto sube o baja la cartera hoy, cuántas posiciones están en verde y en rojo, el mejor y el peor del día, y el detalle posición por posición.</span>
+            <span class="en">The session's performance: how much the portfolio is up or down today, how many positions are green and red, the best and worst of the day, and a position-by-position breakdown.</span>
+          </p>
+        </div>
+      </div>
+      <div class="view-card">
+        <div class="view-shot"><img src="assets/cartera-tracker/vista-posiciones.png" alt="Vista Posiciones"></div>
+        <div class="view-body">
+          <div class="view-tag">03</div>
+          <h3><span class="italic">Posiciones</span></h3>
+          <p>
+            <span class="es">Gestión completa: posiciones activas, cerradas y todas, con valor, P&L, peso y coste medio. Cada una editable o vendible al tocarla. Importar posiciones y añadir nuevas manualmente.</span>
+            <span class="en">Full management: active, closed and all positions, with value, P&L, weight and average cost. Each editable or sellable on tap. Import positions and add new ones manually.</span>
+          </p>
+        </div>
+      </div>
+      <div class="view-card">
+        <div class="view-shot"><img src="assets/cartera-tracker/vista-historial.png" alt="Vista Historial"></div>
+        <div class="view-body">
+          <div class="view-tag">04</div>
+          <h3><span class="italic">Historial</span></h3>
+          <p>
+            <span class="es">El registro de operaciones: total de compras y ventas, capital movido y P&L realizado, con desglose acumulado por ticker y la lista completa de transacciones en vista de cards, lista o tabla.</span>
+            <span class="en">The trade log: total buys and sells, capital moved and realized P&L, with accumulated breakdown by ticker and the full transaction list in cards, list or table view.</span>
+          </p>
+        </div>
+      </div>
+      <div class="view-card">
+        <div class="view-shot"><img src="assets/cartera-tracker/vista-analisis.png" alt="Vista Análisis"></div>
+        <div class="view-body">
+          <div class="view-tag">05</div>
+          <h3><span class="italic">Análisis</span></h3>
+          <p>
+            <span class="es">La radiografía: evolución temporal de la cartera (no realizado, realizado y total) con rangos de 30 días a desde inicio, más gráficos de P&L por sector y por posición.</span>
+            <span class="en">The breakdown: the portfolio's evolution over time (unrealized, realized and total) with ranges from 30 days to since inception, plus P&L charts by sector and by position.</span>
+          </p>
+        </div>
+      </div>
+      <div class="view-card">
+        <div class="view-shot"><img src="assets/cartera-tracker/vista-simular.png" alt="Vista Simular"></div>
+        <div class="view-body">
+          <div class="view-tag">06</div>
+          <h3><span class="italic">Simular</span></h3>
+          <p>
+            <span class="es">El modo más potente: activa SIM y toda la cartera se recalcula en tiempo real. Añade compras o ventas hipotéticas con ticker, sector y tesis, ve el impacto, y aplica los cambios a la cartera real cuando quieras.</span>
+            <span class="en">The most powerful mode: enable SIM and the whole portfolio recalculates in real time. Add hypothetical buys or sells with ticker, sector and thesis, see the impact, and apply changes to the real portfolio whenever you want.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO ESTÁ HECHO -->
+  <section class="content-section">
+    <h2>
+      <span><span class="es">Cómo está </span><span class="en">How it's </span><span class="italic">hecho</span><span class="en"> built</span></span>
+      <span class="num">03</span>
+    </h2>
+    <div class="tech-detail">
+      <div class="tech-row">
+        <div class="tech-key">Frontend</div>
+        <div class="tech-val">
+          <span class="es">Aplicación construida en HTML, CSS y JavaScript, con una interfaz de pestañas para las cuatro vistas y componentes de gráficos para la visualización de datos.</span>
+          <span class="en">Built with HTML, CSS and JavaScript, with a tabbed interface for the four views and chart components for data visualization.</span>
+        </div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-key">Datos en vivo</div>
+        <div class="tech-val">
+          <span class="es">Precios de mercado en tiempo real obtenidos desde APIs financieras (Yahoo Finance, Finnhub), servidas a través de un Cloudflare Worker propio que actúa como proxy para evitar restricciones CORS y ocultar las claves.</span>
+          <span class="en">Real-time market prices fetched from financial APIs (Yahoo Finance, Finnhub), served through a custom Cloudflare Worker acting as a proxy to bypass CORS restrictions and hide API keys.</span>
+        </div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-key">Persistencia</div>
+        <div class="tech-val">
+          <span class="es">Los datos de la cartera se guardan y se restauran automáticamente al recargar, de modo que el estado de la cartera persiste entre sesiones.</span>
+          <span class="en">Portfolio data is saved and automatically restored on reload, so the portfolio state persists across sessions.</span>
+        </div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-key">Despliegue</div>
+        <div class="tech-val">
+          <span class="es">Alojado en Cloudflare Pages, con el Worker desplegado en la misma infraestructura para mantener todo el stack en un solo proveedor.</span>
+          <span class="en">Hosted on Cloudflare Pages, with the Worker deployed on the same infrastructure to keep the whole stack with a single provider.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="project-footer">
+  <div class="project-footer-inner">
+    <h3>
+      <span class="es">Más <span class="italic">proyectos</span></span>
+      <span class="en">More <span class="italic">projects</span></span>
+    </h3>
+    <div class="nav-links">
+      <a href="index.html">
+        <span><span class="es">Volver al portafolio</span><span class="en">Back to portfolio</span></span>
+        <span>←</span>
+      </a>
+      <a href="ad-aeternum.html">
+        <span>Ad Aeternum (TFG)</span>
+        <span>→</span>
+      </a>
+      <a href="mailto:mariofdz2011@gmail.com">
+        <span><span class="es">Contactar</span><span class="en">Contact</span></span>
+        <span>↗</span>
+      </a>
+    </div>
+  </div>
+  <div class="bottom">
+    <div>© 2026 Mario Fernández Martín</div>
+    <div>Cartera Tracker · Web App</div>
+  </div>
+</footer>
+
+<script>
+// Language toggle
+const body = document.body;
+const btn = document.getElementById('lang-toggle');
+const saved = localStorage.getItem('lang') || 'es';
+body.className = `lang-${saved}`;
+document.documentElement.lang = saved;
+btn.textContent = saved === 'es' ? 'EN' : 'ES';
+btn.addEventListener('click', () => {
+  const next = body.classList.contains('lang-es') ? 'en' : 'es';
+  body.className = `lang-${next}`;
+  document.documentElement.lang = next;
+  btn.textContent = next === 'es' ? 'EN' : 'ES';
+  localStorage.setItem('lang', next);
+});
+</script>
+
+</body>
+</html>
