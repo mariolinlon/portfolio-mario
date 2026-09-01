@@ -432,6 +432,17 @@ section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
 .gallery-item.span-3 { grid-column: span 3; aspect-ratio: 16/9; }
 .gallery-item.span-2 { grid-column: span 2; aspect-ratio: 16/10; }
 
+/* Capturas de interfaz: se ven ENTERAS. Con `cover` y 21/9 se perdía
+   media pantalla, que en una captura de producto es justo lo que se
+   quiere enseñar. */
+.gallery-item.captura { aspect-ratio: 1245 / 726; background: #0b1219; }
+.gallery-item.captura img { object-fit: contain; }
+/* Capturas de móvil: son verticales, así que la caja se hace alta y la
+   imagen se centra sin recortar. Un móvil metido en una caja 16/9 se
+   queda en un sello. */
+.gallery-item.movil { aspect-ratio: 3 / 4; background: #0b1219; }
+.gallery-item.movil img { object-fit: contain; }
+
 .gallery-item img,
 .gallery-item video {
   width: 100%;
@@ -588,6 +599,7 @@ section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
   .tech-row { grid-template-columns: 1fr; gap: 8px; }
   .gallery { grid-template-columns: repeat(2, 1fr); }
   .gallery-item.span-6, .gallery-item.span-3, .gallery-item.span-2 { grid-column: span 2; aspect-ratio: 16/9; }
+  .gallery-item.captura { aspect-ratio: 1245 / 726; }
   .status-grid { grid-template-columns: 1fr; }
   .project-footer-inner { grid-template-columns: 1fr; gap: 40px; }
   .project-footer { padding: 60px 20px 30px; }
@@ -630,8 +642,8 @@ section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
       <img src="assets/gimnasio-app/hero.jpg" alt="App de gimnasio: ilustración de concepto del panel web y la app móvil">
     </div>
     <p style="font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 14px; letter-spacing: 0.1em;">
-      <span class="es">↑ Ilustración de concepto con datos ficticios — no son capturas del producto. Las capturas reales llegarán con la primera versión.</span>
-      <span class="en">↑ Concept illustration with fictional data — not product captures. Real captures will come with the first version.</span>
+      <span class="es">↑ Ilustración de concepto. Las capturas reales del panel están más abajo, en la galería.</span>
+      <span class="en">↑ Concept illustration. Real captures of the panel are further down, in the gallery.</span>
     </p>
   </section>
 
@@ -644,7 +656,7 @@ section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
       </div>
       <div class="meta-item">
         <div class="label"><span class="es">Contexto</span><span class="en">Context</span></div>
-        <div class="value"><span class="es">Primer encargo de Lughion · gimnasio de León</span><span class="en">Lughion's first commission · gym in León</span></div>
+        <div class="value"><span class="es">Primer producto de Lughion · piloto en León</span><span class="en">Lughion's first product · pilot in León</span></div>
       </div>
       <div class="meta-item">
         <div class="label"><span class="es">Plataforma</span><span class="en">Platform</span></div>
@@ -656,7 +668,7 @@ section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
       </div>
       <div class="meta-item">
         <div class="label"><span class="es">Estado</span><span class="en">Status</span></div>
-        <div class="value"><span class="es">En desarrollo</span><span class="en">In development</span></div>
+        <div class="value"><span class="es">En desarrollo · auditado · pre-lanzamiento</span><span class="en">In development · audited · pre-launch</span></div>
       </div>
     </div>
   </section>
@@ -677,8 +689,16 @@ section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
         <span class="en">The problem it tackles isn't "managing a gym" but <strong>retention</strong>: most people who sign up stop going within a few months. So the product brings member and trainer into one system (workouts, progression, weekly plan, appointments) and adds a <strong>gamification</strong> layer designed around why people come back, not around what buttons the screen has.</span>
       </p>
       <p>
-        <span class="es">Tiene dos caras: una <strong>app móvil</strong> (React Native + Expo) para socios y entrenadores, y un <strong>panel web</strong> (Next.js) para el dueño y el staff del gimnasio. Todo apoyado en Supabase / PostgreSQL, con la lógica crítica viviendo en el servidor.</span>
-        <span class="en">It has two faces: a <strong>mobile app</strong> (React Native + Expo) for members and trainers, and a <strong>web panel</strong> (Next.js) for the gym owner and staff. All of it backed by Supabase / PostgreSQL, with the critical logic living on the server.</span>
+        <span class="es">Tiene dos caras: una <strong>app móvil</strong> (React Native + Expo) para socios y entrenadores, y un <strong>panel web</strong> (Next.js) para el dueño y el staff. Todo apoyado en Supabase / PostgreSQL, con la lógica crítica viviendo en el servidor.</span>
+        <span class="en">It has two faces: a <strong>mobile app</strong> (React Native + Expo) for members and trainers, and a <strong>web panel</strong> (Next.js) for the owner and staff. All of it backed by Supabase / PostgreSQL, with the critical logic living on the server.</span>
+      </p>
+      <p>
+        <span class="es">Lo que empezó como un encargo se convirtió en <strong>producto</strong>. El modelo soporta <strong>cadenas con varias sedes</strong>, donde cada sede puede llevarle la contraseña a su central en lo que le afecta, y tiene un <strong>modelo de precios cerrado</strong> —degresivo por socio activo, con mínimo y tope por sede— pensado para que un gimnasio pequeño pueda pagarlo el primer mes.</span>
+        <span class="en">What started as a commission became a <strong>product</strong>. The model supports <strong>chains with several branches</strong>, where each branch can override its head office on what affects it, and it has a <strong>closed pricing model</strong> — degressive per active member, with a floor and a per-branch cap — designed so a small gym can afford it from month one.</span>
+      </p>
+      <p>
+        <span class="es">Y una parte que no se ve en las pantallas y condiciona todo lo demás: la app maneja <strong>lesiones, mediciones corporales y nutrición</strong>. Eso son datos de salud, categoría especial del artículo 9 del RGPD. No es una funcionalidad más: cambia cómo se guarda, quién puede leerlo, cuánto tiempo se conserva y qué pasa el día que alguien pide sus datos o quiere borrarse.</span>
+        <span class="en">And a part you don't see on screen that shapes everything else: the app handles <strong>injuries, body measurements and nutrition</strong>. That is health data — GDPR Article 9 special category. It isn't just another feature: it changes how it's stored, who can read it, how long it's kept and what happens the day someone asks for their data or wants to be erased.</span>
       </p>
     </div>
   </section>
@@ -709,6 +729,20 @@ section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
         <div class="mech-body">
           <span class="es">Calendario de clases y actividades con reservas y aforo, gestión de entrenadores y socios, registro por códigos de invitación, y un panel de administración con analítica de retención. Y un sistema de <strong>módulos activables</strong>: cada gimnasio enciende o apaga funcionalidades (tablón, gamificación, citas…) sin tocar código.</span>
           <span class="en">Class and activity calendar with bookings and capacity, trainer and member management, sign-up by invitation codes, and an admin panel with retention analytics. Plus a system of <strong>switchable modules</strong>: each gym turns features on or off (board, gamification, appointments…) without touching code.</span>
+        </div>
+      </div>
+      <div class="mechanic-item">
+        <div class="mech-label"><span class="es">Salud y privacidad</span><span class="en">Health &amp; privacy</span></div>
+        <div class="mech-body">
+          <span class="es">Lesiones, mediciones y diario de comidas viven detrás de <strong>consentimientos que impiden de verdad</strong>: si el socio no ha dado ese permiso, la base rechaza la escritura — no es una casilla que solo esconde una pantalla. Cada socio puede <strong>pedir todos sus datos</strong> y <strong>borrar su cuenta</strong> desde la app, y cada dato tiene un plazo de conservación declarado y una purga que lo cumple.</span>
+          <span class="en">Injuries, measurements and the food diary sit behind <strong>consents that actually block</strong>: if the member hasn't granted that permission, the database refuses the write — it isn't a checkbox that merely hides a screen. Every member can <strong>request all their data</strong> and <strong>delete their account</strong> from the app, and every datum has a declared retention period and a purge that enforces it.</span>
+        </div>
+      </div>
+      <div class="mechanic-item">
+        <div class="mech-label"><span class="es">Recepción y retención</span><span class="en">Front desk &amp; retention</span></div>
+        <div class="mech-body">
+          <span class="es">Control de acceso: el socio enseña un código de un solo uso que caduca en 60 segundos y recepción lo valida. De ahí sale el dato que alimenta lo importante: <strong>quién se está yendo</strong>. Cada persona se compara <strong>consigo misma</strong>, no con la media — quien viene una vez por semana desde siempre no es un problema; quien venía tres y ahora viene una, sí. Más informes de asistencia, horas punta y ocupación de clases.</span>
+          <span class="en">Access control: the member shows a single-use code that expires in 60 seconds and the desk validates it. That feeds what matters: <strong>who is drifting away</strong>. Each person is compared <strong>against themselves</strong>, not against the average — someone who has always come once a week isn't a problem; someone who came three times and now comes once is. Plus attendance reports, peak hours and class occupancy.</span>
         </div>
       </div>
       <div class="mechanic-item">
@@ -778,8 +812,40 @@ section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
         <div class="ch-num">06</div>
         <h3><span class="es">Migraciones </span><span class="en">Versioned </span><span class="italic"><span class="es">versionadas</span><span class="en">migrations</span></span></h3>
         <p>
-          <span class="es">Dieciséis migraciones SQL numeradas, del núcleo a la gamificación, y un paquete compartido con los tipos y el motor de reglas para que app y panel hablen el mismo idioma. Desarrollo por vertical slices: cada semana hay algo que se puede tocar.</span>
-          <span class="en">Sixteen numbered SQL migrations, from the core to gamification, and a shared package with types and the rules engine so app and panel speak the same language. Vertical-slice development: every week there's something you can touch.</span>
+          <span class="es"><strong>97 migraciones SQL numeradas</strong> y unas 16.000 líneas: 58 tablas, 213 funciones, 126 políticas RLS y 40 triggers. Cada una lleva escrito en la cabecera <em>por qué</em> existe y qué rompía antes. Nada se toca a mano en producción.</span>
+          <span class="en"><strong>97 numbered SQL migrations</strong> and some 16,000 lines: 58 tables, 213 functions, 126 RLS policies and 40 triggers. Each one states in its header <em>why</em> it exists and what used to break. Nothing is touched by hand in production.</span>
+        </p>
+      </div>
+      <div class="challenge-card">
+        <div class="ch-num">07</div>
+        <h3><span class="es">Pruebas que </span><span class="en">Tests that </span><span class="italic"><span class="es">fallan antes</span><span class="en">fail first</span></span></h3>
+        <p>
+          <span class="es">18 suites de regresión en SQL. La regla: una prueba tiene que <strong>fallar contra el código anterior</strong> y pasar con el nuevo, o no prueba nada. Cada negativa lleva su control positivo, y afirma <em>el motivo</em> del rechazo — no basta con que algo falle, tiene que fallar por lo que se dice. Han cazado tres correcciones que yo daba por buenas leyendo el código.</span>
+          <span class="en">18 SQL regression suites. The rule: a test must <strong>fail against the previous code</strong> and pass with the new one, or it proves nothing. Every negative case carries its positive control and asserts <em>the reason</em> for the rejection — it isn't enough that something fails, it has to fail for the stated reason. They caught three fixes I had judged correct by reading the code.</span>
+        </p>
+      </div>
+      <div class="challenge-card">
+        <div class="ch-num">08</div>
+        <h3><span class="es">Auditoría de </span><span class="en">Security </span><span class="italic"><span class="es">seguridad</span><span class="en">audit</span></span></h3>
+        <p>
+          <span class="es">Se auditó el sistema entero contra sí mismo: hallazgos numerados, puntuados por impacto × explotabilidad × exposición, y corregidos con su migración y su prueba. Salieron cosas serias — funciones ejecutables por usuarios anónimos, un permiso por defecto de PostgreSQL que reabría el agujero en cada función nueva. Se arregló, y hay un sensor que avisa si se vuelve a abrir.</span>
+          <span class="en">The whole system was audited against itself: numbered findings, scored by impact × exploitability × exposure, each fixed with its own migration and test. Serious things surfaced — functions executable by anonymous users, a PostgreSQL default privilege that reopened the hole on every new function. It was fixed, and a sensor now warns if it reopens.</span>
+        </p>
+      </div>
+      <div class="challenge-card">
+        <div class="ch-num">09</div>
+        <h3><span class="es">Sedes que llevan </span><span class="en">Branches that </span><span class="italic"><span class="es">la contraria</span><span class="en">override</span></span></h3>
+        <p>
+          <span class="es">Una cadena decide por defecto y cada sede puede apartarse: una clave ausente se hereda, una presente manda. La central puede además <strong>fijar</strong> un módulo con candado y entonces la sede ni lo ve. La regla de herencia vive en la base, no copiada en cada pantalla — de eso ya me enseñó un interruptor que se veía apagado estando encendido.</span>
+          <span class="en">A chain decides by default and each branch can deviate: a missing key is inherited, a present one wins. Head office can also <strong>lock</strong> a module, and then the branch can't even see it. The inheritance rule lives in the database, not copied into every screen — a switch that showed off while being on already taught me that.</span>
+        </p>
+      </div>
+      <div class="challenge-card">
+        <div class="ch-num">10</div>
+        <h3><span class="es">Textos legales </span><span class="en">Legal texts </span><span class="italic"><span class="es">con versión</span><span class="en">with a version</span></span></h3>
+        <p>
+          <span class="es">La política de privacidad y las condiciones viven en la base con <strong>versión y país</strong>, y la aceptación queda registrada contra la versión concreta que se firmó. Cambiar el contenido de una versión ya aceptada convertiría todos los consentimientos guardados en papel mojado, así que el sistema lo impide: si el texto cambia, se publica una versión nueva y se vuelve a aceptar.</span>
+          <span class="en">The privacy policy and terms live in the database with a <strong>version and a country</strong>, and acceptance is recorded against the exact version that was signed. Editing the content of an already-accepted version would turn every stored consent into waste paper, so the system forbids it: if the text changes, a new version is published and re-accepted.</span>
         </p>
       </div>
     </div>
@@ -792,34 +858,31 @@ section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
       <span class="num">04</span>
     </h2>
     <div class="gallery">
-      <div class="gallery-item span-6">
-        <div class="placeholder">
-          <span class="tag"><span class="es">Captura pendiente</span><span class="en">Capture pending</span></span>
-          <span class="note"><span class="es">Panel web del gimnasio: calendario y analítica</span><span class="en">Gym web panel: calendar and analytics</span></span>
-        </div>
+      <div class="gallery-item span-6 captura">
+        <img src="assets/gimnasio-app/panel-personas.jpg" alt="Panel: gestión de personas, con códigos de invitación, empleados y sus títulos, y la lista de socios" loading="lazy">
       </div>
-      <div class="gallery-item span-2">
-        <div class="placeholder">
-          <span class="tag"><span class="es">Captura pendiente</span><span class="en">Capture pending</span></span>
-          <span class="note"><span class="es">Móvil: sesión de hoy</span><span class="en">Mobile: today's session</span></span>
-        </div>
+      <div class="gallery-item span-3 captura">
+        <img src="assets/gimnasio-app/panel-funcionalidades.jpg" alt="Panel: los módulos activables por secciones, con el candado que los fija para todas las sedes" loading="lazy">
       </div>
-      <div class="gallery-item span-2">
-        <div class="placeholder">
-          <span class="tag"><span class="es">Captura pendiente</span><span class="en">Capture pending</span></span>
-          <span class="note"><span class="es">Móvil: gamificación</span><span class="en">Mobile: gamification</span></span>
-        </div>
+      <div class="gallery-item span-3 captura">
+        <img src="assets/gimnasio-app/panel-calendario.jpg" alt="Panel: calendario de clases y eventos con aforo e inscritos" loading="lazy">
       </div>
-      <div class="gallery-item span-2">
-        <div class="placeholder">
-          <span class="tag"><span class="es">Captura pendiente</span><span class="en">Capture pending</span></span>
-          <span class="note"><span class="es">Móvil: semáforo de lesiones</span><span class="en">Mobile: injury traffic light</span></span>
-        </div>
+      <div class="gallery-item span-6 captura">
+        <img src="assets/gimnasio-app/panel-actividad.jpg" alt="Panel: actividad y retención, con los socios en riesgo de baja" loading="lazy">
+      </div>
+      <div class="gallery-item span-2 movil">
+        <img src="assets/gimnasio-app/movil-inicio.jpg" alt="App móvil: pantalla de inicio del socio, con la sesión del día, la próxima clase y sus puntos y racha" loading="lazy">
+      </div>
+      <div class="gallery-item span-2 movil">
+        <img src="assets/gimnasio-app/movil-entrada.jpg" alt="App móvil: el código de acceso de un solo uso que caduca en 60 segundos" loading="lazy">
+      </div>
+      <div class="gallery-item span-2 movil">
+        <img src="assets/gimnasio-app/movil-progreso.jpg" alt="App móvil: progresión de un ejercicio en el tiempo, con el mejor peso por sesión y la diferencia desde el inicio" loading="lazy">
       </div>
     </div>
     <p style="font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 14px; letter-spacing: 0.1em;">
-      <span class="es">↑ Las capturas reales de la app y del panel se añadirán en cuanto se cierre la primera versión.</span>
-      <span class="en">↑ Real captures of the app and panel will be added once the first version is closed.</span>
+      <span class="es">↑ Capturas reales del panel y de la app en dispositivo, con datos de un club de simulación.</span>
+      <span class="en">↑ Real captures of the panel and of the app on device, with data from a simulated club.</span>
     </p>
   </section>
 
@@ -839,25 +902,31 @@ section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
       <div class="tech-row">
         <div class="tech-key"><span class="es">App móvil</span><span class="en">Mobile app</span></div>
         <div class="tech-val">
-          <span class="pill">React Native</span><span class="pill">Expo</span><span class="pill">Expo Go (dispositivo real)</span>
+          <span class="pill">React Native</span><span class="pill">Expo</span><span class="pill">Expo Go (dispositivo real)</span><span class="pill">PanResponder / Animated</span>
         </div>
       </div>
       <div class="tech-row">
         <div class="tech-key"><span class="es">Panel web</span><span class="en">Web panel</span></div>
         <div class="tech-val">
-          <span class="pill">Next.js</span><span class="pill">React</span><span class="pill">Tailwind CSS</span>
+          <span class="pill">Next.js</span><span class="pill">React</span><span class="pill">Tailwind CSS</span><span class="pill">Exportación estática</span><span class="pill">Cloudflare Pages</span>
         </div>
       </div>
       <div class="tech-row">
         <div class="tech-key">Backend</div>
         <div class="tech-val">
-          <span class="pill">Supabase</span><span class="pill">PostgreSQL</span><span class="pill">Row Level Security</span><span class="pill">security definer</span><span class="pill">Triggers</span><span class="pill">JSONB</span>
+          <span class="pill">Supabase</span><span class="pill">PostgreSQL</span><span class="pill">Row Level Security</span><span class="pill">security definer</span><span class="pill">Triggers</span><span class="pill">JSONB</span><span class="pill">plpgsql</span><span class="pill">Storage privado</span>
         </div>
       </div>
       <div class="tech-row">
         <div class="tech-key"><span class="es">Herramientas</span><span class="en">Tools</span></div>
         <div class="tech-val">
-          <span class="pill">Monorepo</span><span class="pill">Git / GitHub</span><span class="pill">VS Code</span><span class="pill">Node.js / npm</span>
+          <span class="pill">Monorepo</span><span class="pill">Git / GitHub</span><span class="pill">VS Code</span><span class="pill">Node.js / npm</span><span class="pill">Suites de regresión SQL</span><span class="pill">Espejo local de la base</span>
+        </div>
+      </div>
+      <div class="tech-row">
+        <div class="tech-key"><span class="es">Seguridad y RGPD</span><span class="en">Security &amp; GDPR</span></div>
+        <div class="tech-val">
+          <span class="pill">CSP / HSTS</span><span class="pill"><span class="es">Consentimientos</span><span class="en">Consents</span></span><span class="pill"><span class="es">Plazos de conservación</span><span class="en">Retention periods</span></span><span class="pill"><span class="es">Derecho de acceso y borrado</span><span class="en">Access &amp; erasure rights</span></span><span class="pill"><span class="es">Textos legales versionados</span><span class="en">Versioned legal texts</span></span>
         </div>
       </div>
       <div class="tech-row">
@@ -878,22 +947,38 @@ section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
     </h2>
     <div class="body-text">
       <p>
-        <span class="es">En <strong>desarrollo activo</strong> durante 2026. La base de datos está completa hasta la gamificación y el plan semanal; la app móvil tiene sus pantallas principales funcionando contra Supabase y probadas en dispositivo real con Expo Go; el panel web está en construcción. El objetivo es cerrar una primera versión con el gimnasio de León y, a partir de ahí, ofrecerla como producto a más gimnasios.</span>
-        <span class="en">In <strong>active development</strong> throughout 2026. The database is complete up to gamification and the weekly plan; the mobile app has its main screens working against Supabase and tested on a real device with Expo Go; the web panel is under construction. The goal is to close a first version with the gym in León and, from there, offer it as a product to more gyms.</span>
+        <span class="es">En <strong>desarrollo activo</strong> durante 2026, y ya no es un prototipo: el <strong>panel web está publicado</strong> y funcionando contra la base de producción, y la app móvil corre en dispositivo real. La base de datos va por la <strong>migración 97</strong>, con la auditoría de seguridad cerrada y sus correcciones probadas.</span>
+        <span class="en">In <strong>active development</strong> throughout 2026, and no longer a prototype: the <strong>web panel is published</strong> and running against the production database, and the mobile app runs on a real device. The database is at <strong>migration 97</strong>, with the security audit closed and its fixes tested.</span>
+      </p>
+      <p>
+        <span class="es">Lo que queda para el lanzamiento no es producto, es infraestructura: copias de seguridad de pago, correo transaccional propio, subir Expo 54 a 57 y monitorización de errores. Después, la ficha de la App Store. El piloto es un gimnasio de León; el objetivo es cerrarlo y ofrecerlo como producto a más centros.</span>
+        <span class="en">What's left before launch isn't product, it's infrastructure: paid backups, a proper transactional mail provider, upgrading Expo 54 to 57 and error monitoring. Then the App Store listing. The pilot is a gym in León; the goal is to close it and offer the product to more centres.</span>
+      </p>
+      <p>
+        <span class="es">Lo que más me ha enseñado este proyecto no es una tecnología: es que <strong>una corrección no está hecha hasta que una prueba la contradice y falla</strong>. Tres veces di por buena una corrección leyendo el código y tres veces la encontró mal la prueba automática. Eso cambió cómo trabajo.</span>
+        <span class="en">What this project taught me most isn't a technology: it's that <strong>a fix isn't done until a test contradicts it and fails</strong>. Three times I judged a fix correct by reading the code, and three times the automated test proved me wrong. That changed how I work.</span>
       </p>
     </div>
     <div class="status-grid">
       <div class="status-item">
         <div class="label"><span class="es">Base de datos</span><span class="en">Database</span></div>
-        <div class="value"><span class="check"></span><span class="es">16 migraciones · RLS</span><span class="en">16 migrations · RLS</span></div>
+        <div class="value"><span class="check"></span><span class="es">97 migraciones · 126 políticas RLS</span><span class="en">97 migrations · 126 RLS policies</span></div>
+      </div>
+      <div class="status-item">
+        <div class="label"><span class="es">Pruebas</span><span class="en">Tests</span></div>
+        <div class="value"><span class="check"></span><span class="es">18 suites de regresión</span><span class="en">18 regression suites</span></div>
       </div>
       <div class="status-item">
         <div class="label"><span class="es">App móvil</span><span class="en">Mobile app</span></div>
-        <div class="value"><span class="check"></span><span class="es">16 pantallas en dispositivo</span><span class="en">16 screens on device</span></div>
+        <div class="value"><span class="check"></span><span class="es">33 pantallas en dispositivo</span><span class="en">33 screens on device</span></div>
       </div>
       <div class="status-item">
         <div class="label"><span class="es">Panel web</span><span class="en">Web panel</span></div>
-        <div class="value"><span class="es">En construcción</span><span class="en">Under construction</span></div>
+        <div class="value"><span class="check"></span><span class="es">Publicado en producción</span><span class="en">Published in production</span></div>
+      </div>
+      <div class="status-item">
+        <div class="label"><span class="es">Lanzamiento</span><span class="en">Launch</span></div>
+        <div class="value"><span class="es">Pendiente de infraestructura</span><span class="en">Pending infrastructure</span></div>
       </div>
     </div>
   </section>
