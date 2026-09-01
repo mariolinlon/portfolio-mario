@@ -1548,3 +1548,13 @@ body.className = `lang-${saved}`;
 document.documentElement.lang = saved;
 btn.textContent = saved === 'es' ? 'EN' : 'ES';
 btn.addEventListener('click', () => {
+  const next = body.classList.contains('lang-es') ? 'en' : 'es';
+  body.className = `lang-${next}`;
+  document.documentElement.lang = next;
+  btn.textContent = next === 'es' ? 'EN' : 'ES';
+  localStorage.setItem('lang', next);
+});
+</script>
+
+</body>
+</html>

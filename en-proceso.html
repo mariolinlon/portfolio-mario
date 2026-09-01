@@ -273,9 +273,25 @@ footer {
   main { padding: 120px 20px 60px; }
   footer { padding: 24px 20px; }
 }
+
+.lang-es .en { display: none; }
+.lang-en .es { display: none; }
+.lang-toggle {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
 </style>
 </head>
-<body>
+<body class="lang-es">
 
 <nav>
   <a href="index.html" class="back">← Portfolio</a>
@@ -283,12 +299,13 @@ footer {
     <div class="dot"></div>
     <span>Mario Fdz. / Portfolio'26</span>
   </div>
+  <button id="lang-toggle" class="lang-toggle">EN</button>
 </nav>
 
 <main>
   <div class="status-tag">
     <span class="pulse"></span>
-    <span>En construcción</span>
+    <span><span class="es">En construcción</span><span class="en">Under construction</span></span>
   </div>
 
   <div class="orbit">
@@ -298,18 +315,35 @@ footer {
     <div class="core"></div>
   </div>
 
-  <h1>Página <span class="italic">en proceso</span></h1>
+  <h1><span class="es">Página <span class="italic">en proceso</span></span><span class="en">Page <span class="italic">in progress</span></span></h1>
   <p class="subtitle">
-    Este proyecto todavía se está documentando. Vuelve pronto para ver el caso de estudio completo — con capturas, mecánicas y proceso de diseño.
+    <span class="es">Este proyecto todavía se está documentando. Vuelve pronto para ver el caso de estudio completo — con capturas, mecánicas y proceso de diseño.</span><span class="en">This project is still being documented. Come back soon for the full case study — with captures, mechanics and design process.</span>
   </p>
 
-  <a href="index.html" class="back-btn">← Volver al portafolio</a>
+  <a href="index.html" class="back-btn">← <span class="es">Volver al portafolio</span><span class="en">Back to portfolio</span></a>
 </main>
 
 <footer>
   <div>© 2026 Mario Fernández Martín</div>
   <div>Made with code & coffee in León</div>
 </footer>
+
+
+<script>
+const body = document.body;
+const btn = document.getElementById('lang-toggle');
+const saved = localStorage.getItem('lang') || 'es';
+body.className = `lang-${saved}`;
+document.documentElement.lang = saved;
+btn.textContent = saved === 'es' ? 'EN' : 'ES';
+btn.addEventListener('click', () => {
+  const next = body.classList.contains('lang-es') ? 'en' : 'es';
+  body.className = `lang-${next}`;
+  document.documentElement.lang = next;
+  btn.textContent = next === 'es' ? 'EN' : 'ES';
+  localStorage.setItem('lang', next);
+});
+</script>
 
 </body>
 </html>
