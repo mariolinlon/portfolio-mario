@@ -613,15 +613,18 @@ section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
 
 
 /* 24/09 · Cabecera con el móvil a la derecha, y tabletas en la galería. */
-.hero-cabecera { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 48px; align-items: end; }
-.hero-lateral { margin: 0; aspect-ratio: 1100 / 1742; overflow: hidden; border: 1px solid var(--border); }
-.hero-lateral img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.gallery-item.tableta { aspect-ratio: 1600 / 1226; background: #0b1219; }
+.hero-cabecera { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 48px; align-items: center; }
+/* El iPhone con el marco oficial de Apple, sin caja ni fondo alrededor. */
+.hero-lateral { margin: 0; aspect-ratio: 800 / 1643; }
+.hero-lateral img { width: 100%; height: 100%; object-fit: contain; display: block; }
+/* iPad y móvil ya traen su marco: sin fondo azul ni borde alrededor. */
+.gallery-item.tableta, .gallery-item.movil { background: transparent; border: none; }
+.gallery-item.tableta { aspect-ratio: 1600 / 1226; }
 .gallery-item.tableta img { object-fit: contain; }
 .gallery-item.movil { aspect-ratio: 800 / 1643; }
 @media (max-width: 900px) {
   .hero-cabecera { grid-template-columns: 1fr; }
-  .hero-lateral { max-width: 320px; }
+  .hero-lateral { max-width: 260px; }
   .gallery-item.tableta { grid-column: span 2; }
   .gallery-item.span-2.movil { grid-column: span 1; }
 }
@@ -669,7 +672,7 @@ p:not(.tagline):not(.subtitle):not(.role):not([style]),
       </p>
       </div>
       <figure class="hero-lateral">
-        <img src="assets/gimnasio-app/foto-movil.webp" alt="La app en un iPhone: pantalla de inicio del socio con el calendario del mes y los accesos a entrenar, mensajes, progreso, nutrición y puntos">
+        <img src="assets/gimnasio-app/movil-inicio.webp" alt="La app en un iPhone: pantalla de inicio del socio con el calendario del mes y los accesos a entrenar, mensajes, progreso, nutrición y puntos">
       </figure>
     </div>
     <div class="hero-image">
