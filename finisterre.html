@@ -205,6 +205,19 @@ section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
   .project-footer-inner { grid-template-columns: 1fr; gap: 40px; }
   .project-footer { padding: 60px 20px 30px; }
 }
+
+/* ── Párrafos justificados (Mario, 24/09) ─────────────────────────
+   Todo párrafo de texto corrido va justificado: se ve más ordenado.
+   Con guiones automáticos (el idioma lo pone el botón ES/EN en <html
+   lang>) para que no queden huecos grandes entre palabras. Los
+   titulares (tagline, subtítulos) y los pies de una línea se quedan
+   como estaban. */
+p:not(.tagline):not(.subtitle):not(.role):not([style]),
+.mech-body, .view-body, .feat-body, .legend-desc, .pitch-body, .role-body {
+  text-align: justify;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
 </style>
 </head>
 <body class="lang-es">

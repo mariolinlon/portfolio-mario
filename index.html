@@ -972,6 +972,19 @@ footer .bottom {
   .marquee-track span { font-size: 32px; }
   .marquee-track .dot { font-size: 24px; }
 }
+
+/* ── Párrafos justificados (Mario, 24/09) ─────────────────────────
+   Todo párrafo de texto corrido va justificado: se ve más ordenado.
+   Con guiones automáticos (el idioma lo pone el botón ES/EN en <html
+   lang>) para que no queden huecos grandes entre palabras. Los
+   titulares (tagline, subtítulos) y los pies de una línea se quedan
+   como estaban. */
+p:not(.tagline):not(.subtitle):not(.role):not([style]),
+.mech-body, .view-body, .feat-body, .legend-desc, .pitch-body, .role-body {
+  text-align: justify;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
 </style>
 </head>
 <body class="lang-es">
@@ -1048,8 +1061,8 @@ footer .bottom {
         <span class="en">I mostly work with <strong>TypeScript, React Native, Next.js and PostgreSQL</strong>, and I still design with a game designer's head: mechanics, systems and gamification. <strong>Artificial intelligence</strong> is part of how I build, with my own review and testing of every piece.</span>
       </p>
       <p>
-        <span class="es">Mi proyecto principal es una plataforma para gimnasios, <strong>publicada en la App Store</strong> y en uso en un centro de León, y sigo con el prototipo de un videojuego educativo junto a profesores de la Asociación Arenales.</span>
-        <span class="en">My main project is a platform for gyms, <strong>live on the App Store</strong> and in use at a centre in León, and I'm continuing the prototype of an educational video game with teachers from Asociación Arenales.</span>
+        <span class="es">Mi proyecto principal es una plataforma para gimnasios, <strong>publicada en la App Store</strong> y en uso en un centro de León, y sigo con <strong>Ad Aeternum</strong>, el videojuego educativo de mi TFG, que desarrollo junto a profesores de la Asociación Arenales.</span>
+        <span class="en">My main project is a platform for gyms, <strong>live on the App Store</strong> and in use at a centre in León, and I'm continuing <strong>Ad Aeternum</strong>, the educational video game from my final project, which I'm building with teachers from Asociación Arenales.</span>
       </p>
     </div>
     <div class="about-side">
@@ -1131,7 +1144,7 @@ footer .bottom {
       </div>
       <div class="arrow">→</div>
       <div class="card-body">
-        <div class="number"><span class="es">002 — Lughion · SaaS</span><span class="en">002 — Lughion · SaaS</span></div>
+        <div class="number"><span class="es">002 — Proyecto personal · SaaS</span><span class="en">002 — Personal project · SaaS</span></div>
         <h3><span class="es">App de <span class="italic">gimnasio</span></span><span class="en">Gym <span class="italic">app</span></span></h3>
         <p class="description">
           <span class="es">Plataforma SaaS multi-tenant para gimnasios centrada en la retención de socios: entrenamiento y progresión, plan semanal, calendario con reservas, gamificación con puntos y rachas, y panel de administración con analítica. App móvil (React Native/Expo) + panel web (Next.js) sobre Supabase/PostgreSQL con RLS y lógica crítica en el servidor. Proyecto personal publicado en la App Store, con un centro de León como cliente piloto.</span>

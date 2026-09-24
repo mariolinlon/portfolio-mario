@@ -610,6 +610,33 @@ section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
 .demo-btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; padding: 12px 20px; border: 1px solid var(--text); color: var(--text); transition: all 0.3s; }
 .demo-btn:hover { background: var(--text); color: var(--bg); }
 .challenge-card code { font-family: var(--mono); font-size: 0.9em; background: var(--surface-2); padding: 1px 5px; }
+
+
+/* 24/09 · Cabecera con el móvil a la derecha, y tabletas en la galería. */
+.hero-cabecera { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 48px; align-items: end; }
+.hero-lateral { margin: 0; aspect-ratio: 1100 / 1742; overflow: hidden; border: 1px solid var(--border); }
+.hero-lateral img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gallery-item.tableta { aspect-ratio: 1600 / 1226; background: #0b1219; }
+.gallery-item.tableta img { object-fit: contain; }
+.gallery-item.movil { aspect-ratio: 800 / 1643; }
+@media (max-width: 900px) {
+  .hero-cabecera { grid-template-columns: 1fr; }
+  .hero-lateral { max-width: 320px; }
+  .gallery-item.tableta { grid-column: span 2; }
+  .gallery-item.span-2.movil { grid-column: span 1; }
+}
+/* ── Párrafos justificados (Mario, 24/09) ─────────────────────────
+   Todo párrafo de texto corrido va justificado: se ve más ordenado.
+   Con guiones automáticos (el idioma lo pone el botón ES/EN en <html
+   lang>) para que no queden huecos grandes entre palabras. Los
+   titulares (tagline, subtítulos) y los pies de una línea se quedan
+   como estaban. */
+p:not(.tagline):not(.subtitle):not(.role):not([style]),
+.mech-body, .view-body, .feat-body, .legend-desc, .pitch-body, .role-body {
+  text-align: justify;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
 </style>
 </head>
 <body class="lang-es">
@@ -627,23 +654,30 @@ section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
 
   <!-- HERO -->
   <section class="project-hero">
-    <div class="meta">
-      <span class="bar"></span>
-      <span class="es">Proyecto personal · SaaS · App móvil + panel web · 2026</span>
-      <span class="en">Personal project · SaaS · Mobile app + web panel · 2026</span>
+    <!-- 24/09 · Título a la izquierda y, a la derecha, la app de verdad en un móvil. -->
+    <div class="hero-cabecera">
+      <div class="hero-texto">
+      <div class="meta">
+        <span class="bar"></span>
+        <span class="es">Proyecto personal · SaaS · App móvil + panel web · 2026</span>
+        <span class="en">Personal project · SaaS · Mobile app + web panel · 2026</span>
+      </div>
+      <h1><span class="es">App de <span class="italic">gimnasio</span></span><span class="en">Gym <span class="italic">app</span></span></h1>
+      <p class="tagline">
+        <span class="es">Una plataforma para que los socios vuelvan: entrenamiento, reservas y gamificación en el móvil, y un panel para el gimnasio.</span>
+        <span class="en">A platform that makes members come back: training, bookings and gamification on the phone, plus a panel for the gym.</span>
+      </p>
+      </div>
+      <figure class="hero-lateral">
+        <img src="assets/gimnasio-app/foto-movil.webp" alt="La app en un iPhone: pantalla de inicio del socio con el calendario del mes y los accesos a entrenar, mensajes, progreso, nutrición y puntos">
+      </figure>
     </div>
-    <h1><span class="es">App de <span class="italic">gimnasio</span></span><span class="en">Gym <span class="italic">app</span></span></h1>
-    <p class="tagline">
-      <span class="es">Una plataforma para que los socios vuelvan: entrenamiento, reservas y gamificación en el móvil, y un panel para el gimnasio.</span>
-      <span class="en">A platform that makes members come back: training, bookings and gamification on the phone, plus a panel for the gym.</span>
-    </p>
-
     <div class="hero-image">
-      <img src="assets/gimnasio-app/hero.jpg" alt="App de gimnasio: ilustración de concepto del panel web y la app móvil">
+      <img src="assets/gimnasio-app/hero.jpg" alt="El panel web del gimnasio en un portátil, el modo profesional en un iPad y la app del socio en un iPhone">
     </div>
     <p style="font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 14px; letter-spacing: 0.1em;">
-      <span class="es">↑ Ilustración de concepto. Las capturas reales del panel están más abajo, en la galería.</span>
-      <span class="en">↑ Concept illustration. Real captures of the panel are further down, in the gallery.</span>
+      <span class="es">↑ El panel web, el modo profesional en iPad y la app del socio. Capturas reales, con datos de un centro de pruebas.</span>
+      <span class="en">↑ The web panel, professional mode on iPad and the member app. Real captures, with data from a test centre.</span>
     </p>
   </section>
 
@@ -875,30 +909,48 @@ section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
     </h2>
     <div class="gallery">
       <div class="gallery-item span-6 captura">
-        <img src="assets/gimnasio-app/panel-personas.jpg" alt="Panel: gestión de personas, con códigos de invitación, empleados y sus títulos, y la lista de socios" loading="lazy">
+        <img src="assets/gimnasio-app/panel-identidad.webp" alt="Panel: identidad visual del centro, con paletas completas y los colores del panel y de la app por separado" loading="lazy">
       </div>
       <div class="gallery-item span-3 captura">
-        <img src="assets/gimnasio-app/panel-funcionalidades.jpg" alt="Panel: los módulos activables por secciones, con el candado que los fija para todas las sedes" loading="lazy">
+        <img src="assets/gimnasio-app/panel-funciones.webp" alt="Panel: los módulos que cada centro enciende o apaga, agrupados por secciones" loading="lazy">
       </div>
       <div class="gallery-item span-3 captura">
-        <img src="assets/gimnasio-app/panel-calendario.jpg" alt="Panel: calendario de clases y eventos con aforo e inscritos" loading="lazy">
+        <img src="assets/gimnasio-app/panel-estilo.webp" alt="Panel: estilo de la pantalla de inicio de la app, con la rejilla de botones y sus colores" loading="lazy">
       </div>
-      <div class="gallery-item span-6 captura">
-        <img src="assets/gimnasio-app/panel-actividad.jpg" alt="Panel: actividad y retención, con los socios en riesgo de baja" loading="lazy">
+      <div class="gallery-item span-3 tableta">
+        <img src="assets/gimnasio-app/ipad-sesion-cliente.webp" alt="iPad en modo profesional: sesión en vivo con un cliente, series, kilos y descanso" loading="lazy">
+      </div>
+      <div class="gallery-item span-3 tableta">
+        <img src="assets/gimnasio-app/ipad-plantillas.webp" alt="iPad en modo profesional: plantillas de entrenamiento de un cliente" loading="lazy">
+      </div>
+      <div class="gallery-item span-3 tableta">
+        <img src="assets/gimnasio-app/ipad-agenda.webp" alt="iPad en modo profesional: agenda semanal de citas del entrenador" loading="lazy">
+      </div>
+      <div class="gallery-item span-3 tableta">
+        <img src="assets/gimnasio-app/ipad-plicometria.webp" alt="iPad en modo profesional: evolución de pliegues y composición corporal de un cliente" loading="lazy">
       </div>
       <div class="gallery-item span-2 movil">
-        <img src="assets/gimnasio-app/movil-inicio.jpg" alt="App móvil: pantalla de inicio del socio, con la sesión del día, la próxima clase y sus puntos y racha" loading="lazy">
+        <img src="assets/gimnasio-app/movil-inicio.webp" alt="App móvil: inicio del socio, con el calendario y los accesos principales" loading="lazy">
       </div>
       <div class="gallery-item span-2 movil">
-        <img src="assets/gimnasio-app/movil-entrada.jpg" alt="App móvil: el código de acceso de un solo uso que caduca en 60 segundos" loading="lazy">
+        <img src="assets/gimnasio-app/movil-sesion.webp" alt="App móvil: resumen de una sesión de fuerza con series, kilos y esfuerzo" loading="lazy">
       </div>
       <div class="gallery-item span-2 movil">
-        <img src="assets/gimnasio-app/movil-progreso.jpg" alt="App móvil: progresión de un ejercicio en el tiempo, con el mejor peso por sesión y la diferencia desde el inicio" loading="lazy">
+        <img src="assets/gimnasio-app/movil-progreso.webp" alt="App móvil: progresión de un ejercicio en el tiempo" loading="lazy">
+      </div>
+      <div class="gallery-item span-2 movil">
+        <img src="assets/gimnasio-app/movil-nutricion.webp" alt="App móvil: nutrición del día, con el balance de calorías y los macronutrientes" loading="lazy">
+      </div>
+      <div class="gallery-item span-2 movil">
+        <img src="assets/gimnasio-app/movil-calendario.webp" alt="App móvil: calendario con clases y entrenamientos del mes" loading="lazy">
+      </div>
+      <div class="gallery-item span-2 movil">
+        <img src="assets/gimnasio-app/movil-puntos.webp" alt="App móvil: puntos, nivel, racha y logros del socio" loading="lazy">
       </div>
     </div>
     <p style="font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 14px; letter-spacing: 0.1em;">
-      <span class="es">↑ Capturas reales del panel y de la app en dispositivo, con datos de un club de simulación.</span>
-      <span class="en">↑ Real captures of the panel and of the app on device, with data from a simulated club.</span>
+      <span class="es">↑ Capturas reales del panel, del modo profesional en iPad y de la app, con datos de un centro de pruebas.</span>
+      <span class="en">↑ Real captures of the panel, the professional mode on iPad and the app, with data from a test centre.</span>
     </p>
   </section>
 
