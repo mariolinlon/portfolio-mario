@@ -628,6 +628,14 @@ section { padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
   .gallery-item.tableta { grid-column: span 2; }
   .gallery-item.span-2.movil { grid-column: span 1; }
 }
+
+/* 25/09 · Botón de la App Store: el negro de Apple, con su manzana. */
+.badge-appstore { display: inline-flex; align-items: center; gap: 10px; margin-top: 28px; padding: 8px 18px 8px 14px; background: #000; color: #fff; border: 1px solid #a6a6a6; border-radius: 10px; text-decoration: none; line-height: 1; transition: transform .2s, box-shadow .2s; }
+.badge-appstore:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,.25); }
+.badge-appstore svg { width: 26px; height: 26px; flex: none; }
+.badge-texto { display: flex; flex-direction: column; gap: 3px; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; text-align: left; }
+.badge-texto small { font-size: 10px; letter-spacing: .02em; }
+.badge-texto strong { font-size: 20px; font-weight: 600; letter-spacing: -.01em; }
 /* ── Párrafos justificados (Mario, 24/09) ─────────────────────────
    Todo párrafo de texto corrido va justificado: se ve más ordenado.
    Con guiones automáticos (el idioma lo pone el botón ES/EN en <html
@@ -670,6 +678,11 @@ p:not(.tagline):not(.subtitle):not(.role):not([style]),
         <span class="es">Una plataforma para que los socios vuelvan: entrenamiento, reservas y gamificación en el móvil, y un panel para el gimnasio.</span>
         <span class="en">A platform that makes members come back: training, bookings and gamification on the phone, plus a panel for the gym.</span>
       </p>
+      <!-- 25/09 · Enlace a la ficha de la App Store, con el botón negro de siempre. -->
+      <a class="badge-appstore" href="https://apps.apple.com/es/app/id6809188436" target="_blank" rel="noopener" aria-label="Ver la app en la App Store">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.77c-.02-2.3 1.88-3.4 1.96-3.45-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.83-.81-3-.79-1.55.02-2.97.9-3.77 2.28-1.61 2.79-.41 6.92 1.16 9.18.77 1.11 1.68 2.35 2.88 2.31 1.16-.05 1.6-.75 3-.75s1.79.75 3.01.73c1.24-.02 2.03-1.13 2.79-2.24.88-1.29 1.24-2.53 1.26-2.6-.03-.01-2.42-.93-2.44-3.7zM14.09 6.03c.64-.77 1.07-1.85.95-2.92-.92.04-2.03.61-2.69 1.38-.59.68-1.11 1.78-.97 2.83 1.03.08 2.07-.52 2.71-1.29z"/></svg>
+        <span class="badge-texto"><small><span class="es">Descárgalo en el</span><span class="en">Download on the</span></small><strong>App Store</strong></span>
+      </a>
       </div>
       <figure class="hero-lateral">
         <img src="assets/gimnasio-app/movil-inicio.webp" alt="La app en un iPhone: pantalla de inicio del socio con el calendario del mes y los accesos a entrenar, mensajes, progreso, nutrición y puntos">
