@@ -563,6 +563,15 @@ section {
   letter-spacing: 0.2em;
 }
 
+/* 08/11 · Ficha ancha (ocupa las dos columnas): imagen a la izquierda y
+   texto a la derecha. En móvil vuelve a ser una ficha normal. */
+.project-card.ancha { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+.project-card.ancha .thumb { aspect-ratio: auto; height: 100%; min-height: 320px; border-bottom: none; border-right: 1px solid var(--border); }
+.project-card.ancha .description { max-width: 520px; }
+/* Ficha sin página propia: no parece un enlace (sin flecha ni mano). */
+.project-card-small.sin-enlace { cursor: default; }
+.project-card-small.sin-enlace:hover { background: var(--bg); }
+
 .projects-grid-small {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -570,7 +579,11 @@ section {
   background: var(--border);
   border: 1px solid var(--border);
 }
+/* 08/11 · Con 6 fichas las dos filas quedan llenas: el relleno rayado
+   sobra. Si vuelve a haber un número que no sea múltiplo de 3, quitar
+   el display: none. */
 .projects-grid-small::after {
+  display: none;
   content: "";
   background: var(--bg);
   background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(208,189,156,0.25) 10px, rgba(208,189,156,0.25) 12px);
@@ -710,6 +723,12 @@ section {
 }
 
 .skill-list .level.expert { color: var(--accent); }
+/* 08/11 · Tres niveles honestos: lo que domina, lo que ha programado y lo
+   que ha usado en proyectos con desarrollo asistido por IA. El nivel se
+   lee en el texto (no solo en el color). */
+.skill-list .level.ia { border: 1px dashed var(--border); padding: 2px 6px; }
+.skills-leyenda { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.06em; line-height: 1.7; margin: -20px 0 40px; max-width: 900px; }
+.skills-leyenda b { color: var(--text); font-weight: 500; }
 
 .experience-list {
   border-top: 1px solid var(--border);
@@ -946,6 +965,8 @@ footer .bottom {
 }
 
 @media (max-width: 900px) {
+  .project-card.ancha { display: flex; flex-direction: column; }
+  .project-card.ancha .thumb { aspect-ratio: 2.2 / 1; height: auto; min-height: 0; border-right: none; border-bottom: 1px solid var(--border); }
   nav { padding: 16px 20px; }
   nav ul { display: none; }
   nav .logo { font-size: 11px; }
@@ -1029,7 +1050,7 @@ p:not(.tagline):not(.subtitle):not(.role):not([style]),
     <div class="scroll">Scroll</div>
     <div class="stats">
       <div class="stat">
-        <span class="num">9+</span>
+        <span class="num">11+</span>
         <span class="label"><span class="es">Proyectos</span><span class="en">Projects</span></span>
       </div>
       <div class="stat">
@@ -1057,12 +1078,12 @@ p:not(.tagline):not(.subtitle):not(.role):not([style]),
         <span class="en">I'm <strong>Mario</strong>, a graduate in Video Game Design & Development from UNIR and a Master's student in Software Engineering. I combine the design sensibility that comes from games with <strong>real product</strong> development: mobile apps, web panels and databases that hold up to real users.</span>
       </p>
       <p>
-        <span class="es">Trabajo sobre todo con <strong>TypeScript, React Native, Next.js y PostgreSQL</strong>, y sigo diseñando con cabeza de game designer: mecánicas, sistemas y gamificación. La <strong>inteligencia artificial</strong> es parte de cómo desarrollo, con revisión y pruebas propias de cada pieza.</span>
-        <span class="en">I mostly work with <strong>TypeScript, React Native, Next.js and PostgreSQL</strong>, and I still design with a game designer's head: mechanics, systems and gamification. <strong>Artificial intelligence</strong> is part of how I build, with my own review and testing of every piece.</span>
+        <span class="es">Mi base es la de la carrera: <strong>C#, programación orientada a objetos y bases de datos</strong>, y he programado también en Python, Java y .NET. En mis proyectos uso además TypeScript, React Native, Next.js o PostgreSQL con <strong>desarrollo asistido por IA</strong>: la IA escribe el código, y yo decido, reviso y pruebo cada pieza. Y sigo diseñando con cabeza de game designer: mecánicas, sistemas y gamificación.</span>
+        <span class="en">My foundation comes from my degree: <strong>C#, object-oriented programming and databases</strong>, and I've also programmed in Python, Java and .NET. In my projects I also use TypeScript, React Native, Next.js or PostgreSQL with <strong>AI-assisted development</strong>: AI writes the code, and I decide, review and test every piece. And I still design with a game designer's head: mechanics, systems and gamification.</span>
       </p>
       <p>
-        <span class="es">Mi proyecto principal es una plataforma para gimnasios, <strong>publicada en la App Store</strong> y en uso en un centro de León, y sigo con <strong>Ad Aeternum</strong>, el videojuego educativo de mi TFG, que desarrollo junto a profesores de la Asociación Arenales.</span>
-        <span class="en">My main project is a platform for gyms, <strong>live on the App Store</strong> and in use at a centre in León, and I'm continuing <strong>Ad Aeternum</strong>, the educational video game from my final project, which I'm building with teachers from Asociación Arenales.</span>
+        <span class="es">Mi proyecto principal es <strong>tailt</strong>, una plataforma de gestión para gimnasios <strong>publicada en la App Store</strong>, en prueba en Google Play y en uso en un centro de León. Además llevo la parte técnica de una tienda online de material didáctico, con un sistema de redes sociales con IA, y sigo con <strong>Ad Aeternum</strong>, el videojuego educativo de mi TFG (9,0), junto a profesores de la Asociación Arenales.</span>
+        <span class="en">My main project is <strong>tailt</strong>, a gym management platform <strong>live on the App Store</strong>, in testing on Google Play and in use at a centre in León. I also run the technical side of an online store of teaching materials, including an AI-run social media system, and I'm continuing <strong>Ad Aeternum</strong>, the educational video game from my final project (graded 9.0), with teachers from Asociación Arenales.</span>
       </p>
     </div>
     <div class="about-side">
@@ -1140,43 +1161,64 @@ p:not(.tagline):not(.subtitle):not(.role):not([style]),
 
     <a href="gimnasio-app.html" class="project-card">
       <div class="thumb">
-        <img src="assets/gimnasio-app/thumb.jpg" alt="App de gimnasio — panel web y app móvil">
+        <img src="assets/gimnasio-app/thumb.jpg" alt="tailt — panel web y app móvil para gimnasios">
       </div>
       <div class="arrow">→</div>
       <div class="card-body">
         <div class="number"><span class="es">002 — Proyecto personal · SaaS</span><span class="en">002 — Personal project · SaaS</span></div>
-        <h3><span class="es">App de <span class="italic">gimnasio</span></span><span class="en">Gym <span class="italic">app</span></span></h3>
+        <h3>tai<span class="italic">lt</span></h3>
         <p class="description">
-          <span class="es">Plataforma SaaS multi-tenant para gimnasios centrada en la retención de socios: entrenamiento y progresión, plan semanal, calendario con reservas, gamificación con puntos y rachas, y panel de administración con analítica. App móvil (React Native/Expo) + panel web (Next.js) sobre Supabase/PostgreSQL con RLS y lógica crítica en el servidor. Proyecto personal publicado en la App Store, con un centro de León como cliente piloto.</span>
-          <span class="en">A multi-tenant SaaS platform for gyms focused on member retention: training and progression, weekly plan, calendar with bookings, gamification with points and streaks, and an admin panel with analytics. Mobile app (React Native/Expo) + web panel (Next.js) on Supabase/PostgreSQL with RLS and server-side critical logic. A personal project live on the App Store, with a centre in León as its pilot client.</span>
+          <span class="es">Plataforma SaaS de gestión para gimnasios centrada en la retención de socios: entrenamiento y progresión, reservas, cobro de bonos, gamificación, calorías de las comidas por foto con IA y panel de administración. App móvil (React Native/Expo) + panel web (Next.js) sobre Supabase/PostgreSQL con RLS. Publicada en la App Store, en prueba cerrada en Google Play y en uso en un centro de León.</span>
+          <span class="en">A gym management SaaS platform focused on member retention: training and progression, bookings, session-pack payments, gamification, meal calories from a photo with AI and an admin panel. Mobile app (React Native/Expo) + web panel (Next.js) on Supabase/PostgreSQL with RLS. Live on the App Store, in closed testing on Google Play and in use at a centre in León.</span>
         </p>
         <div class="tech-stack">
           <span class="tag">TypeScript</span>
           <span class="tag">React Native</span>
           <span class="tag">Next.js</span>
           <span class="tag">Supabase</span>
-          <span class="tag"><span class="es">En la App Store</span><span class="en">On the App Store</span></span>
+          <span class="tag">App Store · Google Play</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="redes-ia.html" class="project-card ancha">
+      <div class="thumb">
+        <img src="assets/redes-ia/hero.jpg" alt="Carrusel, reel, historia y post generados por el sistema de redes con IA">
+      </div>
+      <div class="arrow">→</div>
+      <div class="card-body">
+        <div class="number"><span class="es">003 — Proyecto personal · IA aplicada</span><span class="en">003 — Personal project · Applied AI</span></div>
+        <h3><span class="es">Redes <span class="italic">autogestionadas</span></span><span class="en">Self-running <span class="italic">socials</span></span></h3>
+        <p class="description">
+          <span class="es">Sistema que lleva las redes sociales de un negocio casi solo: una IA prepara con un mes de margen carruseles, historias y reels con música, voz y subtítulos; el dueño los aprueba en un calendario dentro de su web, y la web los publica en Instagram, Facebook, TikTok y Pinterest. Generador propio (Python, Playwright, ffmpeg) y plugin de WordPress con funciones para la IA por MCP. En marcha en una tienda online real.</span>
+          <span class="en">A system that runs a business's social media almost on its own: an AI prepares carousels, stories and reels with music, voice-over and subtitles a month ahead; the owner approves them in a calendar inside their website, and the website publishes them to Instagram, Facebook, TikTok and Pinterest. Custom generator (Python, Playwright, ffmpeg) and a WordPress plugin exposing functions to the AI over MCP. Running on a real online store.</span>
+        </p>
+        <div class="tech-stack">
+          <span class="tag">Python</span>
+          <span class="tag">PHP</span>
+          <span class="tag"><span class="es">IA · MCP</span><span class="en">AI · MCP</span></span>
+          <span class="tag">Playwright · ffmpeg</span>
         </div>
       </div>
     </a>
 
     <a href="abcdalia.html" class="project-card">
       <div class="thumb">
-        <img src="assets/abcdalia/home.png" alt="ABCDalia — material para enseñar a leer y escribir">
+        <img src="assets/abcdalia/thumb.jpg" alt="ABCDalia — material para el salón y herramientas para docentes">
       </div>
       <div class="arrow">→</div>
       <div class="card-body">
-        <div class="number"><span class="es">003 — Producto · E-commerce</span><span class="en">003 — Product · E-commerce</span></div>
+        <div class="number"><span class="es">004 — Producto · E-commerce</span><span class="en">004 — Product · E-commerce</span></div>
         <h3>ABC<span class="italic">dalia</span></h3>
         <p class="description">
-          <span class="es">Tienda online de materiales didácticos imprimibles para alfabetización inicial (1º y 2º de primaria). Recursos en PDF de descarga inmediata, catálogo por categorías, membresía VIP anual y captación por email. Diseño de marca, maquetación y montaje de tienda sobre WordPress + WooCommerce.</span>
-          <span class="en">An online store of printable teaching materials for early literacy (1st–2nd grade). Instant-download PDF resources, a category catalog, a yearly VIP membership and email capture. Brand design, layout and store setup on WordPress + WooCommerce.</span>
+          <span class="es">Tienda online de material didáctico para primaria (1º a 3º), en producción: imprimibles para el salón y herramientas en Excel que ahorran papeleo a las maestras. Marca propia, tema y plugin en PHP, Excel generados con Python, pagos con Mercado Pago y un sistema de redes con IA.</span>
+          <span class="en">An online store of primary-school teaching materials (grades 1–3), in production: classroom printables and Excel tools that save teachers paperwork. Its own brand, a PHP theme and plugin, Excel files generated with Python, Mercado Pago payments and an AI-run social media system.</span>
         </p>
         <div class="tech-stack">
           <span class="tag">WordPress</span>
           <span class="tag">WooCommerce</span>
-          <span class="tag">E-commerce</span>
-          <span class="tag"><span class="es">Branding</span><span class="en">Branding</span></span>
+          <span class="tag">PHP · Python</span>
+          <span class="tag"><span class="es">En producción</span><span class="en">Live</span></span>
         </div>
       </div>
     </a>
@@ -1187,7 +1229,7 @@ p:not(.tagline):not(.subtitle):not(.role):not([style]),
       </div>
       <div class="arrow">→</div>
       <div class="card-body">
-        <div class="number"><span class="es">004 — Prácticas · VR</span><span class="en">004 — Internship · VR</span></div>
+        <div class="number"><span class="es">005 — Prácticas · VR</span><span class="en">005 — Internship · VR</span></div>
         <h3>American <span class="italic">Frisbee</span></h3>
         <p class="description">
           <span class="es">Juego de VR multijugador para Location-Based Entertainment, desarrollado durante mis prácticas en Immersive Oasis. Fútbol americano con frisbee virtual: físicas aerodinámicas, multijugador en red local con tracking físico real y despliegue en PICO 4. Diseño de concepto y desarrollo en Unity.</span>
@@ -1211,12 +1253,31 @@ p:not(.tagline):not(.subtitle):not(.role):not([style]),
   </div>
   <div class="projects-grid-small">
 
+    <div class="project-card-small sin-enlace">
+      <div class="thumb">
+        <img src="assets/discoteca/thumb.jpg" alt="Maqueta de la sala con el vídeo del túnel en la pantalla principal">
+      </div>
+      <div class="card-body">
+        <div class="number"><span class="es">006 — Encargo · Vídeo y 3D</span><span class="en">006 — Commission · Video &amp; 3D</span></div>
+        <h4><span class="es">Pantallas de <span class="italic">discoteca</span></span><span class="en">Nightclub <span class="italic">screens</span></span></h4>
+        <p class="description">
+          <span class="es">Bucles de vídeo para las pantallas de una discoteca de León, hechos en Blender (con IA dentro de Blender) por capas que reaccionan a la música en directo, y una maqueta de la sala en Unity para revisarlos en Meta Quest 3 antes de entregarlos.</span>
+          <span class="en">Video loops for the screens of a nightclub in León, made in Blender (with AI inside Blender) in layers that react to live music, plus a Unity mock-up of the venue to review them on Meta Quest 3 before delivery.</span>
+        </p>
+        <div class="tech-stack">
+          <span class="tag">Blender</span>
+          <span class="tag">Unity · Quest 3</span>
+          <span class="tag"><span class="es">En curso</span><span class="en">Ongoing</span></span>
+        </div>
+      </div>
+    </div>
+
     <a href="ag-telecom.html" class="project-card-small">
       <div class="thumb">
         <img src="assets/ag-telecom/poster.png" alt="AG Telecom">
       </div>
       <div class="card-body">
-        <div class="number"><span class="es">005 — Universidad</span><span class="en">005 — University</span></div>
+        <div class="number"><span class="es">007 — Universidad</span><span class="en">007 — University</span></div>
         <h4>AG <span class="italic">Telecom</span></h4>
         <p class="description">
           <span class="es">Header web interactivo para una empresa ficticia de telecomunicaciones. Un mar de cubos isométricos con física magnética, hechos con p5.js. Trabajo universitario llevado más allá con un dosier web completo.</span>
@@ -1235,7 +1296,7 @@ p:not(.tagline):not(.subtitle):not(.role):not([style]),
         <img src="assets/hunter-trade/thumb.png" alt="Hunter Trade Center">
       </div>
       <div class="card-body">
-        <div class="number"><span class="es">006 — Proyecto personal</span><span class="en">006 — Personal project</span></div>
+        <div class="number"><span class="es">008 — Proyecto personal</span><span class="en">008 — Personal project</span></div>
         <h4>Hunter Trade <span class="italic">Center</span></h4>
         <p class="description">
           <span class="es">App (Flutter + Firebase) de red social y trueque de permisos de caza entre cazadores: directorio, perfiles, chat en tiempo real y motor de coincidencias. Proyecto personal en solitario, en pausa.</span>
@@ -1254,7 +1315,7 @@ p:not(.tagline):not(.subtitle):not(.role):not([style]),
         <img src="assets/thumbs/finisterre.svg" alt="Finisterre">
       </div>
       <div class="card-body">
-        <div class="number"><span class="es">007 — Videojuego</span><span class="en">007 — Video game</span></div>
+        <div class="number"><span class="es">009 — Videojuego</span><span class="en">009 — Video game</span></div>
         <h4>Finis<span class="italic">terre</span></h4>
         <p class="description">
           <span class="es">RPG de granja y vida sobre la España rural y su folclore: cultivos, oficios, pesca submarina de tesoros y "el pueblo revive". Hecho en Unity dirigiendo agentes de IA.</span>
@@ -1273,7 +1334,7 @@ p:not(.tagline):not(.subtitle):not(.role):not([style]),
         <img src="assets/cartera-tracker/dashboard.png" alt="Cartera Tracker">
       </div>
       <div class="card-body">
-        <div class="number"><span class="es">008 — Producto · Web</span><span class="en">008 — Product · Web</span></div>
+        <div class="number"><span class="es">010 — Producto · Web</span><span class="en">010 — Product · Web</span></div>
         <h4>Cartera <span class="italic">Tracker</span></h4>
         <p class="description">
           <span class="es">App web para seguimiento de carteras de inversión: acciones, ETFs, divisas y cripto, con precios en tiempo real y cálculo de P&L. HTML/JS + Firebase, desplegada en Cloudflare Pages con un Worker como proxy de APIs.</span>
@@ -1292,7 +1353,7 @@ p:not(.tagline):not(.subtitle):not(.role):not([style]),
         <img src="assets/lughion/og.jpg" alt="Lughion — web y marca de mi proyecto personal">
       </div>
       <div class="card-body">
-        <div class="number"><span class="es">009 — Proyecto personal · Web</span><span class="en">009 — Personal project · Web</span></div>
+        <div class="number"><span class="es">011 — Proyecto personal · Web</span><span class="en">011 — Personal project · Web</span></div>
         <h4>Lugh<span class="italic">ion</span></h4>
         <p class="description">
           <span class="es">La web y la marca de Lughion, mi proyecto personal de desarrollo. Sitio estático sin framework, biblioteca de proyectos filtrable generada desde un JSON y despliegue continuo en Cloudflare Pages.</span>
@@ -1315,98 +1376,99 @@ p:not(.tagline):not(.subtitle):not(.role):not([style]),
     <h2><span class="es">Habilidades <span class="italic">técnicas</span></span><span class="en">Technical <span class="italic">skills</span></span></h2>
     <div class="num">03 / Stack</div>
   </div>
+  <p class="skills-leyenda">
+    <span class="es"><b>Domino</b>: lo uso con soltura por mi cuenta · <b>He programado / Uso</b>: lo he trabajado en la carrera o en proyectos · <b>Con IA</b>: lo he usado en proyectos reales con desarrollo asistido por IA, revisando y probando lo que produce.</span>
+    <span class="en"><b>Strong</b>: I use it fluently on my own · <b>Worked with / Working</b>: used in my degree or projects · <b>With AI</b>: used in real projects with AI-assisted development, reviewing and testing what it produces.</span>
+  </p>
   <div class="skills-grid">
 
     <div class="skill-group">
       <h4><span class="es">Lenguajes</span><span class="en">Programming languages</span></h4>
       <ul class="skill-list">
-        <li>TypeScript <span class="level expert">Advanced</span></li>
-        <li>C# <span class="level expert">Advanced</span></li>
-        <li>SQL / PL/pgSQL <span class="level expert">Advanced</span></li>
-        <li>JavaScript <span class="level">Intermediate</span></li>
-        <li>C++ <span class="level">Intermediate</span></li>
-        <li>Dart <span class="level">Intermediate</span></li>
-        <li>R <span class="level">Intermediate</span></li>
+        <li>C# <span class="level expert"><span class="es">Domino</span><span class="en">Strong</span></span></li>
+        <li>SQL <span class="level expert"><span class="es">Domino</span><span class="en">Strong</span></span></li>
+        <li>Python <span class="level"><span class="es">He programado</span><span class="en">Worked with</span></span></li>
+        <li>Java <span class="level"><span class="es">He programado</span><span class="en">Worked with</span></span></li>
+        <li>.NET <span class="level"><span class="es">He programado</span><span class="en">Worked with</span></span></li>
+        <li>TypeScript <span class="level ia"><span class="es">Con IA</span><span class="en">With AI</span></span></li>
+        <li>JavaScript <span class="level ia"><span class="es">Con IA</span><span class="en">With AI</span></span></li>
       </ul>
     </div>
 
     <div class="skill-group">
-      <h4><span class="es">Web & Móvil</span><span class="en">Web & Mobile</span></h4>
+      <h4><span class="es">Web &amp; Móvil</span><span class="en">Web &amp; Mobile</span></h4>
       <ul class="skill-list">
-        <li>React Native + Expo <span class="level expert">Advanced</span></li>
-        <li>React <span class="level expert">Advanced</span></li>
-        <li>Next.js <span class="level">Intermediate</span></li>
-        <li>Tailwind CSS <span class="level">Intermediate</span></li>
-        <li>HTML / CSS <span class="level expert">Advanced</span></li>
-        <li>Flutter <span class="level">Intermediate</span></li>
-        <li>WordPress / WooCommerce <span class="level">Intermediate</span></li>
+        <li>HTML / CSS <span class="level"><span class="es">Uso</span><span class="en">Working</span></span></li>
+        <li>WordPress / WooCommerce <span class="level"><span class="es">Uso</span><span class="en">Working</span></span></li>
+        <li>React Native + Expo <span class="level ia"><span class="es">Con IA</span><span class="en">With AI</span></span></li>
+        <li>Next.js / React <span class="level ia"><span class="es">Con IA</span><span class="en">With AI</span></span></li>
+        <li>PHP <span class="level ia"><span class="es">Con IA</span><span class="en">With AI</span></span></li>
+        <li>Flutter <span class="level ia"><span class="es">Con IA</span><span class="en">With AI</span></span></li>
       </ul>
     </div>
 
     <div class="skill-group">
-      <h4><span class="es">Backend & Datos</span><span class="en">Backend & Data</span></h4>
+      <h4><span class="es">Backend &amp; Datos</span><span class="en">Backend &amp; Data</span></h4>
       <ul class="skill-list">
-        <li>Supabase <span class="level expert">Advanced</span></li>
-        <li>PostgreSQL · RLS <span class="level expert">Advanced</span></li>
-        <li><span class="es">Diseño de BBDD y migraciones</span><span class="en">DB design & migrations</span> <span class="level expert">Advanced</span></li>
-        <li>Firebase <span class="level">Intermediate</span></li>
-        <li>Cloudflare Pages / Workers <span class="level">Intermediate</span></li>
-        <li>RStudio <span class="level">Intermediate</span></li>
+        <li><span class="es">Bases de datos relacionales</span><span class="en">Relational databases</span> <span class="level expert"><span class="es">Domino</span><span class="en">Strong</span></span></li>
+        <li>PostgreSQL · Supabase <span class="level ia"><span class="es">Con IA</span><span class="en">With AI</span></span></li>
+        <li><span class="es">RLS y migraciones</span><span class="en">RLS &amp; migrations</span> <span class="level ia"><span class="es">Con IA</span><span class="en">With AI</span></span></li>
+        <li>Firebase <span class="level ia"><span class="es">Con IA</span><span class="en">With AI</span></span></li>
+        <li>Cloudflare Pages <span class="level"><span class="es">Uso</span><span class="en">Working</span></span></li>
       </ul>
     </div>
 
     <div class="skill-group">
-      <h4><span class="es">Arquitectura</span><span class="en">Architecture</span></h4>
+      <h4><span class="es">Fundamentos</span><span class="en">Foundations</span></h4>
       <ul class="skill-list">
-        <li><span class="es">SaaS multi-tenant</span><span class="en">Multi-tenant SaaS</span> <span class="level expert">Advanced</span></li>
-        <li><span class="es">Seguridad server-side</span><span class="en">Server-side security</span> <span class="level expert">Advanced</span></li>
-        <li><span class="es">Control de concurrencia</span><span class="en">Concurrency control</span> <span class="level">Intermediate</span></li>
-        <li><span class="es">Auth con roles</span><span class="en">Role-based auth</span> <span class="level expert">Advanced</span></li>
-        <li>Vertical slices <span class="level expert">Advanced</span></li>
+        <li><span class="es">Programación orientada a objetos</span><span class="en">Object-oriented programming</span> <span class="level expert"><span class="es">Domino</span><span class="en">Strong</span></span></li>
+        <li><span class="es">Estructuras de datos y algoritmos</span><span class="en">Data structures &amp; algorithms</span> <span class="level"><span class="es">He programado</span><span class="en">Worked with</span></span></li>
+        <li><span class="es">Ingeniería del software</span><span class="en">Software engineering</span> <span class="level"><span class="es">He programado</span><span class="en">Worked with</span></span></li>
+        <li><span class="es">Sistemas operativos</span><span class="en">Operating systems</span> <span class="level"><span class="es">He programado</span><span class="en">Worked with</span></span></li>
       </ul>
     </div>
 
     <div class="skill-group">
       <h4>Game Engines</h4>
       <ul class="skill-list">
-        <li>Unity <span class="level expert">Advanced</span></li>
-        <li>Unreal Engine <span class="level expert">Advanced</span></li>
-        <li>Netcode / VR (XR Toolkit) <span class="level">Intermediate</span></li>
-        <li>p5.js <span class="level">Intermediate</span></li>
+        <li>Unity <span class="level expert"><span class="es">Domino</span><span class="en">Strong</span></span></li>
+        <li>Unreal Engine <span class="level expert"><span class="es">Domino</span><span class="en">Strong</span></span></li>
+        <li>Netcode / VR (XR Toolkit) <span class="level"><span class="es">Uso</span><span class="en">Working</span></span></li>
+        <li>p5.js <span class="level"><span class="es">Uso</span><span class="en">Working</span></span></li>
       </ul>
     </div>
 
     <div class="skill-group">
       <h4>Game Design</h4>
       <ul class="skill-list">
-        <li><span class="es">Mecánicas y sistemas</span><span class="en">Mechanics & systems</span> <span class="level expert">Advanced</span></li>
-        <li><span class="es">Gamificación</span><span class="en">Gamification</span> <span class="level expert">Advanced</span></li>
-        <li><span class="es">Prototipado</span><span class="en">Prototyping</span> <span class="level expert">Advanced</span></li>
-        <li><span class="es">Diseño de niveles</span><span class="en">Level design</span> <span class="level">Intermediate</span></li>
-        <li><span class="es">Narrativa interactiva</span><span class="en">Interactive narrative</span> <span class="level">Intermediate</span></li>
+        <li><span class="es">Mecánicas y sistemas</span><span class="en">Mechanics &amp; systems</span> <span class="level expert"><span class="es">Domino</span><span class="en">Strong</span></span></li>
+        <li><span class="es">Gamificación</span><span class="en">Gamification</span> <span class="level expert"><span class="es">Domino</span><span class="en">Strong</span></span></li>
+        <li><span class="es">Prototipado</span><span class="en">Prototyping</span> <span class="level expert"><span class="es">Domino</span><span class="en">Strong</span></span></li>
+        <li><span class="es">Diseño de niveles</span><span class="en">Level design</span> <span class="level"><span class="es">Uso</span><span class="en">Working</span></span></li>
+        <li><span class="es">Narrativa interactiva</span><span class="en">Interactive narrative</span> <span class="level"><span class="es">Uso</span><span class="en">Working</span></span></li>
       </ul>
     </div>
 
     <div class="skill-group">
-      <h4><span class="es">Herramientas & IA</span><span class="en">Tools & AI</span></h4>
+      <h4><span class="es">Herramientas &amp; IA</span><span class="en">Tools &amp; AI</span></h4>
       <ul class="skill-list">
-        <li><span class="es">IA aplicada · Claude / Claude Code</span><span class="en">Applied AI · Claude / Claude Code</span> <span class="level expert">Expert</span></li>
-        <li>Prompt Engineering (AWS) <span class="level expert">Advanced</span></li>
-        <li>Git / GitHub <span class="level expert">Advanced</span></li>
-        <li>VS Code · Visual Studio <span class="level expert">Advanced</span></li>
-        <li>Node.js / npm <span class="level">Intermediate</span></li>
+        <li><span class="es">IA aplicada · Claude / Claude Code</span><span class="en">Applied AI · Claude / Claude Code</span> <span class="level expert"><span class="es">Domino</span><span class="en">Strong</span></span></li>
+        <li>Prompt Engineering (AWS) <span class="level expert"><span class="es">Domino</span><span class="en">Strong</span></span></li>
+        <li>VS Code · Visual Studio <span class="level expert"><span class="es">Domino</span><span class="en">Strong</span></span></li>
+        <li>Git / GitHub <span class="level"><span class="es">Uso</span><span class="en">Working</span></span></li>
+        <li>Playwright · ffmpeg <span class="level ia"><span class="es">Con IA</span><span class="en">With AI</span></span></li>
       </ul>
     </div>
 
     <div class="skill-group">
-      <h4><span class="es">Arte & Diseño</span><span class="en">Art & Design</span></h4>
+      <h4><span class="es">Arte, 3D &amp; vídeo</span><span class="en">Art, 3D &amp; video</span></h4>
       <ul class="skill-list">
-        <li>Photoshop <span class="level expert">Advanced</span></li>
-        <li>Illustrator <span class="level expert">Advanced</span></li>
-        <li>Blender <span class="level">Intermediate</span></li>
-        <li>Maya <span class="level">Intermediate</span></li>
-        <li>Krita <span class="level">Intermediate</span></li>
-        <li>Reaper <span class="es">(audio)</span><span class="en">(audio)</span> <span class="level">Intermediate</span></li>
+        <li>Photoshop <span class="level expert"><span class="es">Domino</span><span class="en">Strong</span></span></li>
+        <li>Illustrator <span class="level expert"><span class="es">Domino</span><span class="en">Strong</span></span></li>
+        <li><span class="es">Blender (también con IA)</span><span class="en">Blender (also with AI)</span> <span class="level"><span class="es">Uso</span><span class="en">Working</span></span></li>
+        <li>Maya <span class="level"><span class="es">Uso</span><span class="en">Working</span></span></li>
+        <li>Krita <span class="level"><span class="es">Uso</span><span class="en">Working</span></span></li>
+        <li>Reaper <span class="es">(audio)</span><span class="en">(audio)</span> <span class="level"><span class="es">Uso</span><span class="en">Working</span></span></li>
       </ul>
     </div>
 
@@ -1441,6 +1503,15 @@ p:not(.tagline):not(.subtitle):not(.role):not([style]),
     </div>
 
     <div class="experience-item">
+      <div class="year">2026 — </div>
+      <div>
+        <h3><span class="es">IA Generativa en Aplicaciones <span class="italic">Empresariales</span></span><span class="en">Generative AI for Business <span class="italic">Applications</span></span></h3>
+        <div class="place"><span class="es">Programa Superior Universitario</span><span class="en">Advanced University Programme</span> · UNIR · Online</div>
+      </div>
+      <div class="arrow">→</div>
+    </div>
+
+    <div class="experience-item">
       <div class="year">2026</div>
       <div>
         <h3><span class="es">Prácticas de desarrollo <span class="italic">VR</span></span><span class="en">VR development <span class="italic">internship</span></span></h3>
@@ -1462,7 +1533,7 @@ p:not(.tagline):not(.subtitle):not(.role):not([style]),
       <div class="year">2023 — 2026</div>
       <div>
         <h3><span class="es">Grado en Diseño y Desarrollo de <span class="italic">Videojuegos</span></span><span class="en">BA in Video Game <span class="italic">Design & Development</span></span></h3>
-        <div class="place">UNIR · Online</div>
+        <div class="place">UNIR · Online · <span class="es">nota media 7,72 · TFG 9,0</span><span class="en">GPA 7.72 / 10 · final project 9.0</span></div>
       </div>
       <div class="arrow">→</div>
     </div>
