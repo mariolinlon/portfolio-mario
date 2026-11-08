@@ -649,6 +649,9 @@ p:not(.tagline):not(.subtitle):not(.role):not([style]),
   hyphens: auto;
 }
 
+/* 08/11 · La imagen de cabecera se ve entera, con su propia proporción. */
+.hero-image { aspect-ratio: auto; }
+.hero-image img { height: auto; }
 /* 08/11 · Redes autogestionadas: el ciclo en cuatro pasos y las piezas
    verticales (historias y reels) y de feed (4:5) sin recortar. */
 .flujo { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 40px; }

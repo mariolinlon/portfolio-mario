@@ -563,14 +563,6 @@ section {
   letter-spacing: 0.2em;
 }
 
-/* 08/11 · Ficha ancha (ocupa las dos columnas): imagen a la izquierda y
-   texto a la derecha. En móvil vuelve a ser una ficha normal. */
-.project-card.ancha { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
-.project-card.ancha .thumb { aspect-ratio: auto; height: 100%; min-height: 320px; border-bottom: none; border-right: 1px solid var(--border); }
-.project-card.ancha .description { max-width: 520px; }
-/* Ficha sin página propia: no parece un enlace (sin flecha ni mano). */
-.project-card-small.sin-enlace { cursor: default; }
-.project-card-small.sin-enlace:hover { background: var(--bg); }
 
 .projects-grid-small {
   display: grid;
@@ -579,12 +571,13 @@ section {
   background: var(--border);
   border: 1px solid var(--border);
 }
-/* 08/11 · Con 6 fichas las dos filas quedan llenas: el relleno rayado
-   sobra. Si vuelve a haber un número que no sea múltiplo de 3, quitar
-   el display: none. */
+/* 08/11 · Con 7 fichas en 3 columnas faltan 2 casillas: las rellenan
+   ::before (llevado al final con order) y ::after, rayados. Si cambia el
+   número de fichas, ajustar: con 8 basta ::after; con 6 o 9, ninguno. */
+.projects-grid-small::before,
 .projects-grid-small::after {
-  display: none;
   content: "";
+  order: 1;
   background: var(--bg);
   background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(208,189,156,0.25) 10px, rgba(208,189,156,0.25) 12px);
 }
@@ -965,8 +958,6 @@ footer .bottom {
 }
 
 @media (max-width: 900px) {
-  .project-card.ancha { display: flex; flex-direction: column; }
-  .project-card.ancha .thumb { aspect-ratio: 2.2 / 1; height: auto; min-height: 0; border-right: none; border-bottom: 1px solid var(--border); }
   nav { padding: 16px 20px; }
   nav ul { display: none; }
   nav .logo { font-size: 11px; }
@@ -976,7 +967,7 @@ footer .bottom {
   .project-card { min-height: auto; }
   .project-card .arrow { top: 30px; right: 30px; }
   .projects-grid-small { grid-template-columns: 1fr; }
-  .projects-grid-small::after { display: none; }
+  .projects-grid-small::before, .projects-grid-small::after { display: none; }
   .other-projects-header { flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 60px; }
   .skills-grid { grid-template-columns: 1fr; gap: 30px; }
   .experience-item {
@@ -1181,34 +1172,13 @@ p:not(.tagline):not(.subtitle):not(.role):not([style]),
       </div>
     </a>
 
-    <a href="redes-ia.html" class="project-card ancha">
-      <div class="thumb">
-        <img src="assets/redes-ia/hero.jpg" alt="Carrusel, reel, historia y post generados por el sistema de redes con IA">
-      </div>
-      <div class="arrow">→</div>
-      <div class="card-body">
-        <div class="number"><span class="es">003 — Proyecto personal · IA aplicada</span><span class="en">003 — Personal project · Applied AI</span></div>
-        <h3><span class="es">Redes <span class="italic">autogestionadas</span></span><span class="en">Self-running <span class="italic">socials</span></span></h3>
-        <p class="description">
-          <span class="es">Sistema que lleva las redes sociales de un negocio casi solo: una IA prepara con un mes de margen carruseles, historias y reels con música, voz y subtítulos; el dueño los aprueba en un calendario dentro de su web, y la web los publica en Instagram, Facebook, TikTok y Pinterest. Generador propio (Python, Playwright, ffmpeg) y plugin de WordPress con funciones para la IA por MCP. En marcha en una tienda online real.</span>
-          <span class="en">A system that runs a business's social media almost on its own: an AI prepares carousels, stories and reels with music, voice-over and subtitles a month ahead; the owner approves them in a calendar inside their website, and the website publishes them to Instagram, Facebook, TikTok and Pinterest. Custom generator (Python, Playwright, ffmpeg) and a WordPress plugin exposing functions to the AI over MCP. Running on a real online store.</span>
-        </p>
-        <div class="tech-stack">
-          <span class="tag">Python</span>
-          <span class="tag">PHP</span>
-          <span class="tag"><span class="es">IA · MCP</span><span class="en">AI · MCP</span></span>
-          <span class="tag">Playwright · ffmpeg</span>
-        </div>
-      </div>
-    </a>
-
     <a href="abcdalia.html" class="project-card">
       <div class="thumb">
         <img src="assets/abcdalia/thumb.jpg" alt="ABCDalia — material para el salón y herramientas para docentes">
       </div>
       <div class="arrow">→</div>
       <div class="card-body">
-        <div class="number"><span class="es">004 — Producto · E-commerce</span><span class="en">004 — Product · E-commerce</span></div>
+        <div class="number"><span class="es">003 — Producto · E-commerce</span><span class="en">003 — Product · E-commerce</span></div>
         <h3>ABC<span class="italic">dalia</span></h3>
         <p class="description">
           <span class="es">Tienda online de material didáctico para primaria (1º a 3º), en producción: imprimibles para el salón y herramientas en Excel que ahorran papeleo a las maestras. Marca propia, tema y plugin en PHP, Excel generados con Python, pagos con Mercado Pago y un sistema de redes con IA.</span>
@@ -1229,7 +1199,7 @@ p:not(.tagline):not(.subtitle):not(.role):not([style]),
       </div>
       <div class="arrow">→</div>
       <div class="card-body">
-        <div class="number"><span class="es">005 — Prácticas · VR</span><span class="en">005 — Internship · VR</span></div>
+        <div class="number"><span class="es">004 — Prácticas · VR</span><span class="en">004 — Internship · VR</span></div>
         <h3>American <span class="italic">Frisbee</span></h3>
         <p class="description">
           <span class="es">Juego de VR multijugador para Location-Based Entertainment, desarrollado durante mis prácticas en Immersive Oasis. Fútbol americano con frisbee virtual: físicas aerodinámicas, multijugador en red local con tracking físico real y despliegue en PICO 4. Diseño de concepto y desarrollo en Unity.</span>
@@ -1253,7 +1223,26 @@ p:not(.tagline):not(.subtitle):not(.role):not([style]),
   </div>
   <div class="projects-grid-small">
 
-    <div class="project-card-small sin-enlace">
+    <a href="redes-ia.html" class="project-card-small">
+      <div class="thumb">
+        <img src="assets/redes-ia/thumb.jpg" alt="Carrusel, reel, historia y post generados por el sistema de redes con IA">
+      </div>
+      <div class="card-body">
+        <div class="number"><span class="es">005 — Proyecto personal · IA aplicada</span><span class="en">005 — Personal project · Applied AI</span></div>
+        <h4><span class="es">Redes <span class="italic">autogestionadas</span></span><span class="en">Self-running <span class="italic">socials</span></span></h4>
+        <p class="description">
+          <span class="es">Sistema que lleva las redes de un negocio casi solo: la IA prepara con un mes de margen carruseles, historias y reels con voz y subtítulos, el dueño los aprueba y la web los publica. Nació dentro de ABCDalia.</span>
+          <span class="en">A system that runs a business's social media almost on its own: AI prepares carousels, stories and reels with voice-over and subtitles a month ahead, the owner approves them and the website publishes them. It was born inside ABCDalia.</span>
+        </p>
+        <div class="tech-stack">
+          <span class="tag">Python</span>
+          <span class="tag">PHP · MCP</span>
+          <span class="tag">Playwright · ffmpeg</span>
+        </div>
+      </div>
+    </a>
+
+    <a href="discoteca.html" class="project-card-small">
       <div class="thumb">
         <img src="assets/discoteca/thumb.jpg" alt="Maqueta de la sala con el vídeo del túnel en la pantalla principal">
       </div>
@@ -1270,7 +1259,7 @@ p:not(.tagline):not(.subtitle):not(.role):not([style]),
           <span class="tag"><span class="es">En curso</span><span class="en">Ongoing</span></span>
         </div>
       </div>
-    </div>
+    </a>
 
     <a href="ag-telecom.html" class="project-card-small">
       <div class="thumb">
