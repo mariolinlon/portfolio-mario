@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>tailt · gestión de gimnasios — Mario Fernández Martín</title>
-<meta name="description" content="tailt — plataforma SaaS multi-tenant de gestión para gimnasios (React Native, Next.js, TypeScript, Supabase/PostgreSQL) centrada en la retención de socios. Proyecto personal publicado en la App Store y en prueba en Google Play.">
+<meta name="description" content="tailt — plataforma SaaS multi-tenant de gestión para gimnasios (React Native, Next.js, TypeScript, Supabase/PostgreSQL) centrada en la retención de socios. Proyecto personal publicado en la App Store y en Google Play.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://mariofernandezmartin.pages.dev/gimnasio-app.html">
@@ -32,7 +32,7 @@
 
 <nav class="topnav" id="nav"><div class="wrap">
   <a href="index.html" class="back">← <span class="es">Portafolio</span><span class="en">Portfolio</span></a>
-  <div class="project-name"><i class="dot"></i>tailt</div>
+  <div class="project-name"><img src="assets/gimnasio-app/tailt-icono-app.svg" alt="" class="nav-logo">tailt</div>
   <div class="nav-actions">
     <button id="lang-toggle" class="lang-toggle" aria-label="Cambiar idioma">EN</button>
     <button class="theme" id="theme" aria-label="Cambiar tema" title="Cambiar tema">
@@ -56,22 +56,38 @@
       </div>
       <h1>tai<span class="italic">lt</span></h1>
       <p class="tagline">
-        <span class="es">Una plataforma para que los socios vuelvan: entrenamiento, reservas y gamificación en el móvil, y un panel para el gimnasio.</span>
-        <span class="en">A platform that makes members come back: training, bookings and gamification on the phone, plus a panel for the gym.</span>
+        <span class="es">Una plataforma para que los socios vuelvan: entrenamiento, nutrición, reservas y gamificación en el móvil, y un panel para el gimnasio.</span>
+        <span class="en">A platform that makes members come back: training, nutrition, bookings and gamification on the phone, plus a panel for the gym.</span>
       </p>
-      <!-- 25/09 · Enlace a la ficha de la App Store, con el botón negro de siempre. -->
-      <a class="badge-appstore" href="https://apps.apple.com/es/app/id6809188436" target="_blank" rel="noopener" aria-label="Ver la app en la App Store">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.77c-.02-2.3 1.88-3.4 1.96-3.45-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.83-.81-3-.79-1.55.02-2.97.9-3.77 2.28-1.61 2.79-.41 6.92 1.16 9.18.77 1.11 1.68 2.35 2.88 2.31 1.16-.05 1.6-.75 3-.75s1.79.75 3.01.73c1.24-.02 2.03-1.13 2.79-2.24.88-1.29 1.24-2.53 1.26-2.6-.03-.01-2.42-.93-2.44-3.7zM14.09 6.03c.64-.77 1.07-1.85.95-2.92-.92.04-2.03.61-2.69 1.38-.59.68-1.11 1.78-.97 2.83 1.03.08 2.07-.52 2.71-1.29z"/></svg>
-        <span class="badge-texto"><small><span class="es">Descárgalo en el</span><span class="en">Download on the</span></small><strong>App Store</strong></span>
-      </a>
-      <p style="font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 14px; letter-spacing: 0.08em;">
-        <span class="es">Android: en prueba cerrada en Google Play, con un grupo de testers.</span>
-        <span class="en">Android: in closed testing on Google Play, with a group of testers.</span>
-      </p>
+      <!-- 28/11 · Las dos tiendas, con sus botones negros, y el QR que lleva a la que toque según el móvil. -->
+      <div class="tiendas">
+        <div class="tiendas-botones">
+          <a class="badge-appstore" href="https://apps.apple.com/es/app/id6809188436" target="_blank" rel="noopener" aria-label="Ver la app en la App Store">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.37 12.77c-.02-2.3 1.88-3.4 1.96-3.45-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.83-.81-3-.79-1.55.02-2.97.9-3.77 2.28-1.61 2.79-.41 6.92 1.16 9.18.77 1.11 1.68 2.35 2.88 2.31 1.16-.05 1.6-.75 3-.75s1.79.75 3.01.73c1.24-.02 2.03-1.13 2.79-2.24.88-1.29 1.24-2.53 1.26-2.6-.03-.01-2.42-.93-2.44-3.7zM14.09 6.03c.64-.77 1.07-1.85.95-2.92-.92.04-2.03.61-2.69 1.38-.59.68-1.11 1.78-.97 2.83 1.03.08 2.07-.52 2.71-1.29z"/></svg>
+            <span class="badge-texto"><small><span class="es">Descárgalo en el</span><span class="en">Download on the</span></small><strong>App Store</strong></span>
+          </a>
+          <a class="badge-appstore" href="https://play.google.com/store/apps/details?id=com.lughion.gimnasio" target="_blank" rel="noopener" aria-label="Ver la app en Google Play">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5.2 2.6c-.5.3-.8.8-.8 1.5v15.8c0 .7.3 1.2.8 1.5l9-9.4-9-9.4zm10.1 10.5-8.2 8.5 10.9-6.1-2.7-2.4zm0-2.2 2.7-2.4L7.1 2.4l8.2 8.5zm3.9-1.6-3 2.7 3 2.7 2-1.1c1.2-.7 1.2-2.5 0-3.2l-2-1.1z"/></svg>
+            <span class="badge-texto"><small><span class="es">Disponible en</span><span class="en">Get it on</span></small><strong>Google Play</strong></span>
+          </a>
+        </div>
+        <a class="qr-descarga" href="https://tailt.lughion.com/descargar/" target="_blank" rel="noopener" aria-label="Página de descarga de tailt">
+          <img src="assets/gimnasio-app/tailt-qr-descargar.svg" alt="Código QR que lleva a tailt.lughion.com/descargar" width="1000" height="1130" loading="lazy">
+          <span class="qr-texto"><strong><span class="es">Escanéalo con el móvil</span><span class="en">Scan it with your phone</span></strong><small><span class="es">Abre la tienda que toca: App Store en iPhone, Google Play en Android.</span><span class="en">Opens the right store: App Store on iPhone, Google Play on Android.</span></small></span>
+        </a>
       </div>
-      <figure class="hero-lateral">
-        <img src="assets/gimnasio-app/movil-inicio.webp" alt="La app en un iPhone: pantalla de inicio del socio con el calendario del mes y los accesos a entrenar, mensajes, progreso, nutrición y puntos">
-      </figure>
+      </div>
+      <!-- 28/11 · El móvil arranca como la app de verdad: es la misma página de la animación de arranque (three.js) que lleva dentro. -->
+      <div class="hero-movil">
+        <figure class="hero-lateral" id="movil-arranque">
+          <img src="assets/gimnasio-app/movil-inicio.webp" alt="La app en un iPhone: pantalla de inicio del socio con el calendario del mes y los accesos a entrenar, mensajes, progreso, nutrición y puntos">
+          <div class="pantalla" aria-hidden="true"><iframe title="Animación de arranque de tailt" data-src="assets/gimnasio-app/arranque.html" tabindex="-1" scrolling="no"></iframe><i class="isla"></i></div>
+        </figure>
+        <button type="button" class="btn-arranque" id="ver-arranque">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+          <span class="es">Ver la animación de arranque</span><span class="en">Play the boot animation</span>
+        </button>
+      </div>
     </div>
     <div class="hero-image">
       <img src="assets/gimnasio-app/hero.jpg" alt="El panel web del gimnasio en un portátil, el modo profesional en un iPad y la app del socio en un iPhone">
@@ -95,7 +111,7 @@
       </div>
       <div class="meta-item">
         <div class="label"><span class="es">Plataforma</span><span class="en">Platform</span></div>
-        <div class="value"><span class="es">iOS (App Store) · Android (prueba en Google Play) · Web</span><span class="en">iOS (App Store) · Android (testing on Google Play) · Web</span></div>
+        <div class="value"><span class="es">iOS (App Store) · Android (Google Play) · Web</span><span class="en">iOS (App Store) · Android (Google Play) · Web</span></div>
       </div>
       <div class="meta-item">
         <div class="label">Stack</div>
@@ -103,7 +119,7 @@
       </div>
       <div class="meta-item">
         <div class="label"><span class="es">Estado</span><span class="en">Status</span></div>
-        <div class="value"><span class="es">Publicada en la App Store · en uso</span><span class="en">Live on the App Store · in use</span></div>
+        <div class="value"><span class="es">Publicada en App Store y Google Play · en uso</span><span class="en">Live on the App Store and Google Play · in use</span></div>
       </div>
     </div>
   </section>
@@ -148,15 +164,22 @@
       <div class="mechanic-item">
         <div class="mech-label"><span class="es">Para el socio</span><span class="en">For the member</span></div>
         <div class="mech-body">
-          <span class="es">La sesión de hoy ("hoy toca X") y el plan semanal, y la sesión en vivo: series, descansos, cardio por tramos y una <strong>cuenta atrás guiada</strong> para estiramientos que vibra al cambiar de lado. Un catálogo de más de 850 ejercicios clasificados por familias, historial, gráficas de progresión y mediciones. Nutrición con recetas, <strong>kilocalorías de cada comida a partir de una foto</strong> con una API de IA, pasos de <strong>Apple Salud y Health Connect</strong> y calorías del entreno calculadas con MET. Tablón, mensajes con el gimnasio y su pantalla de puntos, rachas y récords.</span>
-          <span class="en">Today's session ("today it's X") and the weekly plan, plus the live session: sets, rest timers, cardio by intervals and a <strong>guided countdown</strong> for stretches that vibrates when it's time to switch sides. A catalog of 850+ exercises grouped by families, history, progression charts and measurements. Nutrition with recipes, <strong>calories of each meal from a photo</strong> via an AI API, steps from <strong>Apple Health and Health Connect</strong> and workout calories computed with METs. Notice board, messaging with the gym and their points, streaks and records screen.</span>
+          <span class="es">La sesión de hoy ("hoy toca X") y el plan semanal, y la sesión en vivo: series, descansos, cardio por tramos y una <strong>cuenta atrás guiada</strong> para estiramientos que vibra al cambiar de lado. Un catálogo de más de 850 ejercicios clasificados por familias, historial, gráficas de progresión y mediciones. <strong>Vídeos de técnica</strong> en los ejercicios, superseries y drop sets, y un <strong>modo sin conexión</strong>: el entreno se hace sin cobertura y se sube solo al volver la red. Pasos de <strong>Apple Salud y Health Connect</strong> y calorías del entreno calculadas con MET. Tablón, mensajes con el gimnasio y su pantalla de puntos, rachas y récords.</span>
+          <span class="en">Today's session ("today it's X") and the weekly plan, plus the live session: sets, rest timers, cardio by intervals and a <strong>guided countdown</strong> for stretches that vibrates when it's time to switch sides. A catalog of 850+ exercises grouped by families, history, progression charts and measurements. <strong>Technique videos</strong> on the exercises, supersets and drop sets, and an <strong>offline mode</strong>: you train with no signal and the workout uploads itself when the network is back. Steps from <strong>Apple Health and Health Connect</strong> and workout calories computed with METs. Notice board, messaging with the gym and their points, streaks and records screen.</span>
+        </div>
+      </div>
+      <div class="mechanic-item">
+        <div class="mech-label"><span class="es">Nutrición</span><span class="en">Nutrition</span></div>
+        <div class="mech-body">
+          <span class="es">Un <strong>diario de comidas</strong> con las calorías del día de un vistazo —lo comido, lo quemado y lo que queda— y los macros con su objetivo. Cinco comidas, y cuatro maneras de apuntar: <strong>buscando</strong>, escaneando el <strong>código de barras</strong> (Open Food Facts), con una <strong>foto del plato</strong> o <strong>dictándolo</strong>, y la IA estima alimentos y cantidades para que el socio solo confirme. Favoritos, un calendario del mes que marca cada día con forma y color, y el objetivo repartido por porcentajes. El nutricionista del centro deja el <strong>menú de la semana</strong> a cada socio, y hay recetario: las recetas del centro, 44 básicas de cocina española y las propias, con su peso ya cocinado.</span>
+          <span class="en">A <strong>food diary</strong> with the day's calories at a glance — eaten, burned and remaining — and the macros against their target. Five meals and four ways to log: <strong>searching</strong>, scanning the <strong>barcode</strong> (Open Food Facts), with a <strong>photo of the plate</strong> or by <strong>dictating it</strong>, and the AI estimates foods and amounts so the member only confirms. Favourites, a month calendar that marks each day with shape and colour, and the target split by percentages. The centre's nutritionist sets each member's <strong>weekly menu</strong>, and there's a recipe book: the centre's recipes, 44 Spanish-cooking basics and your own, with their cooked weight.</span>
         </div>
       </div>
       <div class="mechanic-item">
         <div class="mech-label"><span class="es">Para el entrenador</span><span class="en">For the trainer</span></div>
         <div class="mech-body">
-          <span class="es">Lista de clientes, creación de plantillas de entrenamiento, planificación de la semana de cada cliente, agenda de citas, plantillas por ciclos de semanas con series por % del 1RM, drop sets y jump sets, hojas de rutina imprimibles, un <strong>modo profesional para iPad</strong> para entrenar con el cliente delante, y un <strong>semáforo de lesiones</strong>: a partir del perfil y las mediciones del socio, un motor de reglas marca en rojo, ámbar o verde qué ejercicios conviene evitar, adaptar o mantener.</span>
-          <span class="en">Client list, workout-template builder, weekly planning for each client, an appointments agenda, templates by multi-week cycles with sets at a % of 1RM, drop sets and jump sets, printable workout sheets, a <strong>professional mode for iPad</strong> to train with the client in front of you, and an <strong>injury traffic light</strong>: from the member's profile and measurements, a rules engine flags in red, amber or green which exercises to avoid, adapt or keep.</span>
+          <span class="es">Lista de clientes, creación de plantillas de entrenamiento, planificación de la semana de cada cliente, agenda de citas con <strong>varias personas por cita</strong> y citas que se <strong>pasan entre entrenadores</strong>, una vista «Mi semana», plantillas por ciclos de semanas con series por % del 1RM, drop sets y jump sets, hojas de rutina imprimibles, un <strong>modo profesional para iPad</strong> para entrenar con el cliente delante, y un <strong>semáforo de lesiones</strong>: a partir del perfil y las mediciones del socio, un motor de reglas marca en rojo, ámbar o verde qué ejercicios conviene evitar, adaptar o mantener.</span>
+          <span class="en">Client list, workout-template builder, weekly planning for each client, an appointments agenda with <strong>several people per appointment</strong> and appointments <strong>handed over between trainers</strong>, a "My week" view, templates by multi-week cycles with sets at a % of 1RM, drop sets and jump sets, printable workout sheets, a <strong>professional mode for iPad</strong> to train with the client in front of you, and an <strong>injury traffic light</strong>: from the member's profile and measurements, a rules engine flags in red, amber or green which exercises to avoid, adapt or keep.</span>
         </div>
       </div>
       <div class="mechanic-item">
@@ -247,16 +270,16 @@
         <div class="ch-num">06</div>
         <h3><span class="es">Migraciones </span><span class="en">Versioned </span><span class="italic"><span class="es">versionadas</span><span class="en">migrations</span></span></h3>
         <p>
-          <span class="es"><strong>Más de 180 migraciones SQL numeradas</strong> y unas 35.000 líneas: 78 tablas, más de 500 funciones, 148 políticas RLS y 70 triggers. Cada una lleva escrito en la cabecera <em>por qué</em> existe y qué rompía antes. Nada se toca a mano en producción.</span>
-          <span class="en"><strong>180+ numbered SQL migrations</strong> and some 35,000 lines: 78 tables, 500+ functions, 148 RLS policies and 70 triggers. Each one states in its header <em>why</em> it exists and what used to break. Nothing is touched by hand in production.</span>
+          <span class="es"><strong>Más de 300 migraciones SQL numeradas</strong> y unas 55.000 líneas: 111 tablas, cerca de 900 funciones, 178 políticas RLS y un centenar de triggers. Cada una lleva escrito en la cabecera <em>por qué</em> existe y qué rompía antes. Nada se toca a mano en producción.</span>
+          <span class="en"><strong>300+ numbered SQL migrations</strong> and some 55,000 lines: 111 tables, close to 900 functions, 178 RLS policies and around a hundred triggers. Each one states in its header <em>why</em> it exists and what used to break. Nothing is touched by hand in production.</span>
         </p>
       </div>
       <div class="challenge-card">
         <div class="ch-num">07</div>
         <h3><span class="es">Pruebas que </span><span class="en">Tests that </span><span class="italic"><span class="es">fallan antes</span><span class="en">fail first</span></span></h3>
         <p>
-          <span class="es">45 suites de regresión en SQL. La regla: una prueba tiene que <strong>fallar contra el código anterior</strong> y pasar con el nuevo, o no prueba nada. Cada negativa lleva su control positivo, y afirma <em>el motivo</em> del rechazo — no basta con que algo falle, tiene que fallar por lo que se dice. Han cazado tres correcciones que yo daba por buenas leyendo el código.</span>
-          <span class="en">45 SQL regression suites. The rule: a test must <strong>fail against the previous code</strong> and pass with the new one, or it proves nothing. Every negative case carries its positive control and asserts <em>the reason</em> for the rejection — it isn't enough that something fails, it has to fail for the stated reason. They caught three fixes I had judged correct by reading the code.</span>
+          <span class="es">Más de 50 suites de regresión en SQL. La regla: una prueba tiene que <strong>fallar contra el código anterior</strong> y pasar con el nuevo, o no prueba nada. Cada negativa lleva su control positivo, y afirma <em>el motivo</em> del rechazo — no basta con que algo falle, tiene que fallar por lo que se dice. Han cazado tres correcciones que yo daba por buenas leyendo el código.</span>
+          <span class="en">50+ SQL regression suites. The rule: a test must <strong>fail against the previous code</strong> and pass with the new one, or it proves nothing. Every negative case carries its positive control and asserts <em>the reason</em> for the rejection — it isn't enough that something fails, it has to fail for the stated reason. They caught three fixes I had judged correct by reading the code.</span>
         </p>
       </div>
       <div class="challenge-card">
@@ -297,6 +320,30 @@
         <p>
           <span class="es">Con la app ya publicada, los cambios de interfaz y de lógica llegan a los móviles <strong>sin pasar otra vez por la tienda</strong>, con Expo Updates. Solo lo nativo (permisos, librerías con código de sistema) exige una build nueva, y cada tanda se publica pequeña para poder volver atrás si falla.</span>
           <span class="en">With the app already live, UI and logic changes reach phones <strong>without going through the store again</strong>, via Expo Updates. Only native changes (permissions, libraries with system code) need a new build, and each batch ships small so it can be rolled back if it fails.</span>
+        </p>
+      </div>
+      <div class="challenge-card">
+        <div class="ch-num">13</div>
+        <h3><span class="es">Entrenar </span><span class="en">Training </span><span class="italic"><span class="es">sin conexión</span><span class="en">offline</span></span></h3>
+        <p>
+          <span class="es">Los gimnasios tienen sótanos. Toda petición pasa por una capa propia: cada lectura que sale bien se guarda en el móvil y, sin red, se contesta con lo guardado. Un entreno terminado sin cobertura va a una <strong>cola de pendientes</strong> con un identificador que pone el propio móvil; al volver la red se sube solo y, si ya estaba, la base lo rechaza por duplicado: nunca se apunta dos veces ni se dan los puntos dos veces.</span>
+          <span class="en">Gyms have basements. Every request goes through a layer of my own: each successful read is saved on the phone and, with no network, answered from what was saved. A workout finished with no signal goes to a <strong>pending queue</strong> with an id set by the phone itself; when the network returns it uploads on its own and, if it was already there, the database rejects it as a duplicate: it's never recorded twice and points are never awarded twice.</span>
+        </p>
+      </div>
+      <div class="challenge-card">
+        <div class="ch-num">14</div>
+        <h3><span class="es">IA con la clave </span><span class="en">AI with the key </span><span class="italic"><span class="es">en el servidor</span><span class="en">on the server</span></span></h3>
+        <p>
+          <span class="es">La foto o el dictado de una comida no van del móvil al modelo: van a una <strong>función en el borde</strong> que comprueba quién pregunta, llama a la API de Gemini y devuelve alimentos y cantidades con una forma fija. La clave no sale nunca del servidor, y la IA <strong>propone</strong>: nada entra en el diario hasta que el socio lo confirma.</span>
+          <span class="en">A meal's photo or dictation doesn't go from the phone to the model: it goes to an <strong>edge function</strong> that checks who's asking, calls the Gemini API and returns foods and amounts in a fixed shape. The key never leaves the server, and the AI <strong>proposes</strong>: nothing enters the diary until the member confirms it.</span>
+        </p>
+      </div>
+      <div class="challenge-card">
+        <div class="ch-num">15</div>
+        <h3><span class="es">Un arranque </span><span class="en">A boot </span><span class="italic"><span class="es">en 3D</span><span class="en">in 3D</span></span></h3>
+        <p>
+          <span class="es">El logo se dibuja con un trazo, se vuelve una T de metal en 3D (three.js) que gira <strong>mientras la app carga de verdad</strong>, y se abre para dejar paso a la app. Es la del móvil de arriba. Va con seguros: si no hay WebGL, si tarda más de la cuenta o si el móvil tiene «reducir movimiento», se entra sin animación.</span>
+          <span class="en">The logo draws itself with a stroke, becomes a 3D metal T (three.js) that spins <strong>while the app is actually loading</strong>, and opens up to let the app through. It's the one on the phone above. It ships with safeguards: no WebGL, taking too long or "reduce motion" on the phone means going in without the animation.</span>
         </p>
       </div>
     </div>
@@ -340,7 +387,7 @@
         <img src="assets/gimnasio-app/movil-progreso.webp" alt="App móvil: progresión de un ejercicio en el tiempo" loading="lazy">
       </div>
       <div class="gallery-item span-2 movil">
-        <img src="assets/gimnasio-app/movil-nutricion.webp" alt="App móvil: nutrición del día, con el balance de calorías y los macronutrientes" loading="lazy">
+        <img src="assets/gimnasio-app/movil-nutricion.webp" alt="App móvil: diario de nutrición, con las calorías que quedan, los macros y las cinco comidas del día" loading="lazy">
       </div>
       <div class="gallery-item span-2 movil">
         <img src="assets/gimnasio-app/movil-calendario.webp" alt="App móvil: calendario con clases y entrenamientos del mes" loading="lazy">
@@ -371,7 +418,7 @@
       <div class="tech-row">
         <div class="tech-key"><span class="es">App móvil</span><span class="en">Mobile app</span></div>
         <div class="tech-val">
-          <span class="pill">React Native</span><span class="pill">Expo SDK 57</span><span class="pill">EAS Build</span><span class="pill">Expo Updates</span><span class="pill">HealthKit</span><span class="pill"><span class="es">Notificaciones push</span><span class="en">Push notifications</span></span><span class="pill">PanResponder / Animated</span>
+          <span class="pill">React Native</span><span class="pill">Expo SDK 57</span><span class="pill">EAS Build</span><span class="pill">Expo Updates</span><span class="pill">HealthKit</span><span class="pill">Health Connect</span><span class="pill">three.js</span><span class="pill"><span class="es">Notificaciones push</span><span class="en">Push notifications</span></span><span class="pill">PanResponder / Animated</span>
         </div>
       </div>
       <div class="tech-row">
@@ -383,13 +430,13 @@
       <div class="tech-row">
         <div class="tech-key">Backend</div>
         <div class="tech-val">
-          <span class="pill">Supabase</span><span class="pill">PostgreSQL</span><span class="pill">Row Level Security</span><span class="pill">security definer</span><span class="pill">Triggers</span><span class="pill">JSONB</span><span class="pill">plpgsql</span><span class="pill">Storage privado</span><span class="pill">Edge Functions</span><span class="pill">Stripe Connect</span>
+          <span class="pill">Supabase</span><span class="pill">PostgreSQL</span><span class="pill">Row Level Security</span><span class="pill">security definer</span><span class="pill">Triggers</span><span class="pill">JSONB</span><span class="pill">plpgsql</span><span class="pill">Storage privado</span><span class="pill">Edge Functions</span><span class="pill">Stripe Connect</span><span class="pill">Gemini API</span><span class="pill">Open Food Facts</span>
         </div>
       </div>
       <div class="tech-row">
         <div class="tech-key"><span class="es">Herramientas</span><span class="en">Tools</span></div>
         <div class="tech-val">
-          <span class="pill">Monorepo</span><span class="pill">Git / GitHub</span><span class="pill">VS Code</span><span class="pill">Node.js / npm</span><span class="pill">Suites de regresión SQL</span><span class="pill">Espejo local de la base</span><span class="pill">Sentry</span><span class="pill">App Store Connect</span>
+          <span class="pill">Monorepo</span><span class="pill">Git / GitHub</span><span class="pill">VS Code</span><span class="pill">Node.js / npm</span><span class="pill">Suites de regresión SQL</span><span class="pill">Espejo local de la base</span><span class="pill">Sentry</span><span class="pill">App Store Connect</span><span class="pill">Google Play Console</span>
         </div>
       </div>
       <div class="tech-row">
@@ -416,12 +463,12 @@
     </h2>
     <div class="body-text">
       <p>
-        <span class="es"><strong>Publicada en la App Store</strong> desde septiembre de 2026, después de pasar la revisión de Apple: el primer envío lo rechazaron por cómo se explicaba el uso de Apple Health, se respondió con la descripción y un vídeo, y la siguiente se aprobó. El <strong>panel web está en producción</strong>, los cobros con Stripe funcionan con dinero real y la app se sigue actualizando por aire.</span>
-        <span class="en"><strong>Live on the App Store</strong> since September 2026, after passing Apple's review: the first submission was rejected over how the use of Apple Health was explained, it was answered with the description and a video, and the next one was approved. The <strong>web panel is in production</strong>, Stripe payments run with real money and the app keeps being updated over the air.</span>
+        <span class="es"><strong>Publicada en la App Store</strong> desde septiembre de 2026, después de pasar la revisión de Apple: el primer envío lo rechazaron por cómo se explicaba el uso de Apple Health, se respondió con la descripción y un vídeo, y la siguiente se aprobó. El <strong>panel web está en producción</strong>, los cobros con Stripe funcionan con dinero real y la app se sigue actualizando por aire. Desde el <strong>19 de noviembre de 2026 está también en Google Play</strong>, en producción para España y Latinoamérica.</span>
+        <span class="en"><strong>Live on the App Store</strong> since September 2026, after passing Apple's review: the first submission was rejected over how the use of Apple Health was explained, it was answered with the description and a video, and the next one was approved. The <strong>web panel is in production</strong>, Stripe payments run with real money and the app keeps being updated over the air. Since <strong>19 November 2026 it is also on Google Play</strong>, in production for Spain and Latin America.</span>
       </p>
       <p>
-        <span class="es">El centro piloto de León ya la usa. La versión de <strong>Android</strong> está en <strong>prueba cerrada en Google Play</strong> con un grupo de testers, con Health Connect integrado; al terminar la prueba se pide el paso a producción. Para enseñarla sin datos reales hay un <strong>centro de pruebas</strong> que se rellena solo cada día con clases, reservas y socios inventados.</span>
-        <span class="en">The pilot centre in León is already using it. The <strong>Android</strong> version is in <strong>closed testing on Google Play</strong> with a group of testers, with Health Connect built in; once testing ends, production access is requested. To demo it without real data there's a <strong>test centre</strong> that fills itself every day with made-up classes, bookings and members.</span>
+        <span class="es">El centro piloto de León la usa <strong>a diario</strong>. La versión de <strong>Android</strong> llegó a producción después de la <strong>prueba cerrada</strong> que exige Google, con un grupo de testers, y lleva Health Connect integrado. Para enseñarla sin datos reales hay un <strong>centro de pruebas</strong> que se rellena solo cada día con clases, reservas y socios inventados.</span>
+        <span class="en">The pilot centre in León uses it <strong>every day</strong>. The <strong>Android</strong> version reached production after the <strong>closed test</strong> Google requires, with a group of testers, and has Health Connect built in. To demo it without real data there's a <strong>test centre</strong> that fills itself every day with made-up classes, bookings and members.</span>
       </p>
       <p>
         <span class="es">Lo que más me ha enseñado este proyecto no es una tecnología: es que <strong>una corrección no está hecha hasta que una prueba la contradice y falla</strong>. Tres veces di por buena una corrección leyendo el código y tres veces la encontró mal la prueba automática. Eso cambió cómo trabajo.</span>
@@ -431,15 +478,15 @@
     <div class="status-grid">
       <div class="status-item">
         <div class="label"><span class="es">Base de datos</span><span class="en">Database</span></div>
-        <div class="value"><span class="check"></span><span class="es">280+ migraciones · 108 tablas con RLS</span><span class="en">280+ migrations · 108 tables with RLS</span></div>
+        <div class="value"><span class="check"></span><span class="es">300+ migraciones · 111 tablas con RLS</span><span class="en">300+ migrations · 111 tables with RLS</span></div>
       </div>
       <div class="status-item">
         <div class="label"><span class="es">Pruebas</span><span class="en">Tests</span></div>
-        <div class="value"><span class="check"></span><span class="es">45 suites de regresión</span><span class="en">45 regression suites</span></div>
+        <div class="value"><span class="check"></span><span class="es">50+ suites de regresión</span><span class="en">50+ regression suites</span></div>
       </div>
       <div class="status-item">
         <div class="label"><span class="es">App móvil</span><span class="en">Mobile app</span></div>
-        <div class="value"><span class="check"></span><span class="es">41 pantallas · en la App Store</span><span class="en">41 screens · on the App Store</span></div>
+        <div class="value"><span class="check"></span><span class="es">50+ pantallas · App Store y Google Play</span><span class="en">50+ screens · App Store and Google Play</span></div>
       </div>
       <div class="status-item">
         <div class="label"><span class="es">Panel web</span><span class="en">Web panel</span></div>
@@ -447,7 +494,7 @@
       </div>
       <div class="status-item">
         <div class="label"><span class="es">Lanzamiento</span><span class="en">Launch</span></div>
-        <div class="value"><span class="check"></span><span class="es">iOS publicado · Android en prueba cerrada</span><span class="en">iOS live · Android in closed testing</span></div>
+        <div class="value"><span class="check"></span><span class="es">iOS y Android publicados</span><span class="en">iOS and Android live</span></div>
       </div>
     </div>
   </section>

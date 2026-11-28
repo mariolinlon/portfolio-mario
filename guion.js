@@ -86,6 +86,32 @@
     vt.finished.then(function(){},function(){}).then(function(){root.classList.remove('ink-in','ink-out');busy=false;});
   });
 
+  /* ---------- tailt: el móvil de la cabecera arranca como la app ----------
+     La página de la animación (la misma que lleva la app) va en un iframe sobre la pantalla del móvil.
+     Avisa con «lista», «abriendo», «fin» o «sin3d»; aquí se le dice «cargada» para que se abra. */
+  var movil=document.getElementById('movil-arranque'), verBtn=document.getElementById('ver-arranque');
+  if(movil && verBtn){
+    var pant=movil.querySelector('.pantalla'), marco=pant.querySelector('iframe'), enMarcha=false, seguro=null, abrirT=null;
+    function cerrarArranque(){
+      clearTimeout(seguro);clearTimeout(abrirT);pant.classList.remove('viva');enMarcha=false;verBtn.disabled=false;
+      setTimeout(function(){if(!enMarcha)marco.removeAttribute('src');},700);
+    }
+    function arrancar(){
+      if(enMarcha)return;enMarcha=true;verBtn.disabled=true;
+      pant.style.background='';marco.src=marco.dataset.src;pant.classList.add('viva');
+      seguro=setTimeout(cerrarArranque,14000);
+    }
+    addEventListener('message',function(e){
+      if(!enMarcha||e.source!==marco.contentWindow)return;
+      var m={};try{m=JSON.parse(e.data)}catch(x){return}
+      if(m.tipo==='lista'){abrirT=setTimeout(function(){try{marco.contentWindow.cargada&&marco.contentWindow.cargada()}catch(x){}},1600);}
+      else if(m.tipo==='abriendo'){pant.style.background='transparent';}
+      else if(m.tipo==='fin'||m.tipo==='sin3d'){cerrarArranque();}
+    });
+    verBtn.addEventListener('click',arrancar);
+    if(!reduce){ if(document.readyState==='complete')setTimeout(arrancar,500); else addEventListener('load',function(){setTimeout(arrancar,500)}); }
+  }
+
   /* ---------- menú móvil ---------- */
   var nav=document.getElementById('nav'), menu=document.getElementById('menu');
   if(nav && menu){

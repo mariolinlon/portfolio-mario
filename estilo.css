@@ -427,3 +427,27 @@ main > section:not(.home){padding:72px 0;max-width:1200px;margin:0 auto;padding-
   .card,.btn,.phone,.thumb img,.gallery-item img,.view-shot img{transition:none!important}
   html{scroll-behavior:auto}
 }
+
+/* tailt · tiendas, QR y móvil que arranca (28/11) */
+.tiendas{display:flex;flex-wrap:wrap;align-items:stretch;gap:16px 20px;margin-top:28px}
+.tiendas-botones{display:flex;flex-direction:column;gap:10px;justify-content:center}
+.tiendas .badge-appstore{margin-top:0;min-width:186px}
+.qr-descarga{display:flex;align-items:center;gap:14px;max-width:330px;padding:10px 16px 10px 10px;background:var(--surface);border:1px solid var(--line);border-radius:14px;color:var(--ink);transition:transform .2s,box-shadow .2s,border-color .2s}
+.qr-descarga:hover{transform:translateY(-1px);border-color:var(--accent);box-shadow:0 6px 18px rgba(0,0,0,.14)}
+.qr-descarga img{width:104px;height:auto;flex:none;background:#fff;border-radius:8px}
+.qr-texto{display:flex;flex-direction:column;gap:5px;min-width:0}
+.qr-texto strong{font-family:var(--display);font-weight:700;font-size:15px;line-height:1.2}
+.qr-texto small{font-size:12.5px;line-height:1.4;color:var(--ink-2)}
+.hero-movil{display:flex;flex-direction:column;align-items:center;gap:14px;min-width:0}
+.hero-movil .hero-lateral{position:relative;width:100%}
+.hero-lateral .pantalla{position:absolute;left:5.25%;top:2.56%;width:89.5%;height:94.9%;border-radius:13.4%/6.2%;overflow:hidden;background:#0F6E74;opacity:0;visibility:hidden;transition:opacity .55s ease,visibility 0s .55s;pointer-events:none}
+.hero-lateral .pantalla.viva{opacity:1;visibility:visible;transition:opacity .2s ease}
+.hero-lateral .pantalla iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.hero-lateral .pantalla .isla{position:absolute;left:50%;top:1.65%;width:23.6%;height:4.2%;transform:translateX(-50%);background:#000;border-radius:999px}
+.btn-arranque{display:inline-flex;align-items:center;gap:8px;padding:9px 16px 9px 12px;font:500 13px var(--body,inherit);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;cursor:pointer;transition:border-color .2s,transform .2s}
+.btn-arranque:hover{border-color:var(--accent);transform:translateY(-1px)}
+.btn-arranque:disabled{opacity:.55;cursor:default;transform:none}
+.btn-arranque svg{width:16px;height:16px;color:var(--accent);flex:none}
+@media (max-width:900px){.hero-movil{max-width:240px}.qr-descarga{max-width:none;width:100%}}
+@media (max-width:480px){.tiendas-botones{width:100%}.tiendas .badge-appstore{justify-content:center}}
+h3.con-logo{display:flex;align-items:center;gap:10px}h3.con-logo img{width:28px;height:auto;flex:none}
